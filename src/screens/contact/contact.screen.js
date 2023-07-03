@@ -1,27 +1,32 @@
 import { Image, StyleSheet, Text, View } from "react-native";
+import { styled } from "styled-components";
 
-export default function App() {
+const Paragraph1 = styled.Text`
+  font-family: ${(props) => props.theme.fonts.body};
+`;
+
+export const ContactScreen = () => {
   return (
     <View style={styles.container}>
-      <Image source={require("./src/img/logo.png")} style={styles.logo} />
-      <Text style={styles.p1}>
+      <Image source={require("../../img/logo.png")} style={styles.logo} />
+      <Paragraph1>
         Lorem ipsum dolor sit amet consectetur. Dolores asperiores eum ducimus
         culpa saepe! Soluta totam aut repellendus illo vero. Quam optio
         consequatur sunt mollitia praesentium. Laborum ut earum aut ducimus
         molestias. Dolor obcaecati pariatur ab quae minus? Nisi non labore
         pariatur assumenda dolores! Architecto, repudiandae aut? Dolorum,
         inventore recusandae.
-      </Text>
+      </Paragraph1>
       <View style={styles.phoneContainer}>
         <Image
-          source={require("./src/img/appel.png")}
+          source={require("../../img/appel.png")}
           style={styles.phoneImg}
         />
         <Text style={styles.phoneNumber}>583 123 456</Text>
       </View>
       <View style={styles.emailContainer}>
         <Image
-          source={require("./src/img/arobase.png")}
+          source={require("../../img/arobase.png")}
           style={styles.arobaseImg}
         />
         <Text style={styles.email}>midnets@outlook.fr</Text>
@@ -29,15 +34,15 @@ export default function App() {
       <View style={styles.socialNetworkContainer}>
         <Image
           style={styles.network}
-          source={require("./src/img/facebook.png")}
+          source={require("../../img/facebook.png")}
         />
         <Image
           style={styles.network}
-          source={require("./src/img/instagram.png")}
+          source={require("../../img/instagram.png")}
         />
         <Image
           style={styles.network}
-          source={require("./src/img/twitter.png")}
+          source={require("../../img/twitter.png")}
         />
       </View>
       <View style={styles.creditContainer}>
@@ -49,7 +54,7 @@ export default function App() {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
