@@ -8,6 +8,7 @@ import {
   useFonts as useAlata,
   Alata_400Regular,
 } from "@expo-google-fonts/alata";
+import Login from "./src/screens/login/login.screen.js";
 
 export default function App() {
   const [loraLoader] = useLora({
@@ -23,7 +24,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <ContactScreen />
+      <Login />
     </ThemeProvider>
   );
 }
