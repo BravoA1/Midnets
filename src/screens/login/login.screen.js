@@ -13,7 +13,7 @@ const SafeArea = styled(SafeAreaView)`
     ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
 `
 const Logo = styled.Image`
-    width: 75%;
+    width: 80%;
     height: undefined;
     margin: 30px 0 35px 10px ;
     aspect-ratio: 3 / 1.095;
@@ -39,9 +39,10 @@ const ButtonLog = styled.View`
 const ButtonRegister = styled.View`
     width: 70%;
     margin-top: 30px;
-    border-radius: 100px;
 `
-
+const GoogleIcon = styled.Image`
+    
+`
 
 export default function Login () {
     return (
@@ -65,7 +66,7 @@ export default function Login () {
                 />
             </ButtonRegister>
             <ButtonLog>
-                <Text>G</Text>
+                <GoogleIcon source={require('../../img/Google.png')} />
                 <Button 
                     title="Se connecter avec google"
                     color={isIos ? '#000' : 'transparent'}

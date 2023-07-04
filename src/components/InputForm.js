@@ -48,7 +48,7 @@ export default function InputForm({ children, type }) {
                 return (
                     <Input>
                         <IconInput>@</IconInput>
-                        <InputContent placeholder="mail" />
+                        <InputContent placeholder="email" />
                     </Input>
                 );
             case 'password':
@@ -74,7 +74,11 @@ export default function InputForm({ children, type }) {
 
   return (
     <Container>
-      <Label>{children}</Label>
+        {
+            children && (      
+                <Label>{children}</Label>
+            )
+        }
       {
         renderInput(type)
       }

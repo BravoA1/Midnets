@@ -9,6 +9,7 @@ import {
   Alata_400Regular,
 } from "@expo-google-fonts/alata";
 import Login from "./src/screens/login/login.screen.js";
+import PasswordForgot from "./src/screens/passwordForgot/passwordForgot.screen.js";
 
 export default function App() {
   const [loraLoader] = useLora({
