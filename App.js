@@ -14,6 +14,8 @@ import { HomeScreen } from "./src/screens/home/home.screen.js";
 import { Appearance, SafeAreaView, StatusBar } from "react-native";
 
 const Stack = createNativeStackNavigator();
+import Login from "./src/screens/login/login.screen.js";
+import PasswordForgot from "./src/screens/passwordForgot/passwordForgot.screen.js";
 
 export default function App() {
   const [loraLoader] = useLora({
@@ -39,6 +41,8 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Contact" component={ContactScreen} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="mots de passe oublié" component={PasswordForgot} />
           <Stack.Screen name="Error" component={ErrorScreen} />
         </Stack.Navigator>
         <StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />
