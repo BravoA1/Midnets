@@ -1,5 +1,4 @@
 import React from "react";
-import { ContactScreen } from "./src/screens/contact/contact.screen.js";
 import { theme } from "./src/infrastructure/theme";
 import { ThemeProvider } from "styled-components/native";
 
@@ -8,6 +7,7 @@ import {
   useFonts as useAlata,
   Alata_400Regular,
 } from "@expo-google-fonts/alata";
+import { RegisterScreen } from "./src/screens/register/register.screen";
 
 export default function App() {
   const [loraLoader] = useLora({
@@ -23,7 +23,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <ContactScreen />
+      <RegisterScreen />
     </ThemeProvider>
   );
 }
