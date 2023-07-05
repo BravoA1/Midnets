@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { styled } from "styled-components";
 
 const Paragraph1 = styled.Text`
@@ -7,7 +7,7 @@ const Paragraph1 = styled.Text`
 
 export const ContactScreen = () => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image source={require("../../img/logo.png")} style={styles.logo} />
       <Paragraph1>
         Lorem ipsum dolor sit amet consectetur. Dolores asperiores eum ducimus
@@ -52,7 +52,7 @@ export const ContactScreen = () => {
           culpa saepe! Soluta totam aut repellendus illo vero.
         </Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

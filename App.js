@@ -11,6 +11,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeScreen } from "./src/screens/home/home.screen.js";
+import { Appearance, SafeAreaView, StatusBar } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,16 +27,21 @@ export default function App() {
     return null;
   }
 
+  console.log(Appearance.getColorScheme());
+
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
+      <NavigationContainer
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
         <Stack.Navigator>
-          {/* <ContactScreen /> */}
-          {/* <ErrorScreen /> */}
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Contact" component={ContactScreen} />
           <Stack.Screen name="Error" component={ErrorScreen} />
         </Stack.Navigator>
+        <StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />
       </NavigationContainer>
     </ThemeProvider>
   );

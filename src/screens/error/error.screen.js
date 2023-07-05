@@ -1,10 +1,9 @@
-import { Button, Image, Text, View } from "react-native";
+import { Button, Image } from "react-native";
 import { styled } from "styled-components";
 
-const ScreenContainer = styled.View`
+const ScreenContainer = styled.SafeAreaView`
   width: 100%;
-  height: auto;
-  flex: 1;
+  height: 100%;
   background-color: ${(props) => props.theme.colors.bg.primary};
   alignitems: center;
   justifycontent: center;
