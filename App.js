@@ -32,10 +32,10 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator>
-          {/* <Login /> */}
-          {/* <ErrorScreen /> */}
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Contact" component={ContactScreen} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="mots de passe oublié" component={PasswordForgot} />
           <Stack.Screen name="Error" component={ErrorScreen} />
         </Stack.Navigator>
       </NavigationContainer>
