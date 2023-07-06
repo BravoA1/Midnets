@@ -1,5 +1,6 @@
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { styled } from "styled-components";
+import Logo from "../../components/Logo";
 
 const Paragraph1 = styled.Text`
   font-family: ${(props) => props.theme.fonts.body};
@@ -8,7 +9,7 @@ const Paragraph1 = styled.Text`
 export const ContactScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <Image source={require("../../img/logo.png")} style={styles.logo} />
+      <Logo height={"default"}/>
       <Paragraph1>
         Lorem ipsum dolor sit amet consectetur. Dolores asperiores eum ducimus
         culpa saepe! Soluta totam aut repellendus illo vero. Quam optio
@@ -66,11 +67,6 @@ const styles = StyleSheet.create({
     // alignContent: 'center',
     justifyContent: "center",
     padding: "15%",
-  },
-  logo: {
-    resizeMode: "contain",
-    width: "100%",
-    height: "15%",
   },
   p1: {
     marginTop: "8%",
