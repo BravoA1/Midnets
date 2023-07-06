@@ -9,9 +9,9 @@ import {
 } from "react-native";
 import InputForm from "../../components/InputForm.js";
 import { styled } from "styled-components";
+import Logo from "../../components/Logo.js";
 
 let screenWidth = Dimensions.get("window").width;
-const isIos = Platform.OS === "ios";
 
 const SafeArea = styled(SafeAreaView)`
   flex: 1;
@@ -20,64 +20,75 @@ const SafeArea = styled(SafeAreaView)`
   width: ${(screenWidth * 3) / 4}px;
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
 `;
-const Logo = styled.Image`
-  width: 80%;
-  height: undefined;
-  margin: 30px 0 35px 10px;
-  aspect-ratio: 3 / 1.095;
-`;
+
+const SpacerBottom = styled.View`
+  margin-bottom: 30px;
+`
+const SpacerTop = styled.View`
+  margin-top: 40px;
+`
 
 const ForgotPassword = styled.Text`
   margin-top: -10px;
   align-self: flex-end;
   text-decoration: underline;
+  font-family: ${props => props.theme.fonts.body};
+
 `;
 
-const ButtonLog = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: #eee;
-  width: 70%;
-  margin-top: 30px;
-  border-radius: 100px;
-  box-shadow: 0px 3px 1px #999;
-`;
+const ButtonLog = styled.TouchableOpacity`
+    flex-direction: row;    
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    color: #000;
+    background-color: #eee;
+    width: 70%;
+    margin-top: 30px;
+    border-radius: 100px;
+    box-shadow: 0px 3px 1px #999;
+`
 
-const ButtonRegister = styled.View`
-  width: 70%;
-  margin-top: 30px;
-`;
-const GoogleIcon = styled.Image``;
+const ButtonRegister = styled.TouchableOpacity`
+    width: 70%;
+    margin-top: 30px;
+    color: #000;
+`
+const TextButton = styled.Text`
+  font-size: 16px;
+  text-align: center;
+  font-family: ${props => props.theme.fonts.headingBold};
 
+`
+const TextButtonGoogle = styled.Text`
+  width: 80%;
+  font-size: 15px;
+  font-family: ${props => props.theme.fonts.body};
+
+`
+const GoogleIcon = styled.Image`
+    width: 30px;
+    height: 30px;
+    margin-horizontal: 15px;
+`
 export const Login = ({ navigation }) => {
   return (
     <SafeArea>
-      <Logo source={require("../../img/logo.png")} />
-      <InputForm type="email">adresse mail</InputForm>
-      <InputForm type="password">mots de passe</InputForm>
+      <SpacerBottom />
+      <Logo height={75}/>
+      <SpacerTop />
+      <InputForm type="email" placeholder='Email'>adresse mail</InputForm>
+      <InputForm type="password" placeholder='Mots de passe'>mots de passe</InputForm>
       <ForgotPassword>mot de passe oublié ?</ForgotPassword>
       <ButtonLog>
-        <Button
-          title="Connexion"
-          color={isIos ? "#000" : "transparent"}
-          accessibilityLabel="Bouton pour se connecter"
-        />
+        <TextButton>Connexion</TextButton>
       </ButtonLog>
       <ButtonRegister>
-        <Button
-          title="Inscription"
-          color={isIos ? "#000" : "transparent"}
-          accessibilityLabel="Bouton pour s'inscrire"
-        />
+        <TextButton>Inscription</TextButton>
       </ButtonRegister>
       <ButtonLog>
-        <GoogleIcon source={require("../../img/Google.png")} />
-        <Button
-          title="Se connecter avec google"
-          color={isIos ? "#000" : "transparent"}
-          accessibilityLabel="se connecter avec google"
-        />
+          <GoogleIcon source={require('../../img/Google.png')} />
+          <TextButtonGoogle>Se connecter avec google</TextButtonGoogle>
       </ButtonLog>
     </SafeArea>
   );

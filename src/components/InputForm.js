@@ -5,14 +5,17 @@ const Container = styled.View`
     margin-bottom: 20px;
 `
 const Label = styled.Text`
-    text-align: center;
+    text-align: left;
     margin-bottom: 10px;
+    margin-left: 16%;
+    font-family: ${props => props.theme.fonts.body};
+
 `
 
 const Input = styled.View`
   flex-direction: row;
   align-items: center;
-  width: 100%;
+  width: 300px;
   height: 40px;
   padding: 5px;
   padding-left: 15px;
@@ -22,11 +25,6 @@ const Input = styled.View`
   box-shadow: 0px 4px 1px rgba(0, 0, 0, 0.25);
 `;
 
-const IconInput = styled.Text`
-    color: rgba(0, 0, 0, 0.30);
-    margin-right: 15px;
-    font-size: 17px;
-`
 
 const IconInputImage = styled.Image`
     margin-right: 20px;
@@ -38,17 +36,24 @@ const IconInputImage = styled.Image`
 const InputContent = styled.TextInput`
     width: 90%;
     color: rgba(0, 0, 0, 0.30);
+    font-family: ${props => props.theme.fonts.body};
+
 `
 
-export default function InputForm({ children, type }) {
+const Spacer = styled.View`
+    margin-right: 20px;
+    width: 20px
+`
+
+export default function InputForm({ children, type, placeholder }) {
     const renderInput = (type) => {
         switch (type) {
             case 'email':
                 // console.log('mail')
                 return (
                     <Input>
-                        <IconInput>@</IconInput>
-                        <InputContent placeholder="email" />
+                        <IconInputImage source={require('../img/arobase-grey.png')} />
+                        <InputContent placeholder={placeholder} placeholderTextColor='rgba(0,0,0,.3)' />
                     </Input>
                 );
             case 'password':
@@ -56,15 +61,16 @@ export default function InputForm({ children, type }) {
                 return (
                     <Input>
                         <IconInputImage source={require('../img/Key.png')} />
-                        <InputContent secureTextEntry={true} placeholder="mot de passe" />
+                        <InputContent secureTextEntry={true} placeholder={placeholder} placeholderTextColor='rgba(0,0,0,.3)' />
                     </Input>
                 );
             case 'text':
                 // console.log('text')
                 return (
                     <Input>
-                        <InputContent placeholder={children} />
-                    </Input>
+                        <Spacer/>
+                        <InputContent placeholder={placeholder} placeholderTextColor='rgba(0,0,0,.3)' />
+                    </Input> 
                 );
             default:
                 break; 
@@ -76,6 +82,7 @@ export default function InputForm({ children, type }) {
     <Container>
         {
             children && (      
+            
                 <Label>{children}</Label>
             )
         }

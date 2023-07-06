@@ -7,7 +7,7 @@ export const HomeScreen = ({ navigation }) => {
       <Button title="Contact" onPress={() => navigation.navigate("Contact")} />
       <Button
         title="Forgot Password"
-        onPress={() => navigation.navigate("ForgotPassword")}
+        onPress={() => navigation.navigate("PasswordForgot")}
       />
       <Button title="Login" onPress={() => navigation.navigate("Login")} />
       <Button

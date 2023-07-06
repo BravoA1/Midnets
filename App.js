@@ -1,7 +1,7 @@
 import React from "react";
 import { theme } from "./src/infrastructure/theme";
 import { ThemeProvider } from "styled-components/native";
-import { useFonts as useLora, Lora_400Regular } from "@expo-google-fonts/lora";
+import { useFonts as useLora, Lora_400Regular, Lora_700Bold } from "@expo-google-fonts/lora";
 import {
   useFonts as useAlata,
   Alata_400Regular,
@@ -22,6 +22,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   const [loraLoader] = useLora({
     Lora_400Regular,
+    Lora_700Bold    
   });
   const [alataLoader] = useAlata({
     Alata_400Regular,
@@ -45,7 +46,7 @@ export default function App() {
           <Stack.Screen name="Contact" component={ContactScreen} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen
-            name="mots de passe oublié"
+            name="PasswordForgot"
             component={PasswordForgot}
           />
           <Stack.Screen name="Error" component={ErrorScreen} />

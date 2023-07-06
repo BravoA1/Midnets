@@ -24,14 +24,15 @@ const TitleBlock = styled.View`
   width: 100%;
   margin-top: 20px;
   margin-bottom: 40px;
-  borderbottomwidth: 2px;
-  bordertopwidth: 2px;
+  borderBottomWidth: 2px;
+  borderTopWidth: 2px;
   padding: 10px 50px;
 `;
 
 const Title = styled.Text`
   text-align: center;
   font-size: 25px;
+  font-family: ${props => props.theme.fonts.headingBold};
 `;
 
 const Logo = styled.Image`
@@ -45,6 +46,8 @@ const InfoForm = styled.Text`
   width: 100%;
   margin-top: 10px;
   font-size: 11px;
+  font-family: ${props => props.theme.fonts.body};
+
 `;
 
 const InfoText = styled.Text`
@@ -53,6 +56,8 @@ const InfoText = styled.Text`
   margin-top: 5px;
   margin-bottom: 10px;
   font-size: 11px;
+  font-family: ${props => props.theme.fonts.body};
+
 `;
 
 const ButtonForgot = styled.View`
@@ -70,7 +75,7 @@ export const PasswordForgot = () => {
       <TitleBlock>
         <Title>Mots de passe oublié</Title>
       </TitleBlock>
-      <InputForm type="email" />
+      <InputForm type="email" placeholder='Email' />
       <InfoForm>
         Un lien vous sera envoyé pour réinitialiser votre mot de passe à
         l’adresse mail utilisée pour l’inscription.
