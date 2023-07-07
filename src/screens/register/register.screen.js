@@ -82,22 +82,22 @@ export const RegisterScreen = () => {
     <SafeArea>
       <Logo height={75} />
       <InputBlock style={{ marginTop: 50 }}>
-        <InputForm type="text" placeholder="Pseudo">
+        <InputForm type="text" placeholder="pseudo">
           pseudo
         </InputForm>
       </InputBlock>
       <InputBlock>
-        <InputForm type="email" placeholder="Email">
+        <InputForm type="email" placeholder="email">
           adresse mail
         </InputForm>
       </InputBlock>
       <InputBlock>
-        <InputForm type="password" placeholder="Mots de passe">
+        <InputForm type="password" placeholder="mot de passe">
           mot de passe
         </InputForm>
       </InputBlock>
       <InputBlock>
-        <InputForm type="password" placeholder="Confirmer le Mots de passe">
+        <InputForm type="password" placeholder="confirmer le mot de passe">
           confirmation mot de passe
         </InputForm>
       </InputBlock>
