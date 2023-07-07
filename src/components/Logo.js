@@ -1,4 +1,5 @@
-import { StyleSheet, Image } from "react-native";
+import { useEffect, useState } from "react";
+import { StyleSheet, Image, Keyboard, Dimensions } from "react-native";
 import styled from "styled-components/native";
 
 const LogoContainer = styled.Image`
@@ -7,14 +8,31 @@ const LogoContainer = styled.Image`
 `;
 
 export default function Logo({ height }) {
-  let heightChild;
-  if (height === "default") {
-    heightChild = "15%";
-  } else {
-    heightChild = height;
-  }
+  const [keyboard, setKeyboard] = useState(false);
+  const [heightChild, setHeightChild] = useState();
+  const windowHeight = Dimensions.get("window").height;
 
-  console.log(heightChild);
+  Keyboard.addListener("keyboardDidShow", () => {
+    setKeyboard(true);
+  });
+  Keyboard.addListener("keyboardDidHide", () => {
+    setKeyboard(false);
+  });
+
+  useEffect(() => {
+    if (height === "default") {
+      if (keyboard) {
+        setHeightChild((windowHeight * 15) / 100);
+      } else {
+        setHeightChild("15%");
+      }
+    } else if (!keyboard) {
+      setHeightChild(height);
+    }
+    console.log(windowHeight);
+  }, [keyboard]);
+
+  console.log({ heightChild });
   const styles = StyleSheet.create({
     logo: {
       resizeMode: "contain",
