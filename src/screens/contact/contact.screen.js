@@ -1,5 +1,5 @@
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { styled } from "styled-components";
+import { styled } from "styled-components/native";
 import Logo from "../../components/Logo";
 
 const P = styled.Text`
@@ -74,16 +74,16 @@ const styles = StyleSheet.create({
   },
   p1: {
     marginTop: "5%",
-    lineHeight: "18%",
+    lineHeight: 15,
   },
   phoneContainer: {
-    // margin: 0,
+    margin: 0,
     width: "100%",
     marginTop: "5%",
     height: "10%",
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-beetween",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   phoneImg: {
@@ -95,14 +95,14 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
   emailContainer: {
-    margin: 0,
+    // margin: 0,
     marginBottom: "10%",
     marginTop: "5%",
     width: "100%",
     height: "10%",
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-beetween",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   arobaseImg: {
