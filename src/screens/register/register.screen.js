@@ -24,9 +24,52 @@ const SafeArea = styled(SafeAreaView)`
 `;
 
 const InputBlock = styled.View`
-  width: 120%;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+const ButtonLog = styled.TouchableOpacity`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  color: #000;
+  background-color: #eee;
+  width: 70%;
+  margin-top: 30px;
+  border-radius: 100px;
+  box-shadow: 0px 3px 1px #999;
+`;
+
+const GoogleIcon = styled.Image`
+  width: 30px;
+  height: 30px;
+  margin-horizontal: 15px;
+`;
+
+const TextButtonGoogle = styled.Text`
+  width: 80%;
+  font-size: 15px;
+  font-family: ${(props) => props.theme.fonts.body};
+`;
+
+const ButtonRegister = styled.TouchableOpacity`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  color: #000;
+  background-color: #eee;
+  width: 70%;
+  margin-top: 30px;
+  border-radius: 100px;
+  box-shadow: 0px 3px 1px #999;
+`;
+
+const TextButton = styled.Text`
+  font-size: 16px;
+  text-align: center;
+  font-family: ${(props) => props.theme.fonts.headingBold};
 `;
 
 export const RegisterScreen = () => {
@@ -37,21 +80,34 @@ export const RegisterScreen = () => {
 
   return (
     <SafeArea>
-      <Logo height={"default"} />
+      <Logo height={75} />
       <InputBlock style={{ marginTop: 50 }}>
-        <InputForm type="text" placeholder='Pseudo'>pseudo</InputForm>
+        <InputForm type="text" placeholder="Pseudo">
+          pseudo
+        </InputForm>
       </InputBlock>
       <InputBlock>
-        <InputForm type="email" placeholder='Email'>adresse mail</InputForm>
+        <InputForm type="email" placeholder="Email">
+          adresse mail
+        </InputForm>
       </InputBlock>
       <InputBlock>
-        <InputForm type="password" placeholder='Mots de passe'>mot de passe</InputForm>
+        <InputForm type="password" placeholder="Mots de passe">
+          mot de passe
+        </InputForm>
       </InputBlock>
       <InputBlock>
-        <InputForm type="password" placeholder='Confirmer le Mots de passe'>confirmation mot de passe</InputForm>
+        <InputForm type="password" placeholder="Confirmer le Mots de passe">
+          confirmation mot de passe
+        </InputForm>
       </InputBlock>
-
-      <Button title="Se connecter"></Button>
+      <ButtonRegister>
+        <TextButton>S'inscire</TextButton>
+      </ButtonRegister>
+      <ButtonLog>
+        <GoogleIcon source={require("../../img/Google.png")} />
+        <TextButtonGoogle>S'inscire avec google</TextButtonGoogle>
+      </ButtonLog>
     </SafeArea>
   );
 };
