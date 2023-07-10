@@ -1,6 +1,7 @@
 import {
   Button,
   Dimensions,
+  FlatList,
   Image,
   SafeAreaView,
   StyleSheet,
@@ -60,13 +61,19 @@ const BlackDot = styled.View`
 
 const HorizontalLine = styled.View`
   width: 1%;
-  height: 40%;
+  height: 75%;
   background-color: black;
 `;
 
 const VerticalLine = styled.View`
   height: 0.5%;
   width: 30%;
+  background-color: black;
+`;
+
+const LongVerticalLine = styled.View`
+  height: 1%;
+  width: 50%;
   background-color: black;
 `;
 
@@ -100,6 +107,9 @@ const Paragraph = styled.Text`
 `;
 
 const New = styled.View`
+  display: flex;
+  flex: 1;
+  align-items: center;
 `;
 
 export const HomeScreen = () => {
@@ -113,7 +123,7 @@ export const HomeScreen = () => {
       right: "118%",
     },
     horizontal: {
-      height: forum ? "58%" : "60%",
+      height: "95%",
     },
   });
 
@@ -122,173 +132,224 @@ export const HomeScreen = () => {
       <LogoContainer>
         <Logo height={100} />
       </LogoContainer>
-      <View style={{ flexDirection: "row", flex: 1 }}>
-        <NavBar>
-          <VerticalLine />
-          <HorizontalLine
-            style={(portrait || defi || forum) && styles.horizontal}
+      <View style={{ flex: 1 }}>
+        <View style={{ flexDirection: "row", maxHeight: "65%" }}>
+          <NavBar>
+            <VerticalLine />
+            <HorizontalLine
+              style={(portrait || defi || forum) && styles.horizontal}
+            />
+            <VerticalLine />
+          </NavBar>
+          <GroupContainer>
+            <Collumn>
+              <TitleContainer>
+                <BlackDot style={portrait && styles.blackdot} />
+                <TouchableOpacity
+                  onPress={() => {
+                    setPortrait(!portrait);
+                    setDefi(false);
+                    setForum(false);
+                  }}
+                  style={{
+                    width: "85%",
+                  }}
+                >
+                  <Title>
+                    <TitleGradiant
+                      colors={["white", portrait ? "#D8C2EF" : "lightgrey"]}
+                      locations={[portrait ? 0.2 : 0.05, portrait ? 0.8 : 0.15]}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 0 }}
+                    >
+                      <H1>Portraits</H1>
+                      <ImageContainer>
+                        <Image
+                          source={{
+                            uri: "https://img.icons8.com/ios/50/circled-chevron-up.png",
+                          }}
+                          style={{
+                            height: 40,
+                            width: 40,
+                            transform: [
+                              { rotate: portrait ? "270deg" : "180deg" },
+                            ],
+                          }}
+                        />
+                      </ImageContainer>
+                    </TitleGradiant>
+                  </Title>
+                </TouchableOpacity>
+              </TitleContainer>
+              <ParagraphGradiant
+                colors={["white", "#D9D9D9"]}
+                locations={[0.05, 0.15]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+              >
+                <Paragraph style={{ display: portrait ? "flex" : "none" }}>
+                  The missile knows where it is at all times. It knows this
+                  because it knows where it isn't, by subtracting where it is,
+                  from where it isn't, or where it isn't, from where it is,
+                  whichever is greater, it obtains a difference, or deviation.
+                </Paragraph>
+              </ParagraphGradiant>
+            </Collumn>
+            <Collumn>
+              <TitleContainer>
+                <BlackDot style={defi && styles.blackdot} />
+                <TouchableOpacity
+                  onPress={() => {
+                    setPortrait(false);
+                    setDefi(!defi);
+                    setForum(false);
+                  }}
+                  style={{
+                    width: "85%",
+                  }}
+                >
+                  <Title>
+                    <TitleGradiant
+                      colors={["white", defi ? "#D8C2EF" : "lightgrey"]}
+                      locations={[defi ? 0.2 : 0.05, defi ? 0.8 : 0.15]}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 0 }}
+                    >
+                      <H1>Défi</H1>
+                      <ImageContainer>
+                        <Image
+                          source={{
+                            uri: "https://img.icons8.com/ios/50/circled-chevron-up.png",
+                          }}
+                          style={{
+                            height: 40,
+                            width: 40,
+                            transform: [{ rotate: defi ? "270deg" : "180deg" }],
+                          }}
+                        />
+                      </ImageContainer>
+                    </TitleGradiant>
+                  </Title>
+                </TouchableOpacity>
+              </TitleContainer>
+              <ParagraphGradiant
+                colors={["white", "#D9D9D9"]}
+                locations={[0.05, 0.15]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+              >
+                <Paragraph style={{ display: defi ? "flex" : "none" }}>
+                  The missile knows where it is at all times. It knows this
+                  because it knows where it isn't, by subtracting where it is,
+                  from where it isn't, or where it isn't, from where it is,
+                  whichever is greater, it obtains a difference, or deviation.
+                </Paragraph>
+              </ParagraphGradiant>
+            </Collumn>
+            <Collumn>
+              <TitleContainer>
+                <BlackDot style={forum && styles.blackdot} />
+                <TouchableOpacity
+                  onPress={() => {
+                    setPortrait(false);
+                    setDefi(false);
+                    setForum(!forum);
+                  }}
+                  style={{
+                    width: "85%",
+                  }}
+                >
+                  <Title>
+                    <TitleGradiant
+                      colors={["white", forum ? "#D8C2EF" : "lightgrey"]}
+                      locations={[forum ? 0.2 : 0.05, forum ? 0.8 : 0.15]}
+                      start={{ x: 0, y: 0 }}
+                      end={{ x: 1, y: 0 }}
+                    >
+                      <H1>Forum</H1>
+                      <ImageContainer>
+                        <Image
+                          source={{
+                            uri: "https://img.icons8.com/ios/50/circled-chevron-up.png",
+                          }}
+                          style={{
+                            height: 40,
+                            width: 40,
+                            transform: [
+                              { rotate: forum ? "270deg" : "180deg" },
+                            ],
+                          }}
+                        />
+                      </ImageContainer>
+                    </TitleGradiant>
+                  </Title>
+                </TouchableOpacity>
+              </TitleContainer>
+              <ParagraphGradiant
+                colors={["white", "#D9D9D9"]}
+                locations={[0.05, 0.15]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+              >
+                <Paragraph style={{ display: forum ? "flex" : "none" }}>
+                  The missile knows where it is at all times. It knows this
+                  because it knows where it isn't, by subtracting where it is,
+                  from where it isn't, or where it isn't, from where it is,
+                  whichever is greater, it obtains a difference, or deviation.
+                </Paragraph>
+              </ParagraphGradiant>
+            </Collumn>
+          </GroupContainer>
+        </View>
+        <New>
+          <LongVerticalLine />
+          <H1>A là une </H1>
+          <FlatList
+            style={{ flex: 1, width: "100%" }}
+            data={[1, 2, 3, 4, 5]}
+            renderItem={() => (
+              <View
+                style={{
+                  alignItems: "flex-start",
+                  flex: 1,
+                  width: "80%",
+                  margin: "5%",
+                  padding: 10,
+                }}
+              >
+                <Text
+                  style={{
+                    backgroundColor: "lightgray",
+                    padding: 5,
+                    fontSize: 20,
+                  }}
+                >
+                  Prenom Nom
+                </Text>
+                <View
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "yellow",
+                  }}
+                ></View>
+                <Text
+                  style={{
+                    position: "relative",
+                    bottom: "75%",
+                    left: "80%",
+                    backgroundColor: "lightgray",
+                    fontWeight: "600",
+                    fontSize: 25,
+                  }}
+                >
+                  Année
+                </Text>
+              </View>
+            )}
           />
-          <VerticalLine />
-        </NavBar>
-        <GroupContainer>
-          <Collumn>
-            <TitleContainer>
-              <BlackDot style={portrait && styles.blackdot} />
-              <TouchableOpacity
-                onPress={() => {
-                  setPortrait(!portrait);
-                  setDefi(false);
-                  setForum(false);
-                }}
-                style={{
-                  width: "85%",
-                }}
-              >
-                <Title>
-                  <TitleGradiant
-                    colors={["white", portrait ? "#D8C2EF" : "lightgrey"]}
-                    locations={[portrait ? 0.2 : 0.05, portrait ? 0.8 : 0.15]}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
-                  >
-                    <H1>Portraits</H1>
-                    <ImageContainer>
-                      <Image
-                        source={{
-                          uri: "https://img.icons8.com/ios/50/circled-chevron-up.png",
-                        }}
-                        style={{
-                          height: 40,
-                          width: 40,
-                          transform: [
-                            { rotate: portrait ? "270deg" : "180deg" },
-                          ],
-                        }}
-                      />
-                    </ImageContainer>
-                  </TitleGradiant>
-                </Title>
-              </TouchableOpacity>
-            </TitleContainer>
-            <ParagraphGradiant
-              colors={["white", "#D9D9D9"]}
-              locations={[0.05, 0.15]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-            >
-              <Paragraph style={{ display: portrait ? "flex" : "none" }}>
-                The missile knows where it is at all times. It knows this
-                because it knows where it isn't, by subtracting where it is,
-                from where it isn't, or where it isn't, from where it is,
-                whichever is greater, it obtains a difference, or deviation.
-              </Paragraph>
-            </ParagraphGradiant>
-          </Collumn>
-          <Collumn>
-            <TitleContainer>
-              <BlackDot style={defi && styles.blackdot} />
-              <TouchableOpacity
-                onPress={() => {
-                  setPortrait(false);
-                  setDefi(!defi);
-                  setForum(false);
-                }}
-                style={{
-                  width: "85%",
-                }}
-              >
-                <Title>
-                  <TitleGradiant
-                    colors={["white", defi ? "#D8C2EF" : "lightgrey"]}
-                    locations={[defi ? 0.2 : 0.05, defi ? 0.8 : 0.15]}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
-                  >
-                    <H1>Défi</H1>
-                    <ImageContainer>
-                      <Image
-                        source={{
-                          uri: "https://img.icons8.com/ios/50/circled-chevron-up.png",
-                        }}
-                        style={{
-                          height: 40,
-                          width: 40,
-                          transform: [{ rotate: defi ? "270deg" : "180deg" }],
-                        }}
-                      />
-                    </ImageContainer>
-                  </TitleGradiant>
-                </Title>
-              </TouchableOpacity>
-            </TitleContainer>
-            <ParagraphGradiant
-              colors={["white", "#D9D9D9"]}
-              locations={[0.05, 0.15]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-            >
-              <Paragraph style={{ display: defi ? "flex" : "none" }}>
-                The missile knows where it is at all times. It knows this
-                because it knows where it isn't, by subtracting where it is,
-                from where it isn't, or where it isn't, from where it is,
-                whichever is greater, it obtains a difference, or deviation.
-              </Paragraph>
-            </ParagraphGradiant>
-          </Collumn>
-          <Collumn>
-            <TitleContainer>
-              <BlackDot style={forum && styles.blackdot} />
-              <TouchableOpacity
-                onPress={() => {
-                  setPortrait(false);
-                  setDefi(false);
-                  setForum(!forum);
-                }}
-                style={{
-                  width: "85%",
-                }}
-              >
-                <Title>
-                  <TitleGradiant
-                    colors={["white", forum ? "#D8C2EF" : "lightgrey"]}
-                    locations={[forum ? 0.2 : 0.05, forum ? 0.8 : 0.15]}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
-                  >
-                    <H1>Forum</H1>
-                    <ImageContainer>
-                      <Image
-                        source={{
-                          uri: "https://img.icons8.com/ios/50/circled-chevron-up.png",
-                        }}
-                        style={{
-                          height: 40,
-                          width: 40,
-                          transform: [{ rotate: forum ? "270deg" : "180deg" }],
-                        }}
-                      />
-                    </ImageContainer>
-                  </TitleGradiant>
-                </Title>
-              </TouchableOpacity>
-            </TitleContainer>
-            <ParagraphGradiant
-              colors={["white", "#D9D9D9"]}
-              locations={[0.05, 0.15]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-            >
-              <Paragraph style={{ display: forum ? "flex" : "none" }}>
-                The missile knows where it is at all times. It knows this
-                because it knows where it isn't, by subtracting where it is,
-                from where it isn't, or where it isn't, from where it is,
-                whichever is greater, it obtains a difference, or deviation.
-              </Paragraph>
-            </ParagraphGradiant>
-          </Collumn>
-        </GroupContainer>
+        </New>
       </View>
-      <New></New>
     </Container>
   );
 };
