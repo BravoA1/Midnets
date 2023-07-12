@@ -72,8 +72,7 @@ const TextButton = styled.Text`
   font-family: ${(props) => props.theme.fonts.headingBold};
 `;
 
-export const RegisterScreen = () => {
-  const [pseudo, setPseudo] = React.useState("");
+r  const [pseudo, setPseudo] = React.useState("");
   const [mail, setMail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordConf, setPasswordConf] = React.useState("");
