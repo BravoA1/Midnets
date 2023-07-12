@@ -18,6 +18,7 @@ export const NavBar = ({ navigation }) => {
         title="Register"
         onPress={() => navigation.navigate("Register")}
       />
+      <Button title="Quizz" onPress={() => navigation.navigate("Quizz")} />
     </SafeAreaView>
   );
 };

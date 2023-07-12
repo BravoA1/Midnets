@@ -3,7 +3,8 @@ import { theme } from "./src/infrastructure/theme";
 import { ThemeProvider } from "styled-components/native";
 import {
   useFonts as useLora,
-  Lora_400Regular, Lora_700Bold,
+  Lora_400Regular,
+  Lora_700Bold,
   Lora_600SemiBold,
 } from "@expo-google-fonts/lora";
 import {
@@ -21,6 +22,7 @@ import { Login } from "./src/screens/login/login.screen.js";
 import { PasswordForgot } from "./src/screens/passwordForgot/passwordForgot.screen.js";
 import { RegisterScreen } from "./src/screens/register/register.screen";
 import { NavBar } from "./src/screens/NavBar/navBar.screen";
+import { QuizzScreen } from "./src/screens/quizz/quizz.screen";
 
 const Stack = createNativeStackNavigator();
 const isAndroid = Platform.OS === "android";
@@ -29,7 +31,7 @@ export default function App() {
   const [loraLoader] = useLora({
     Lora_400Regular,
     Lora_600SemiBold,
-    Lora_700Bold    
+    Lora_700Bold,
   });
   const [alataLoader] = useAlata({
     Alata_400Regular,
@@ -55,12 +57,10 @@ export default function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Contact" component={ContactScreen} />
           <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen
-            name="PasswordForgot"
-            component={PasswordForgot}
-          />
+          <Stack.Screen name="PasswordForgot" component={PasswordForgot} />
           <Stack.Screen name="Error" component={ErrorScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen name="Quizz" component={QuizzScreen} />
         </Stack.Navigator>
         <StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />
       </NavigationContainer>

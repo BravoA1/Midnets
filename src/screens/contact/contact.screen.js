@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     height: "10%",
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
     alignItems: "center",
   },
   phoneImg: {
@@ -95,14 +95,12 @@ const styles = StyleSheet.create({
     fontSize: 32,
   },
   emailContainer: {
-    // margin: 0,
     marginBottom: "10%",
     marginTop: "5%",
     width: "100%",
     height: "10%",
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
   },
   arobaseImg: {
