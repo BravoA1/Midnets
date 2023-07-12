@@ -102,11 +102,11 @@ export const RegisterScreen = () => {
         </InputForm>
       </InputBlock>
       <ButtonRegister>
-        <TextButton>S'inscire</TextButton>
+        <TextButton>S'inscrire</TextButton>
       </ButtonRegister>
       <ButtonLog>
         <GoogleIcon source={require("../../img/Google.png")} />
-        <TextButtonGoogle>S'inscire avec google</TextButtonGoogle>
+        <TextButtonGoogle>S'inscrire avec google</TextButtonGoogle>
       </ButtonLog>
     </SafeArea>
   );
