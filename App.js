@@ -11,18 +11,17 @@ import {
   useFonts as useAlata,
   Alata_400Regular,
 } from "@expo-google-fonts/alata";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Appearance, Platform, SafeAreaView, StatusBar } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import { HomeScreen } from "./src/screens/home/home.screen.js";
 import { ContactScreen } from "./src/screens/contact/contact.screen.js";
 import { ErrorScreen } from "./src/screens/error/error.screen.js";
 import { Login } from "./src/screens/login/login.screen.js";
-
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
-import { Text } from "react-native";
+import { QuizzScreen } from "./src/screens/quizz/quizz.screen.js";
 
 const Stack = createNativeStackNavigator();
 const isAndroid = Platform.OS === "android";
@@ -71,11 +70,13 @@ export default function App() {
               if (route.name === "Home") {
                 iconName = "home";
               } else if (route.name === "Contact") {
-                iconName = "mail";
+                iconName = "call";
               } else if (route.name === "Error") {
                 iconName = "stop-circle";
               } else if (route.name === "Login") {
                 iconName = "man";
+              } else if (route.name === "Quizz") {
+                iconName = "chatbox-ellipses";
               }
               return <Ionicons name={iconName} size={size} color={color} />;
             },
@@ -90,6 +91,7 @@ export default function App() {
           <Tab.Screen name="Contact" component={ContactScreen} />
           <Tab.Screen name="Error" component={ErrorScreen} />
           <Tab.Screen name="Login" component={Login} />
+          <Tab.Screen name="Quizz" component={QuizzScreen} />
         </Tab.Navigator>
 
         <StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />

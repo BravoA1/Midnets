@@ -7,8 +7,8 @@ const Container = styled.View`
 const Label = styled.Text`
     text-align: left;
     margin-bottom: 10px;
-    margin-left: 16%;
-    font-family: ${props => props.theme.fonts.body};
+    margin-left: 15%;
+    font-family: Alata_400Regular;
 
 `
 
@@ -27,7 +27,8 @@ const Input = styled.View`
 
 
 const IconInputImage = styled.Image`
-    margin-right: 20px;
+    margin-right: 11px;
+    margin-left: -5px;
     width: 20px;
     aspect-ratio: 1;
 
@@ -36,7 +37,7 @@ const IconInputImage = styled.Image`
 const InputContent = styled.TextInput`
     width: 90%;
     color: rgba(0, 0, 0, 0.30);
-    font-family: ${props => props.theme.fonts.body};
+    font-family: Alata_400Regular;
 
 `
 
@@ -82,7 +83,6 @@ export default function InputForm({ children, type, placeholder }) {
     <Container>
         {
             children && (      
-            
                 <Label>{children}</Label>
             )
         }
