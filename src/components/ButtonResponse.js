@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default ButtonGradient = ({ children }) => {
+export default ButtonResponse = ({ children }) => {
   const ButtonElement = styled.TouchableOpacity`
     flex-direction: row;
     justify-content: center;
@@ -12,11 +12,12 @@ export default ButtonGradient = ({ children }) => {
     border-radius: 100px;
   `;
   const BoxGradient = styled.View`
-    width: 70%;
+    width: 40%;
     box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
     background-color: #fff;
     border-radius: 100px;
     margin-bottom: 30px;
+    text-align: center;
   `;
 
   const TextButton = styled.Text`
