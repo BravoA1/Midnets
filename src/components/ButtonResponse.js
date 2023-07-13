@@ -1,7 +1,7 @@
-import { styled } from 'styled-components/native'
-import { LinearGradient } from 'expo-linear-gradient';
+import { styled } from "styled-components";
+import { LinearGradient } from "expo-linear-gradient";
 
-export default ButtonGradient = ({ children , OnPress}) => {
+export default ButtonResponse = ({ children }) => {
   const ButtonElement = styled.TouchableOpacity`
     flex-direction: row;
     justify-content: center;
@@ -12,11 +12,12 @@ export default ButtonGradient = ({ children , OnPress}) => {
     border-radius: 100px;
   `;
   const BoxGradient = styled.View`
-    width: 70%;
+    width: 40%;
     box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
     background-color: #fff;
     border-radius: 100px;
     margin-bottom: 30px;
+    text-align: center;
   `;
 
   const TextButton = styled.Text`
@@ -38,7 +39,7 @@ export default ButtonGradient = ({ children , OnPress}) => {
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
       >
-        <ButtonElement onPress={OnPress}>
+        <ButtonElement>
           <TextButton>{children}</TextButton>
         </ButtonElement>
       </LinearButton>

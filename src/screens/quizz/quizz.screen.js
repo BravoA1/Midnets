@@ -3,6 +3,7 @@ import React from "react";
 import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import InsetShadow from "react-native-inset-shadow";
+import ButtonResponse from "../../components/ButtonResponse.js";
 
 const Container = styled.View`
   display: flex;
@@ -57,10 +58,33 @@ const RightCorner = styled.View`
   border-left-color: darkgray;
   border-top-color: darkgray;
 `;
-const ResponseContainer = styled.View``;
-const Response = styled.Text``;
-const MoreContainer = styled.View``;
-const MoreText = styled.Text``;
+const ResponseContainer1 = styled.View`
+  margin-top: ${(props) => props.theme.space[4]};
+  width: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-flow: row nowrap;
+`;
+const ResponseContainer2 = styled.View`
+  width: 85%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-flow: row nowrap;
+`;
+const Response = styled.Text`
+  font-family: ${(props) => props.theme.fonts.body};
+`;
+const MoreContainer = styled.View`
+  margin-top: ${(props) => props.theme.space[3]};
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-flow: row nowrap;
+`;
+const MoreText = styled.Text`
+  font-family: ${(props) => props.theme.fonts.headingBold};
+`;
 
 export const QuizzScreen = () => {
   return (
@@ -73,29 +97,42 @@ export const QuizzScreen = () => {
         left={false}
       >
         <Linear
-          colors={["white", "lightgrey"]}
-          locations={[0.1, 0.2]}
-          start={{ x: 0, y: 1 }}
-          end={{ x: 0.5, y: 0 }}
+          colors={["#D8C2EF", "rgba(255,255,255,0)"]}
+          locations={[1, 0]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
         >
           <TitleContainer style={styles.container}>
             <Title>Quiz: les femmes</Title>
           </TitleContainer>
         </Linear>
       </InsetShadow>
+      <View style={styles.img}></View>
       <QuestionContainer>
         <LeftCorner></LeftCorner>
         <RightCorner></RightCorner>
         <Question>Qu'a découvert Marie Curie ?</Question>
       </QuestionContainer>
-      <ResponseContainer>
-        <Response>Le radium</Response>
-        <Response>Le cuivre</Response>
-        <Response>Le curry vert</Response>
-        <Response>La mimolette</Response>
-      </ResponseContainer>
+      <ResponseContainer1>
+        <ButtonResponse>
+          <Response>Le radium</Response>
+        </ButtonResponse>
+        <ButtonResponse>
+          <Response>Le cuivre</Response>
+        </ButtonResponse>
+      </ResponseContainer1>
+      <ResponseContainer2>
+        <ButtonResponse>
+          <Response>Le curry vert</Response>
+        </ButtonResponse>
+        <ButtonResponse>
+          <Response>La mimolette</Response>
+        </ButtonResponse>
+      </ResponseContainer2>
       <MoreContainer>
-        <MoreText>En savoir plus</MoreText>
+        <ButtonResponse>
+          <MoreText>En savoir plus</MoreText>
+        </ButtonResponse>
       </MoreContainer>
     </Container>
   );
@@ -116,5 +153,11 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     height: 30,
     width: "85%",
+  },
+  img: {
+    backgroundColor: "lightgray",
+    width: "85%",
+    height: "20%",
+    marginTop: 16,
   },
 });
