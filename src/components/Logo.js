@@ -29,10 +29,8 @@ export default function Logo({ height }) {
     } else if (!keyboard) {
       setHeightChild(height);
     }
-    console.log(windowHeight);
   }, [keyboard]);
 
-  console.log({ heightChild });
   const styles = StyleSheet.create({
     logo: {
       resizeMode: "contain",

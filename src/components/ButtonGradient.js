@@ -1,7 +1,7 @@
-import { styled } from 'styled-components'
+import { styled } from 'styled-components/native'
 import { LinearGradient } from 'expo-linear-gradient';
 
-export default ButtonGradient = ({children}) => {
+export default ButtonGradient = ({children, OnPress}) => {
 
   const ButtonElement = styled.TouchableOpacity`
     flex-direction: row;    
@@ -39,7 +39,7 @@ const LinearButton = styled(LinearGradient)`
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
           >
-          <ButtonElement>
+          <ButtonElement onPress={OnPress}>
             <TextButton>{children}</TextButton>
           </ButtonElement>
         </LinearButton>
