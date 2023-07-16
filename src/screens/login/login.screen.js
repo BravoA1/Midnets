@@ -122,7 +122,7 @@ export const Login = ({ navigation }) => {
   function HandleLogin() {
     if (!VerifyConnexion()) {
       console.log("ça passe");
-      loginUser(info.email, info.password).then(navigation.navigate("NavBar"));
+      loginUser(info.email, info.password).then(navigation.navigate("Home"));
     }
   }
 
@@ -151,7 +151,7 @@ export const Login = ({ navigation }) => {
       >
         mot de passe
       </InputForm>
-      <ForgotPassword onPress={() => navigation.navigate("PasswordForgot")}>
+      <ForgotPassword onPress={() => navigation.navigate("ForgotPswd")}>
         mot de passe oublié ?
       </ForgotPassword>
       <ButtonGradient OnPress={() => HandleLogin()}>Connexion</ButtonGradient>
