@@ -61,7 +61,7 @@ const BlackDot = styled.View`
 
 const HorizontalLine = styled.View`
   width: 1%;
-  height: 75%;
+  height: 80%;
   background-color: black;
 `;
 
@@ -133,11 +133,11 @@ export const HomeScreen = () => {
         <Logo height={100} />
       </LogoContainer>
       <View style={{ flex: 1 }}>
-        <View style={{ flexDirection: "row", maxHeight: "65%" }}>
+        <View style={{ flexDirection: "row", maxHeight: "75%" }}>
           <NavBar>
             <VerticalLine />
             <HorizontalLine
-              style={(portrait || defi || forum) && styles.horizontal}
+              style={(portrait || defi) && styles.horizontal}
             />
             <VerticalLine />
           </NavBar>
