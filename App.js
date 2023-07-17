@@ -1,4 +1,4 @@
-import React from "react";
+import { useContext } from "react";
 import { theme } from "./src/infrastructure/theme";
 import { ThemeProvider } from "styled-components/native";
 import {
@@ -24,11 +24,19 @@ import { Login } from "./src/screens/login/login.screen.js";
 import { QuizzScreen } from "./src/screens/quizz/quizz.screen.js";
 import { RegisterScreen } from "./src/screens/register/register.screen";
 import { PasswordForgot } from "./src/screens/passwordForgot/passwordForgot.screen";
+import {
+  UserContext,
+  UserContextProvider,
+} from "./src/services/user/user.context";
 
 const Stack = createNativeStackNavigator();
 const isAndroid = Platform.OS === "android";
 
 export default function App() {
+  const { user } = useContext(UserContext);
+
+  console.log(user);
+
   const [loraLoader] = useLora({
     Lora_400Regular,
     Lora_600SemiBold,
@@ -46,77 +54,84 @@ export default function App() {
 
   const Tab = createBottomTabNavigator();
 
-  const Back = () => <Text>Retour en arrière</Text>;
-  const Notifications = () => <Text>Notifications</Text>;
+  // const Back = () => <Text>Retour en arrière</Text>;
+  // const Notifications = () => <Text>Notifications</Text>;
 
   return (
-    <ThemeProvider theme={theme}>
-      <NavigationContainer
-      // screenOptions={{
-      //   headerShown: false,
-      // }}
-      >
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ color, size }) => {
-              let iconName;
-              /* Futur Logo a utilisé  */
-              // if (route.name === "Back") {
-              //   iconName = "chevron-back";
-              // } else if (route.name === "Home") {
-              //   iconName = "home";
-              // } else if (route.name === "Notifications") {
-              //   iconName = "notifications";
-              // } else if (route.name === "Menu") {
-              //   iconName = "menu";
-              // }
-              switch (route.name) {
-                case "Home":
-                  iconName = "home";
-                  break;
-                case "Contact":
-                  iconName = "call";
-                  break;
-                case "Error":
-                  iconName = "stop-circle";
-                  break;
-                case "Login":
-                  iconName = "man";
-                  break;
-                case "Quizz":
-                  iconName = "chatbox-ellipses";
-                  break;
-                default:
-                  iconName = "construct-outline";
-              }
-              return <Ionicons name={iconName} size={size} color={color} />;
-            },
-          })}
+    <UserContextProvider>
+      <ThemeProvider theme={theme}>
+        <NavigationContainer
+          screenOptions={{
+            headerShown: false,
+          }}
         >
-          {/*Futur screen a ajouté */
-          /* <Tab.Screen name="Back" component={Back} />
+          <Tab.Navigator
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ color, size }) => {
+                let iconName;
+                /* Futur Logo a utilisé  */
+                // if (route.name === "Back") {
+                //   iconName = "chevron-back";
+                // } else if (route.name === "Home") {
+                //   iconName = "home";
+                // } else if (route.name === "Notifications") {
+                //   iconName = "notifications";
+                // } else if (route.name === "Menu") {
+                //   iconName = "menu";
+                // }
+                switch (route.name) {
+                  case "Home":
+                    iconName = "home";
+                    break;
+                  case "Contact":
+                    iconName = "call";
+                    break;
+                  case "Error":
+                    iconName = "stop-circle";
+                    break;
+                  case "Login":
+                    iconName = "man";
+                    break;
+                  case "Quizz":
+                    iconName = "chatbox-ellipses";
+                    break;
+                  default:
+                    iconName = "construct-outline";
+                }
+                return <Ionicons name={iconName} size={size} color={color} />;
+              },
+              headerShown: false,
+            })}
+          >
+            {/*Futur screen a ajouté */
+            /* <Tab.Screen name="Back" component={Back} />
           <Tab.Screen name="Home" component={HomeScreen} />
           <Tab.Screen name="Notifications" component={Notifications} />
         <Tab.Screen name="Menu" component={MenuScreen} /> */}
 
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Contact" component={ContactScreen} />
-          <Tab.Screen name="Error" component={ErrorScreen} />
-          <Tab.Screen name="Login" component={Login} />
-          <Tab.Screen name="Quizz" component={QuizzScreen} />
-          <Tab.Screen
-            name="Register"
-            component={RegisterScreen}
-            options={{ tabBarItemStyle: { display: "none" } }}
+            <Tab.Screen name="Home" component={HomeScreen} />
+            <Tab.Screen name="Contact" component={ContactScreen} />
+            <Tab.Screen name="Error" component={ErrorScreen} />
+            {!user && <Tab.Screen name="Login" component={Login} />}
+            <Tab.Screen name="Quizz" component={QuizzScreen} />
+            <Tab.Screen
+              name="Register"
+              component={RegisterScreen}
+              options={{ tabBarItemStyle: { display: "none" } }}
+            />
+            <Tab.Screen
+              name="ForgotPswd"
+              component={PasswordForgot}
+              options={{ tabBarItemStyle: { display: "none" } }}
+            />
+          </Tab.Navigator>
+          <StatusBar
+            style={"auto"}
+            backgroundColor={"black"}
+            color={"yellow"}
           />
-          <Tab.Screen
-            name="ForgotPswd"
-            component={PasswordForgot}
-            options={{ tabBarItemStyle: { display: "none" } }}
-          />
-        </Tab.Navigator>
-        <StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />
-      </NavigationContainer>
-    </ThemeProvider>
+        </NavigationContainer>
+      </ThemeProvider>
+    </UserContextProvider>
   );
 }
