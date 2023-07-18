@@ -1,9 +1,11 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import InsetShadow from "react-native-inset-shadow";
 import ButtonResponse from "../../components/ButtonResponse.js";
+
+import ButtonRules from "../../components/ButtonRules.js";
 
 const Container = styled.View`
   display: flex;
@@ -13,14 +15,13 @@ const Container = styled.View`
   padding-top: ${(props) => props.theme.space[3]};
 `;
 const Linear = styled(LinearGradient)`
-  border-radius: 50%;
   width: 100%;
 `;
 const TitleContainer = styled.View`
   width: 100%;
   padding-left: 5%;
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
 `;
 const Title = styled.Text``;
@@ -29,34 +30,13 @@ const QuestionContainer = styled.View`
   background-color: darkgray;
   width: 85%;
   padding: ${(props) => props.theme.space[4]};
-  border-radius: 8rem;
+  border-radius: 8px;
 `;
 const Question = styled.Text`
   color: white;
   font-family: ${(props) => props.theme.fonts.headingBold};
   font-size: 28px;
   text-align: left;
-`;
-const LeftCorner = styled.View`
-  margin: ${(props) => props.theme.space[3]};
-  position: absolute;
-  width: 75px;
-  height: 75px;
-  border: 3px solid white;
-  border-right-color: darkgray;
-  border-bottom-color: darkgray;
-  border-top-left-radius: 2px;
-`;
-const RightCorner = styled.View`
-  margin: ${(props) => props.theme.space[3]};
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 75px;
-  height: 75px;
-  border: 3px solid white;
-  border-left-color: darkgray;
-  border-top-color: darkgray;
 `;
 const ResponseContainer1 = styled.View`
   margin-top: ${(props) => props.theme.space[4]};
@@ -86,6 +66,9 @@ const MoreText = styled.Text`
   font-family: ${(props) => props.theme.fonts.headingBold};
 `;
 
+const ProgresBar = styled.View``;
+const ProgresPoint = styled.View``;
+
 export const QuizzScreen = () => {
   return (
     <Container>
@@ -98,21 +81,26 @@ export const QuizzScreen = () => {
       >
         <Linear
           colors={["#D8C2EF", "rgba(255,255,255,0)"]}
-          locations={[1, 0]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
+          locations={[0, 1]}
+          start={{ x: 1, y: 0 }}
+          end={{ x: 0, y: 1 }}
         >
           <TitleContainer style={styles.container}>
             <Title>Quiz: les femmes</Title>
           </TitleContainer>
         </Linear>
       </InsetShadow>
-      <View style={styles.img}></View>
+      <View style={styles.imgContainer}>
+        <Image
+          source={require("../../img/quizzMarieCurie.jpg")}
+          style={styles.img}
+        />
+      </View>
+      {/* View qui contient la question */}
       <QuestionContainer>
-        <LeftCorner></LeftCorner>
-        <RightCorner></RightCorner>
         <Question>Qu'a découvert Marie Curie ?</Question>
       </QuestionContainer>
+      {/* button reponse */}
       <ResponseContainer1>
         <ButtonResponse>
           <Response>Le radium</Response>
@@ -129,6 +117,19 @@ export const QuizzScreen = () => {
           <Response>La mimolette</Response>
         </ButtonResponse>
       </ResponseContainer2>
+      {/* barre de progression avec les petits */}
+      <ProgresBar>
+        <ProgresPoint></ProgresPoint>
+        <ProgresPoint></ProgresPoint>
+        <ProgresPoint></ProgresPoint>
+        <ProgresPoint></ProgresPoint>
+        <ProgresPoint></ProgresPoint>
+        <ProgresPoint></ProgresPoint>
+        <ProgresPoint></ProgresPoint>
+      </ProgresBar>
+      {/* button poour accèder aux règles */}
+      <ButtonRules></ButtonRules>
+      {/* en savoir plus container */}
       <MoreContainer>
         <ButtonResponse>
           <MoreText>En savoir plus</MoreText>
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     marginRight: "auto",
     marginTop: "auto",
     marginBottom: "auto",
-    borderRadius: "50%",
+    // borderRadius: "50%",
     backgroundColor: "rgb(128,128,128,1)",
   },
   shadow: {
@@ -154,10 +155,16 @@ const styles = StyleSheet.create({
     height: 30,
     width: "85%",
   },
-  img: {
+  imgContainer: {
     backgroundColor: "lightgray",
     width: "85%",
     height: "20%",
     marginTop: 16,
+    borderRadius: 8,
+  },
+  img: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 8,
   },
 });

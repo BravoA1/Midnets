@@ -1,33 +1,35 @@
 import { styled } from "styled-components";
 import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-export default ButtonResponse = ({ children }) => {
+export default ButtonRules = ({ children }) => {
   const ButtonElement = styled.TouchableOpacity`
-    flex-direction: row;
+    flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    color: #000;
-    width: 100%;
-    border-radius: 100px;
+    padding-top: ${(props) => props.theme.space[2]};
   `;
   const BoxGradient = styled.View`
-    width: 40%;
+    width: 55px;
+    height: 55px;
     box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
     background-color: #fff;
     border-radius: 100px;
-    margin-bottom: 30px;
-    text-align: center;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    left: ${(props) => props.theme.space[4]};
   `;
 
-  const TextButton = styled.Text`
-    font-size: 16px;
-    text-align: center;
+  const Text = styled.Text`
+    font-size: 13px;
+    font-family: ${(props) => props.theme.fonts.body};
   `;
 
   const LinearButton = styled(LinearGradient)`
     width: 100%;
+    height: 100%;
     border-radius: 100px;
     padding: 0px;
   `;
@@ -41,7 +43,9 @@ export default ButtonResponse = ({ children }) => {
         end={{ x: 0, y: 1 }}
       >
         <ButtonElement>
-          <TextButton>{children}</TextButton>
+          {/* <TextButton>{children}</TextButton> */}
+          <Text>Règles</Text>
+          <Ionicons name="chevron-down" size={24} color="black" />
         </ButtonElement>
       </LinearButton>
     </BoxGradient>
@@ -50,6 +54,6 @@ export default ButtonResponse = ({ children }) => {
 
 const styles = StyleSheet.create({
   container: {
-    elevation: 10,
+    elevation: 20,
   },
 });
