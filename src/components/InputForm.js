@@ -59,21 +59,38 @@ export default function InputForm({
         return (
           <Input style={{ borderColor: error ? "red" : "#a3a3a3" }}>
             <IconInputImage source={require("../img/arobase-grey.png")} />
-            <InputContent
-              defaultValue={info.email}
-              value={errorTime && ""}
-              onChangeText={(email) =>
-                setInfo(() => {
-                  let newObject = info;
-                  newObject.email = email;
-                  return newObject;
-                })
-              }
-              autoCapitalize={false}
-              placeholder={placeholder}
-              placeholderTextColor="rgba(0,0,0,.3)"
-              inputMode="email"
-            />
+            {errorTime ? (
+              <InputContent
+                defaultValue={info.email}
+                value={""}
+                onChangeText={(email) =>
+                  setInfo(() => {
+                    let newObject = info;
+                    newObject.email = email;
+                    return newObject;
+                  })
+                }
+                autoCapitalize="none"
+                placeholder={placeholder}
+                placeholderTextColor="rgba(0,0,0,.3)"
+                inputMode="email"
+              />
+            ) : (
+              <InputContent
+                defaultValue={info.email}
+                onChangeText={(email) =>
+                  setInfo(() => {
+                    let newObject = info;
+                    newObject.email = email;
+                    return newObject;
+                  })
+                }
+                autoCapitalize="none"
+                placeholder={placeholder}
+                placeholderTextColor="rgba(0,0,0,.3)"
+                inputMode="email"
+              />
+            )}
           </Input>
         );
       case "password":
@@ -81,27 +98,48 @@ export default function InputForm({
         return (
           <Input style={{ borderColor: error ? "red" : "#a3a3a3" }}>
             <IconInputImage source={require("../img/Key.png")} />
-            <InputContent
-              defaultValue={confirm ? info.confirmPassword : info.password}
-              value={errorTime && ""}
-              onChangeText={(password) =>
-                setInfo(() => {
-                  if (confirm) {
-                    let newObject = info;
-                    newObject.confirmPassword = password;
-                    return newObject;
-                  } else {
-                    let newObject = info;
-                    newObject.password = password;
-                    return newObject;
-                  }
-                })
-              }
-              secureTextEntry={true}
-              autoCapitalize={false}
-              placeholder={placeholder}
-              placeholderTextColor="rgba(0,0,0,.3)"
-            />
+            {errorTime ? (
+              <InputContent
+                defaultValue={confirm ? info.confirmPassword : info.password}
+                value={""}
+                onChangeText={(password) =>
+                  setInfo(() => {
+                    if (confirm) {
+                      let newObject = info;
+                      newObject.confirmPassword = password;
+                      return newObject;
+                    } else {
+                      let newObject = info;
+                      newObject.password = password;
+                      return newObject;
+                    }
+                  })
+                }
+                secureTextEntry={true}
+                placeholder={placeholder}
+                placeholderTextColor="rgba(0,0,0,.3)"
+              />
+            ) : (
+              <InputContent
+                defaultValue={confirm ? info.confirmPassword : info.password}
+                onChangeText={(password) =>
+                  setInfo(() => {
+                    if (confirm) {
+                      let newObject = info;
+                      newObject.confirmPassword = password;
+                      return newObject;
+                    } else {
+                      let newObject = info;
+                      newObject.password = password;
+                      return newObject;
+                    }
+                  })
+                }
+                secureTextEntry={true}
+                placeholder={placeholder}
+                placeholderTextColor="rgba(0,0,0,.3)"
+              />
+            )}
           </Input>
         );
       case "text":
@@ -109,20 +147,36 @@ export default function InputForm({
         return (
           <Input style={{ borderColor: error ? "red" : "#a3a3a3" }}>
             <Spacer />
-            <InputContent
-              defaultValue={info.name}
-              value={errorTime && ""}
-              onChangeText={(name) =>
-                setInfo(() => {
-                  let newObject = info;
-                  newObject.name = name;
-                  return newObject;
-                })
-              }
-              placeholder={placeholder}
-              placeholderTextColor="rgba(0,0,0,.3)"
-              inputMode="text"
-            />
+            {errorTime ? (
+              <InputContent
+                defaultValue={info.name}
+                value={""}
+                onChangeText={(name) =>
+                  setInfo(() => {
+                    let newObject = info;
+                    newObject.name = name;
+                    return newObject;
+                  })
+                }
+                placeholder={placeholder}
+                placeholderTextColor="rgba(0,0,0,.3)"
+                inputMode="text"
+              />
+            ) : (
+              <InputContent
+                defaultValue={info.name}
+                onChangeText={(name) =>
+                  setInfo(() => {
+                    let newObject = info;
+                    newObject.name = name;
+                    return newObject;
+                  })
+                }
+                placeholder={placeholder}
+                placeholderTextColor="rgba(0,0,0,.3)"
+                inputMode="text"
+              />
+            )}
           </Input>
         );
       default:

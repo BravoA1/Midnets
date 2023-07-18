@@ -1,9 +1,10 @@
 import { View, Text, StyleSheet, Image } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import InsetShadow from "react-native-inset-shadow";
 import ButtonResponse from "../../components/ButtonResponse.js";
+import { QuizContext } from "../../services/quiz/quiz.context.js";
 
 import ButtonRules from "../../components/ButtonRules.js";
 
@@ -70,6 +71,7 @@ const ProgresBar = styled.View``;
 const ProgresPoint = styled.View``;
 
 export const QuizzScreen = () => {
+  const { quizData, loading } = useContext(QuizContext);
   return (
     <Container>
       <InsetShadow
@@ -147,6 +149,7 @@ const styles = StyleSheet.create({
     marginRight: "auto",
     marginTop: "auto",
     marginBottom: "auto",
+    // borderRadius: "50%",
     // borderRadius: "50%",
     backgroundColor: "rgb(128,128,128,1)",
   },
