@@ -24,6 +24,7 @@ import { Login } from "./src/screens/login/login.screen.js";
 import { QuizzScreen } from "./src/screens/quizz/quizz.screen.js";
 import { RegisterScreen } from "./src/screens/register/register.screen";
 import { PasswordForgot } from "./src/screens/passwordForgot/passwordForgot.screen";
+import { ThemeScreen } from "./src/screens/quizz/theme.screen";
 
 const Stack = createNativeStackNavigator();
 const isAndroid = Platform.OS === "android";
@@ -103,7 +104,7 @@ export default function App() {
           <Tab.Screen name="Contact" component={ContactScreen} />
           <Tab.Screen name="Error" component={ErrorScreen} />
           <Tab.Screen name="Login" component={Login} />
-          <Tab.Screen name="Quizz" component={QuizzScreen} />
+          <Tab.Screen name="Quizz" component={ThemeScreen} />
           <Tab.Screen
             name="Register"
             component={RegisterScreen}
