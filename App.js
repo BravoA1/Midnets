@@ -33,7 +33,7 @@ import { NavBar } from "./src/screens/NavBar/navBar.screen";
 const Stack = createNativeStackNavigator();
 const isAndroid = Platform.OS === "android";
 
-export default function AppChildren() {
+export default function App() {
   const [loraLoader] = useLora({
     Lora_400Regular,
     Lora_600SemiBold,
