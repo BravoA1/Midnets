@@ -14,12 +14,19 @@ import { PasswordForgot } from "../passwordForgot/passwordForgot.screen";
 import { useContext } from "react";
 import { UserContext } from "../../services/user/user.context.js";
 import { Signout } from "../temp/Signout.js";
+import { QuizContextProvider } from "../../services/quiz/quiz.context.js";
 
 export const NavBar = ({ navigation }) => {
   const { info, user } = useContext(UserContext);
 
   console.log(info, "navbar");
   console.log(user, "navbar");
+
+  const QuizParent = () => (
+    <QuizContextProvider>
+      <QuizzScreen />
+    </QuizContextProvider>
+  );
 
   const Tab = createBottomTabNavigator();
   return (
@@ -76,17 +83,21 @@ export const NavBar = ({ navigation }) => {
         <Tab.Screen name="Contact" component={ContactScreen} />
         <Tab.Screen name="Error" component={ErrorScreen} />
         {!user && <Tab.Screen name="Login" component={Login} />}
-        <Tab.Screen name="Quizz" component={QuizzScreen} />
+        <Tab.Screen name="Quizz" component={QuizParent} />
         {user && <Tab.Screen name="Signout" component={Signout} />}
         <Tab.Screen
           name="Register"
           component={RegisterScreen}
-          options={{ tabBarItemStyle: { display: "none" } }}
+          options={() => ({
+            tabBarButton: () => null,
+          })}
         />
         <Tab.Screen
           name="ForgotPswd"
           component={PasswordForgot}
-          options={{ tabBarItemStyle: { display: "none" } }}
+          options={() => ({
+            tabBarButton: () => null,
+          })}
         />
       </Tab.Navigator>
       <StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />

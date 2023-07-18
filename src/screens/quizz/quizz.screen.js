@@ -1,9 +1,10 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import InsetShadow from "react-native-inset-shadow";
 import ButtonResponse from "../../components/ButtonResponse.js";
+import { QuizContext } from "../../services/quiz/quiz.context.js";
 
 const Container = styled.View`
   display: flex;
@@ -13,14 +14,14 @@ const Container = styled.View`
   padding-top: ${(props) => props.theme.space[3]};
 `;
 const Linear = styled(LinearGradient)`
-  border-radius: 50%;
+  /* border-radius: 50%; */
   width: 100%;
 `;
 const TitleContainer = styled.View`
   width: 100%;
   padding-left: 5%;
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   justify-content: center;
 `;
 const Title = styled.Text``;
@@ -29,7 +30,7 @@ const QuestionContainer = styled.View`
   background-color: darkgray;
   width: 85%;
   padding: ${(props) => props.theme.space[4]};
-  border-radius: 8rem;
+  /* border-radius: 8rem; */
 `;
 const Question = styled.Text`
   color: white;
@@ -87,6 +88,7 @@ const MoreText = styled.Text`
 `;
 
 export const QuizzScreen = () => {
+  const { quizData, loading } = useContext(QuizContext);
   return (
     <Container>
       <InsetShadow
@@ -146,7 +148,7 @@ const styles = StyleSheet.create({
     marginRight: "auto",
     marginTop: "auto",
     marginBottom: "auto",
-    borderRadius: "50%",
+    // borderRadius: "50%",
     backgroundColor: "rgb(128,128,128,1)",
   },
   shadow: {
