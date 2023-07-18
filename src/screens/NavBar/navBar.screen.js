@@ -1,103 +1,95 @@
-import {
-  Button,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { H1 } from "../../../src/components/theme";
-import { useEffect, useState } from "react";
-import { firebase } from "../../../config";
-import ButtonGradient from "../../components/ButtonGradient";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StatusBar } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+
+import { HomeScreen } from "../home/home.screen.js";
+import { ContactScreen } from "../contact/contact.screen.js";
+import { ErrorScreen } from "../error/error.screen.js";
+import { Login } from "../login/login.screen.js";
+import { QuizzScreen } from "../quizz/quizz.screen.js";
+import { RegisterScreen } from "../register/register.screen";
+import { PasswordForgot } from "../passwordForgot/passwordForgot.screen";
+import { useContext } from "react";
+import { UserContext } from "../../services/user/user.context.js";
+import { Signout } from "../temp/Signout.js";
 
 export const NavBar = ({ navigation }) => {
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
-  const [name, setName] = useState();
+  const { info, user } = useContext(UserContext);
 
-  // Handle user state change
-  function onAuthStateChanged(user) {
-    setUser(user);
-    if (initializing) setInitializing(false);
-  }
+  console.log(info, "navbar");
+  console.log(user, "navbar");
 
-  useEffect(() => {
-    const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
+  const Tab = createBottomTabNavigator();
+  return (
+    <NavigationContainer
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ color, size }) => {
+            let iconName;
+            /* Futur Logo a utilisé  */
+            // if (route.name === "Back") {
+            //   iconName = "chevron-back";
+            // } else if (route.name === "Home") {
+            //   iconName = "home";
+            // } else if (route.name === "Notifications") {
+            //   iconName = "notifications";
+            // } else if (route.name === "Menu") {
+            //   iconName = "menu";
+            // }
+            switch (route.name) {
+              case "Home":
+                iconName = "home";
+                break;
+              case "Contact":
+                iconName = "call";
+                break;
+              case "Error":
+                iconName = "stop-circle";
+                break;
+              case "Login":
+                iconName = "man";
+                break;
+              case "Quizz":
+                iconName = "chatbox-ellipses";
+                break;
+              default:
+                iconName = "construct-outline";
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          headerShown: false,
+        })}
+      >
+        {/*Futur screen a ajouté */
+        /* <Tab.Screen name="Back" component={Back} />
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Notifications" component={Notifications} />
+    <Tab.Screen name="Menu" component={MenuScreen} /> */}
 
-    return subscriber;
-  }, []);
-
-  useEffect(() => {
-    if (user) {
-      console.log("in");
-      firebase
-        .firestore()
-        .collection("users")
-        .doc(firebase.auth().currentUser.uid)
-        .get()
-        .then((snapshot) => {
-          if (snapshot.exists) {
-            setName(snapshot.data());
-          } else {
-            console.log("User does not exist");
-          }
-        });
-    }
-  }, [user]);
-
-  useEffect(() => {
-    console.log({ name });
-  }, [name]);
-
-  if (initializing) return null;
-
-  if (!user) {
-    return (
-      <SafeAreaView>
-        <H1>Bonjour</H1>
-
-        <Button title="Home" onPress={() => navigation.navigate("Home")} />
-        <Button title="Error" onPress={() => navigation.navigate("Error")} />
-        <Button
-          title="Contact"
-          onPress={() => navigation.navigate("Contact")}
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Contact" component={ContactScreen} />
+        <Tab.Screen name="Error" component={ErrorScreen} />
+        {!user && <Tab.Screen name="Login" component={Login} />}
+        <Tab.Screen name="Quizz" component={QuizzScreen} />
+        {user && <Tab.Screen name="Signout" component={Signout} />}
+        <Tab.Screen
+          name="Register"
+          component={RegisterScreen}
+          options={{ tabBarItemStyle: { display: "none" } }}
         />
-        <Button
-          title="Forgot Password"
-          onPress={() => navigation.navigate("PasswordForgot")}
+        <Tab.Screen
+          name="ForgotPswd"
+          component={PasswordForgot}
+          options={{ tabBarItemStyle: { display: "none" } }}
         />
-        <Button title="Login" onPress={() => navigation.navigate("Login")} />
-        <Button
-          title="Register"
-          onPress={() => navigation.navigate("Register")}
-        />
-        <Button title="Quizz" onPress={() => navigation.navigate("Quizz")} />
-      </SafeAreaView>
-    );
-  } else {
-    return (
-      <SafeAreaView>
-        <H1>Bonjour {name && name.name}</H1>
-
-        <Button title="Home" onPress={() => navigation.navigate("Home")} />
-        <Button title="Error" onPress={() => navigation.navigate("Error")} />
-        <Button
-          title="Contact"
-          onPress={() => navigation.navigate("Contact")}
-        />
-
-        <Button title="Quizz" onPress={() => navigation.navigate("Quizz")} />
-        <View style={{ alignItems: "center", marginTop: 30 }}>
-          <ButtonGradient
-            OnPress={() => {
-              firebase.auth().signOut();
-              setName("");
-            }}
-          >
-            <Text>Sign out</Text>
-          </ButtonGradient>
-        </View>
-      </SafeAreaView>
-    );
-  }
+      </Tab.Navigator>
+      <StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />
+    </NavigationContainer>
+  );
 };
