@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, Image } from "react-native";
-import React, { useContext } from "react";
+import { View, Text, StyleSheet, Image, ActivityIndicator } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import InsetShadow from "react-native-inset-shadow";
@@ -72,71 +72,115 @@ const ProgresPoint = styled.View``;
 
 export const QuizzScreen = () => {
   const { quizData, loading } = useContext(QuizContext);
+
+  // console.log(quizData, "data");
+
+  const [question, setQuestion] = useState("");
+  const [answers, setAnswers] = useState([]);
+  const [correct, setCorrect] = useState(-1);
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    setIndex(Math.floor(Math.random() * quizData.length));
+  }, []);
+
+  useEffect(() => {
+    console.log(loading);
+    if (!loading) {
+      console.log(quizData.length);
+      console.log(index);
+      console.log(quizData);
+
+      setQuestion(quizData[index].question);
+      setAnswers(quizData[index].answers);
+      setCorrect(quizData[index].correct);
+    }
+    console.log(quizData);
+  }, [loading]);
+
+
+  function AnswersOne(){
+  }
+  function AnswersTwo(){
+
+  }
+
   return (
     <Container>
-      <InsetShadow
-        containerStyle={styles.shadow}
-        shadowRadius={10}
-        shadowOpacity={20}
-        bottom={false}
-        left={false}
-      >
-        <Linear
-          colors={["#D8C2EF", "rgba(255,255,255,0)"]}
-          locations={[0, 1]}
-          start={{ x: 1, y: 0 }}
-          end={{ x: 0, y: 1 }}
-        >
-          <TitleContainer style={styles.container}>
-            <Title>Quiz: les femmes</Title>
-          </TitleContainer>
-        </Linear>
-      </InsetShadow>
-      <View style={styles.imgContainer}>
-        <Image
-          source={require("../../img/quizzMarieCurie.jpg")}
-          style={styles.img}
+      {loading ? (
+        <ActivityIndicator
+          size={"large"}
+          style={{
+            zIndex: 1,
+          }}
         />
-      </View>
-      {/* View qui contient la question */}
-      <QuestionContainer>
-        <Question>Qu'a découvert Marie Curie ?</Question>
-      </QuestionContainer>
-      {/* button reponse */}
-      <ResponseContainer1>
+      ) : (
+        <>
+          <InsetShadow
+            containerStyle={styles.shadow}
+            shadowRadius={10}
+            shadowOpacity={20}
+            bottom={false}
+            left={false}
+          >
+            <Linear
+              colors={["#D8C2EF", "rgba(255,255,255,0)"]}
+              locations={[0, 1]}
+              start={{ x: 1, y: 0 }}
+              end={{ x: 0, y: 1 }}
+            >
+              <TitleContainer style={styles.container}>
+                <Title>Quiz: les femmes</Title>
+              </TitleContainer>
+            </Linear>
+          </InsetShadow>
+          <View style={styles.imgContainer}>
+            <Image
+              source={require("../../img/quizzMarieCurie.jpg")}
+              style={styles.img}
+            />
+          </View>
+          {/* View qui contient la question */}
+          <QuestionContainer>
+            <Question>{question}</Question>
+          </QuestionContainer>
+          {/* button reponse */}
+          <ResponseContainer1>
+            <ButtonResponse OnPress={AnswersOne}>
+              <Response>{answers[0]}</Response>
+            </ButtonResponse>
+            <ButtonResponse OnPress={AnswersTwo}>
+              <Response>{answers[1]}</Response>
+            </ButtonResponse>
+          </ResponseContainer1>
+          {/* <ResponseContainer2>
         <ButtonResponse>
-          <Response>Le radium</Response>
+        <Response>Le curry vert</Response>
         </ButtonResponse>
         <ButtonResponse>
-          <Response>Le cuivre</Response>
+        <Response>La mimolette</Response>
         </ButtonResponse>
-      </ResponseContainer1>
-      <ResponseContainer2>
-        <ButtonResponse>
-          <Response>Le curry vert</Response>
-        </ButtonResponse>
-        <ButtonResponse>
-          <Response>La mimolette</Response>
-        </ButtonResponse>
-      </ResponseContainer2>
-      {/* barre de progression avec les petits */}
-      <ProgresBar>
-        <ProgresPoint></ProgresPoint>
-        <ProgresPoint></ProgresPoint>
-        <ProgresPoint></ProgresPoint>
-        <ProgresPoint></ProgresPoint>
-        <ProgresPoint></ProgresPoint>
-        <ProgresPoint></ProgresPoint>
-        <ProgresPoint></ProgresPoint>
-      </ProgresBar>
-      {/* button poour accèder aux règles */}
-      <ButtonRules></ButtonRules>
-      {/* en savoir plus container */}
-      <MoreContainer>
-        <ButtonResponse>
-          <MoreText>En savoir plus</MoreText>
-        </ButtonResponse>
-      </MoreContainer>
+      </ResponseContainer2> */}
+          {/* barre de progression avec les petits */}
+          <ProgresBar>
+            <ProgresPoint></ProgresPoint>
+            <ProgresPoint></ProgresPoint>
+            <ProgresPoint></ProgresPoint>
+            <ProgresPoint></ProgresPoint>
+            <ProgresPoint></ProgresPoint>
+            <ProgresPoint></ProgresPoint>
+            <ProgresPoint></ProgresPoint>
+          </ProgresBar>
+          {/* button poour accèder aux règles */}
+          <ButtonRules></ButtonRules>
+          {/* en savoir plus container */}
+          <MoreContainer>
+            <ButtonResponse>
+              <MoreText>En savoir plus</MoreText>
+            </ButtonResponse>
+          </MoreContainer>
+        </>
+      )}
     </Container>
   );
 };

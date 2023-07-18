@@ -79,7 +79,7 @@ export const Login = ({ navigation }) => {
   // Verify that all the input are valid
   function VerifyConnexion() {
     let error = false;
-    console.log(info);
+    // console.log(info);
     // Reset all the state
     setVisible(false);
     setErrorMessage("");

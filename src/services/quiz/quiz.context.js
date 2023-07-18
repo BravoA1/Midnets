@@ -6,10 +6,9 @@ export const QuizContext = createContext();
 
 export const QuizContextProvider = ({ children }) => {
   const [quizData, setQuizData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
     firebase
       .firestore()
       .collection("quiz")
@@ -20,8 +19,8 @@ export const QuizContextProvider = ({ children }) => {
           data.push(doc.data());
         });
         setQuizData(data);
-        setLoading(false);
       })
+      .then(() => setLoading(false))
       .catch((error) => {
         console.error(`error in getQuizData ${error}`);
         setQuizData([]);

@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { theme } from "./src/infrastructure/theme";
 import { ThemeProvider } from "styled-components/native";
 import {
@@ -12,25 +11,10 @@ import {
   Alata_400Regular,
 } from "@expo-google-fonts/alata";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Appearance, Platform, SafeAreaView, StatusBar } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-
-import { HomeScreen } from "./src/screens/home/home.screen.js";
-import { ContactScreen } from "./src/screens/contact/contact.screen.js";
-import { ErrorScreen } from "./src/screens/error/error.screen.js";
-import { Login } from "./src/screens/login/login.screen.js";
-import { QuizzScreen } from "./src/screens/quizz/quizz.screen.js";
-import { RegisterScreen } from "./src/screens/register/register.screen";
-import { PasswordForgot } from "./src/screens/passwordForgot/passwordForgot.screen";
-import {
-  UserContext,
-  UserContextProvider,
-} from "./src/services/user/user.context";
+import { Platform } from "react-native";
+import { UserContextProvider } from "./src/services/user/user.context";
 import { NavBar } from "./src/screens/NavBar/navBar.screen";
 
-const Stack = createNativeStackNavigator();
 const isAndroid = Platform.OS === "android";
 
 export default function App() {

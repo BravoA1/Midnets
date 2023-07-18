@@ -1,8 +1,8 @@
-import { styled } from "styled-components";
+import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
 
-export default ButtonResponse = ({ children }) => {
+export default ButtonResponse = ({ children, OnPress, result }) => {
   const ButtonElement = styled.TouchableOpacity`
     flex-direction: row;
     justify-content: center;
@@ -40,7 +40,7 @@ export default ButtonResponse = ({ children }) => {
         start={{ x: 1, y: 0 }}
         end={{ x: 0, y: 1 }}
       >
-        <ButtonElement>
+        <ButtonElement onPress={OnPress}>
           <TextButton>{children}</TextButton>
         </ButtonElement>
       </LinearButton>
