@@ -72,37 +72,62 @@ const ProgresPoint = styled.View``;
 
 export const QuizzScreen = () => {
   const { quizData, loading } = useContext(QuizContext);
-
-  // console.log(quizData, "data");
-
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState([]);
   const [correct, setCorrect] = useState(-1);
   const [index, setIndex] = useState(0);
+  const [result, setResult] = useState({ one: "", two: "" });
+
+  function Reset() {
+    setIndex(Math.floor(Math.random() * quizData.length));
+    setResult({ one: "", two: "" });
+  }
+
+  function SetQuiz() {
+    setQuestion(quizData[index].question);
+    setAnswers(quizData[index].answers);
+    setCorrect(quizData[index].correct);
+  }
 
   useEffect(() => {
-    setIndex(Math.floor(Math.random() * quizData.length));
+    Reset();
   }, []);
 
   useEffect(() => {
-    console.log(loading);
     if (!loading) {
-      console.log(quizData.length);
-      console.log(index);
-      console.log(quizData);
+      SetQuiz();
+    }
+  }, [loading]);
 
+  function AnswersOne() {
+    console.log(correct);
+    if (correct === 0) {
+      setResult({ one: "correct", two: "" });
+    } else {
+      setResult({ one: "wrong", two: "correct" });
+    }
+    setTimeout(() => {
+      setIndex(Math.floor(Math.random() * quizData.length));
+      setResult({ one: "", two: "" });
       setQuestion(quizData[index].question);
       setAnswers(quizData[index].answers);
       setCorrect(quizData[index].correct);
-    }
-    console.log(quizData);
-  }, [loading]);
-
-
-  function AnswersOne(){
+    }, 2000);
   }
-  function AnswersTwo(){
-
+  function AnswersTwo() {
+    console.log(correct);
+    if (correct === 1) {
+      setResult({ one: "", two: "correct" });
+    } else {
+      setResult({ one: "correct", two: "wrong" });
+    }
+    setTimeout(() => {
+      setIndex(Math.floor(Math.random() * quizData.length));
+      setResult({ one: "", two: "" });
+      setQuestion(quizData[index].question);
+      setAnswers(quizData[index].answers);
+      setCorrect(quizData[index].correct);
+    }, 2000);
   }
 
   return (
@@ -146,10 +171,10 @@ export const QuizzScreen = () => {
           </QuestionContainer>
           {/* button reponse */}
           <ResponseContainer1>
-            <ButtonResponse OnPress={AnswersOne}>
+            <ButtonResponse result={result.one} OnPress={AnswersOne}>
               <Response>{answers[0]}</Response>
             </ButtonResponse>
-            <ButtonResponse OnPress={AnswersTwo}>
+            <ButtonResponse result={result.two} OnPress={AnswersTwo}>
               <Response>{answers[1]}</Response>
             </ButtonResponse>
           </ResponseContainer1>
