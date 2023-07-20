@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import InsetShadow from "react-native-inset-shadow";
@@ -7,6 +7,7 @@ import ButtonResponse from "../../components/ButtonResponse.js";
 import { QuizContext } from "../../services/quiz/quiz.context.js";
 
 import ButtonRules from "../../components/ButtonRules.js";
+import { PopUpLearnMore } from "../../components/PopupLearnMore.js";
 
 const Container = styled.View`
   display: flex;
@@ -72,7 +73,10 @@ const ProgresPoint = styled.View``;
 
 export const QuizzScreen = () => {
   const { quizData, loading } = useContext(QuizContext);
+  const [showLearnMoreModale, setShowLearnMoreModale] = useState(false)
+
   return (
+    <>
     <Container>
       <InsetShadow
         containerStyle={styles.shadow}
@@ -133,11 +137,17 @@ export const QuizzScreen = () => {
       <ButtonRules></ButtonRules>
       {/* en savoir plus container */}
       <MoreContainer>
-        <ButtonResponse>
+        <ButtonResponse onPress={() => setShowLearnMoreModale(!showLearnMoreModale)}>
           <MoreText>En savoir plus</MoreText>
         </ButtonResponse>
       </MoreContainer>
     </Container>
+      {
+        showLearnMoreModale && (
+          <PopUpLearnMore showPopup={showLearnMoreModale} setShowPopup={setShowLearnMoreModale} />
+        )
+      }
+    </>
   );
 };
 

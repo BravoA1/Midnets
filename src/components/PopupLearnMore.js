@@ -10,13 +10,15 @@ const Container = styled.View`
   height: 100%;
   padding: 30px 35px;
   z-index: 300;
-`;
+  `;
+  //background-color:rgba(213, 128, 255, .2);
 
 const PopUp = styled.View`
   width: 100%;
   flex: 1;
   padding: 15px;
   border-radius: 20px;
+  margin-top: 30px;
   background-color: rgba(69, 69, 69, 0.91);
   overflow: visible;
 `;
@@ -74,13 +76,13 @@ const CornerText = styled.View`
 `;
 
 // ! manque le blur effect
-export const PopUpLearnMore = ({ data, closeModal }) => {
+export const PopUpLearnMore = ({ data, setShowPopup, showPopup }) => {
   // state pour le contenu de l'article
   // ! voir la structure de l'article
   //const [text, setText] = useState(data);
 
   const handlePress = () => {
-    // closeModal();
+    setShowPopup(!showPopup);
     console.log("close modal");
   };
 
