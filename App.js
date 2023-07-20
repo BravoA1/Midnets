@@ -10,13 +10,11 @@ import {
   useFonts as useAlata,
   Alata_400Regular,
 } from "@expo-google-fonts/alata";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Platform } from "react-native";
 import { UserContextProvider } from "./src/services/user/user.context";
 import { NavBar } from "./src/screens/NavBar/navBar.screen";
 
 const isAndroid = Platform.OS === "android";
-
 export default function App() {
   const [loraLoader] = useLora({
     Lora_400Regular,
@@ -32,8 +30,6 @@ export default function App() {
   }
 
   // console.log(Appearance.getColorScheme());
-
-  const Tab = createBottomTabNavigator();
 
   // const Back = () => <Text>Retour en arrière</Text>;
   // const Notifications = () => <Text>Notifications</Text>;

@@ -72,24 +72,32 @@ const ProgresPoint = styled.View``;
 
 export const QuizzScreen = () => {
   const { quizData, loading } = useContext(QuizContext);
+
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState([]);
   const [correct, setCorrect] = useState(-1);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState();
   const [result, setResult] = useState({ one: "", two: "" });
-
-  function Reset() {
-    setIndex(Math.floor(Math.random() * quizData.length));
-    setResult({ one: "", two: "" });
-  }
-
-  function SetQuiz() {
-    setQuestion(quizData[index].question);
-    setAnswers(quizData[index].answers);
-    setCorrect(quizData[index].correct);
-  }
+  const [alreadyAsk, setAlreadyAsk] = useState([]);
+  const [numberQuestion, setNumberQuestion] = useState(5);
+  const [score, setScore] = useState(0);
+  const [buttonDisable, setButtonDisable] = useState(false);
+  /* DEBUG*/
+  useEffect(() => {
+    console.log(question, "question");
+  }, [question]);
+  useEffect(() => {
+    console.log(answers, "answers");
+  }, [answers]);
+  useEffect(() => {
+    console.log(alreadyAsk, "alreadyAsk");
+  }, [alreadyAsk]);
+  /* DEBUG*/
 
   useEffect(() => {
+    console.log("Reset");
+    setIndex(Random());
+
     Reset();
   }, []);
 
@@ -99,35 +107,71 @@ export const QuizzScreen = () => {
     }
   }, [loading]);
 
+  function Reset() {
+    setScore(0);
+    setNumberQuestion(5);
+    setResult({ one: "", two: "" });
+  }
+
+  function SetQuiz() {
+    setQuestion(quizData[index].question);
+    setAnswers(quizData[index].answers);
+    setCorrect(quizData[index].correct);
+  }
+
+  function Random() {
+    let indexTemp;
+    do {
+      indexTemp = Math.floor(Math.random() * quizData.length);
+      console.log(indexTemp, "indexTemp");
+      console.log(index, "index");
+    } while (alreadyAsk.includes(indexTemp));
+
+    setAlreadyAsk([...alreadyAsk, indexTemp]);
+    return indexTemp;
+  }
+
   function AnswersOne() {
-    console.log(correct);
-    if (correct === 0) {
-      setResult({ one: "correct", two: "" });
-    } else {
-      setResult({ one: "wrong", two: "correct" });
+    if (numberQuestion > 0) {
+      setButtonDisable(true);
+      console.log(correct);
+      if (correct === 0) {
+        setResult({ one: "correct", two: "" });
+        setScore(score + 1);
+      } else {
+        setResult({ one: "wrong", two: "correct" });
+      }
+      setIndex(Random());
+      setTimeout(() => {
+        setResult({ one: "", two: "" });
+        setQuestion(quizData[index].question);
+        setAnswers(quizData[index].answers);
+        setCorrect(quizData[index].correct);
+        setNumberQuestion(numberQuestion - 1);
+        setButtonDisable(false);
+      }, 2000);
     }
-    setTimeout(() => {
-      setIndex(Math.floor(Math.random() * quizData.length));
-      setResult({ one: "", two: "" });
-      setQuestion(quizData[index].question);
-      setAnswers(quizData[index].answers);
-      setCorrect(quizData[index].correct);
-    }, 2000);
   }
   function AnswersTwo() {
-    console.log(correct);
-    if (correct === 1) {
-      setResult({ one: "", two: "correct" });
-    } else {
-      setResult({ one: "correct", two: "wrong" });
+    if (numberQuestion > 0) {
+      setButtonDisable(true);
+      console.log(correct);
+      if (correct === 1) {
+        setResult({ one: "", two: "correct" });
+        setScore(score + 1);
+      } else {
+        setResult({ one: "correct", two: "wrong" });
+      }
+      setIndex(Random());
+      setTimeout(() => {
+        setResult({ one: "", two: "" });
+        setQuestion(quizData[index].question);
+        setAnswers(quizData[index].answers);
+        setCorrect(quizData[index].correct);
+        setNumberQuestion(numberQuestion - 1);
+        setButtonDisable(false);
+      }, 2000);
     }
-    setTimeout(() => {
-      setIndex(Math.floor(Math.random() * quizData.length));
-      setResult({ one: "", two: "" });
-      setQuestion(quizData[index].question);
-      setAnswers(quizData[index].answers);
-      setCorrect(quizData[index].correct);
-    }, 2000);
   }
 
   return (
@@ -171,10 +215,18 @@ export const QuizzScreen = () => {
           </QuestionContainer>
           {/* button reponse */}
           <ResponseContainer1>
-            <ButtonResponse result={result.one} OnPress={AnswersOne}>
+            <ButtonResponse
+              result={result.one}
+              OnPress={AnswersOne}
+              Disabled={buttonDisable}
+            >
               <Response>{answers[0]}</Response>
             </ButtonResponse>
-            <ButtonResponse result={result.two} OnPress={AnswersTwo}>
+            <ButtonResponse
+              result={result.two}
+              OnPress={AnswersTwo}
+              Disabled={buttonDisable}
+            >
               <Response>{answers[1]}</Response>
             </ButtonResponse>
           </ResponseContainer1>
@@ -204,6 +256,8 @@ export const QuizzScreen = () => {
               <MoreText>En savoir plus</MoreText>
             </ButtonResponse>
           </MoreContainer>
+          {<Text>Score : {score}</Text>}
+          {<Text>Question restant : {numberQuestion}</Text>}
         </>
       )}
     </Container>

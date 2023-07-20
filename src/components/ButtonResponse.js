@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
 import { colors } from "../infrastructure/theme/colors";
 
-export default ButtonResponse = ({ children, OnPress, result }) => {
+export default ButtonResponse = ({ children, OnPress, result, Disabled }) => {
   const ButtonElement = styled.TouchableOpacity`
     flex-direction: row;
     justify-content: center;
@@ -57,7 +57,7 @@ export default ButtonResponse = ({ children, OnPress, result }) => {
         start={{ x: 1, y: 0 }}
         end={{ x: 0, y: 1 }}
       >
-        <ButtonElement onPress={OnPress}>
+        <ButtonElement onPress={OnPress} disabled={Disabled}>
           <TextButton>{children}</TextButton>
         </ButtonElement>
       </LinearButton>

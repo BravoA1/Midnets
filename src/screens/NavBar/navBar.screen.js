@@ -70,6 +70,7 @@ export const NavBar = ({ navigation }) => {
           },
           headerShown: false,
         })}
+        detachInactiveScreens={true}
       >
         {/*Futur screen a ajouté */
         /* <Tab.Screen name="Back" component={Back} />
