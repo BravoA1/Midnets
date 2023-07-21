@@ -89,6 +89,8 @@ export const QuizzScreen = () => {
   const [showLearnMoreModale, setShowLearnMoreModale] = useState(false);
   const [visible, setVisible] = useState(false);
   const [time, setTime] = useState(10);
+  const [pause, setPause] = useState(false);
+  const [reset, setReset] = useState(true);
 
   /* DEBUG*/
   // useEffect(() => {
@@ -103,7 +105,9 @@ export const QuizzScreen = () => {
   /* DEBUG*/
 
   useEffect(() => {
-    console.log(showLearnMoreModale);
+    if (!showLearnMoreModale) {
+      setPause(false);
+    }
   }, [showLearnMoreModale]);
 
   useEffect(() => {
@@ -153,12 +157,16 @@ export const QuizzScreen = () => {
       console.log(correct);
       switch (number) {
         case -1:
-          if (correct === 0) {
-            setResult({ one: "correct", two: "" });
-          } else {
-            setResult({ one: "correct", two: "correct" });
+          if (numberQuestion > 0) {
+            if (correct === 0) {
+              setResult({ one: "correct", two: "" });
+            } else {
+              setResult({ one: "", two: "correct" });
+            }
+            setVisible(true);
+            setTime(10);
+            setReset(true);
           }
-          setVisible(true);
           break;
         case 0:
           if (correct === number) {
@@ -216,7 +224,14 @@ export const QuizzScreen = () => {
           </>
         ) : (
           <>
-            <CountDown seconds={time} onTimeUp={() => Answers(-1)} />
+            <CountDown
+              time={time}
+              setTime={setTime}
+              onTimeUp={() => Answers(-1)}
+              pause={pause}
+              reset={reset}
+              setReset={setReset}
+            />
             <InsetShadow
               containerStyle={styles.shadow}
               shadowRadius={10}
@@ -284,7 +299,11 @@ export const QuizzScreen = () => {
             <ButtonRules></ButtonRules>
             {/* en savoir plus container */}
             <MoreContainer>
-              <ButtonResponse OnPress={() => setShowLearnMoreModale(true)}>
+              <ButtonResponse
+                OnPress={() => {
+                  setShowLearnMoreModale(true), setPause(true);
+                }}
+              >
                 <MoreText>En savoir plus</MoreText>
               </ButtonResponse>
             </MoreContainer>

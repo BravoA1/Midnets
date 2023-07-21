@@ -1,7 +1,9 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
+import { useContext } from "react";
 import { StatusBar } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+
 import { HomeScreen } from "../home/home.screen.js";
 import { ContactScreen } from "../contact/contact.screen.js";
 import { ErrorScreen } from "../error/error.screen.js";
@@ -9,9 +11,8 @@ import { Login } from "../login/login.screen.js";
 import { QuizzScreen } from "../quizz/quizz.screen.js";
 import { RegisterScreen } from "../register/register.screen";
 import { PasswordForgot } from "../passwordForgot/passwordForgot.screen";
-import { useContext } from "react";
-import { UserContext } from "../../services/user/user.context.js";
 import { Signout } from "../temp/Signout.js";
+import { UserContext } from "../../services/user/user.context.js";
 import { QuizContextProvider } from "../../services/quiz/quiz.context.js";
 import { ThemeScreen } from "../quizz/theme.screen.js";
 
@@ -61,7 +62,7 @@ export const NavBar = ({ navigation }) => {
               case "Login":
                 iconName = "man";
                 break;
-              case "Quizz":
+              case "QuizzTheme":
                 iconName = "chatbox-ellipses";
                 break;
               default:
@@ -70,7 +71,7 @@ export const NavBar = ({ navigation }) => {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           headerShown: false,
-          unmountOnBlur: true,
+          // unmountOnBlur: true,
           // lazy: true,
         })}
       >
@@ -84,8 +85,15 @@ export const NavBar = ({ navigation }) => {
         <Tab.Screen name="Contact" component={ContactScreen} />
         <Tab.Screen name="Error" component={ErrorScreen} />
         {!user && <Tab.Screen name="Login" component={Login} />}
-        <Tab.Screen name="Theme" component={ThemeScreen} />
-        <Tab.Screen name="Quizz" component={QuizParent} />
+        <Tab.Screen name="QuizzTheme" component={ThemeScreen} />
+        <Tab.Screen
+          name="Quizz"
+          component={QuizParent}
+          options={() => ({
+            tabBarButton: () => null,
+            unmountOnBlur: true,
+          })}
+        />
         {user && <Tab.Screen name="Signout" component={Signout} />}
         <Tab.Screen
           name="Register"

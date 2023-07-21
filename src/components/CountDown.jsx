@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SVG, { Circle, Path } from "react-native-svg";
 
-export const CountDown = ({ time, setTime, onTimeUp, pause }) => {
+export const CountDown = ({ time, setTime, onTimeUp, pause, reset, setReset }) => {
   //const pointsCount = 20;
   const [pointsCount, setPointsCount] = useState(40);
   //const [timeMax, setTimeMax] = useState(0);
@@ -29,8 +29,10 @@ export const CountDown = ({ time, setTime, onTimeUp, pause }) => {
 
   useEffect(() => {
     //setTimeMax(time);
+    setPointsToRender(time * 2);
     setPointsCount(time * 2);
-  }, []);
+    setReset(false)
+  }, [reset]);
 
   useEffect(() => {
     if (pause) return;
@@ -49,7 +51,7 @@ export const CountDown = ({ time, setTime, onTimeUp, pause }) => {
       // Time is up, invoke the callback function
       onTimeUp();
     }
-  }, [time]);
+  }, [time, pause]);
 
   const calculatePath = () => {
     const theta = (2 * Math.PI) / pointsCount;
