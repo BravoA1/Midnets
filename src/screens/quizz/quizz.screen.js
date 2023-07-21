@@ -36,7 +36,7 @@ const QuestionContainer = styled.View`
 const Question = styled.Text`
   color: white;
   font-family: ${(props) => props.theme.fonts.headingBold};
-  font-size: 28px;
+  font-size: 23.9px;
   text-align: left;
 `;
 const ResponseContainer1 = styled.View`
@@ -82,95 +82,77 @@ export const QuizzScreen = () => {
   const [numberQuestion, setNumberQuestion] = useState(5);
   const [score, setScore] = useState(0);
   const [buttonDisable, setButtonDisable] = useState(false);
+
+  /* DEBUG*/
+  // useEffect(() => {
+  //   console.log(question, "question");
+  // }, [question]);
+  // useEffect(() => {
+  //   console.log(answers, "answers");
+  // }, [answers]);
+  // useEffect(() => {
+  //   console.log(alreadyAsk, "alreadyAsk");
+  // }, [alreadyAsk]);
   /* DEBUG*/
   useEffect(() => {
-    console.log(question, "question");
-  }, [question]);
-  useEffect(() => {
-    console.log(answers, "answers");
-  }, [answers]);
-  useEffect(() => {
-    console.log(alreadyAsk, "alreadyAsk");
-  }, [alreadyAsk]);
-  /* DEBUG*/
+    if (!loading) {
+      setTimeout(() => {
+        setQuestion(quizData[index].question);
+        setAnswers(quizData[index].answers);
+        setCorrect(quizData[index].correct);
+        setResult({ one: "", two: "" });
+        setButtonDisable(false);
+      }, 2000);
+    }
+  }, [index]);
 
   useEffect(() => {
-    console.log("Reset");
-    setIndex(Random());
-
+    // setIndex(Random());
     Reset();
   }, []);
 
   useEffect(() => {
     if (!loading) {
-      SetQuiz();
+      setIndex(Random());
     }
+    console.log(loading);
   }, [loading]);
 
   function Reset() {
     setScore(0);
     setNumberQuestion(5);
+    setAlreadyAsk([]);
     setResult({ one: "", two: "" });
-  }
-
-  function SetQuiz() {
-    setQuestion(quizData[index].question);
-    setAnswers(quizData[index].answers);
-    setCorrect(quizData[index].correct);
   }
 
   function Random() {
     let indexTemp;
     do {
       indexTemp = Math.floor(Math.random() * quizData.length);
-      console.log(indexTemp, "indexTemp");
-      console.log(index, "index");
     } while (alreadyAsk.includes(indexTemp));
-
     setAlreadyAsk([...alreadyAsk, indexTemp]);
     return indexTemp;
   }
 
-  function AnswersOne() {
+  function Answers(number) {
+    console.log(number);
+    console.log(correct);
     if (numberQuestion > 0) {
       setButtonDisable(true);
       console.log(correct);
-      if (correct === 0) {
+      if (correct === 0 && correct === number) {
         setResult({ one: "correct", two: "" });
+        setScore(score + 1);
+      } else if (correct === 0 && correct !== number) {
+        setResult({ one: "correct", two: "wrong" });
+      } else if (correct === 1 && correct === number) {
+        setResult({ one: "", two: "correct" });
         setScore(score + 1);
       } else {
         setResult({ one: "wrong", two: "correct" });
       }
       setIndex(Random());
-      setTimeout(() => {
-        setResult({ one: "", two: "" });
-        setQuestion(quizData[index].question);
-        setAnswers(quizData[index].answers);
-        setCorrect(quizData[index].correct);
-        setNumberQuestion(numberQuestion - 1);
-        setButtonDisable(false);
-      }, 2000);
-    }
-  }
-  function AnswersTwo() {
-    if (numberQuestion > 0) {
-      setButtonDisable(true);
-      console.log(correct);
-      if (correct === 1) {
-        setResult({ one: "", two: "correct" });
-        setScore(score + 1);
-      } else {
-        setResult({ one: "correct", two: "wrong" });
-      }
-      setIndex(Random());
-      setTimeout(() => {
-        setResult({ one: "", two: "" });
-        setQuestion(quizData[index].question);
-        setAnswers(quizData[index].answers);
-        setCorrect(quizData[index].correct);
-        setNumberQuestion(numberQuestion - 1);
-        setButtonDisable(false);
-      }, 2000);
+      setNumberQuestion(numberQuestion - 1);
     }
   }
 
@@ -183,6 +165,16 @@ export const QuizzScreen = () => {
             zIndex: 1,
           }}
         />
+      ) : !question ? (
+        <>
+          <ActivityIndicator
+            size={"large"}
+            style={{
+              zIndex: 1,
+            }}
+          />
+          <Text>Pas de question</Text>
+        </>
       ) : (
         <>
           <InsetShadow
@@ -217,27 +209,27 @@ export const QuizzScreen = () => {
           <ResponseContainer1>
             <ButtonResponse
               result={result.one}
-              OnPress={AnswersOne}
+              OnPress={() => Answers(0)}
               Disabled={buttonDisable}
             >
               <Response>{answers[0]}</Response>
             </ButtonResponse>
             <ButtonResponse
               result={result.two}
-              OnPress={AnswersTwo}
+              OnPress={() => Answers(1)}
               Disabled={buttonDisable}
             >
               <Response>{answers[1]}</Response>
             </ButtonResponse>
           </ResponseContainer1>
           {/* <ResponseContainer2>
-        <ButtonResponse>
-        <Response>Le curry vert</Response>
-        </ButtonResponse>
-        <ButtonResponse>
-        <Response>La mimolette</Response>
-        </ButtonResponse>
-      </ResponseContainer2> */}
+      <ButtonResponse>
+      <Response>Le curry vert</Response>
+      </ButtonResponse>
+      <ButtonResponse>
+      <Response>La mimolette</Response>
+      </ButtonResponse>
+    </ResponseContainer2> */}
           {/* barre de progression avec les petits */}
           <ProgresBar>
             <ProgresPoint></ProgresPoint>
