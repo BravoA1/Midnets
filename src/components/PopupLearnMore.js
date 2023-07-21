@@ -10,8 +10,8 @@ const Container = styled.View`
   height: 100%;
   padding: 30px 35px;
   z-index: 300;
-  `;
-  //background-color:rgba(213, 128, 255, .2);
+  background-color: rgba(213, 128, 255, 0.2);
+`;
 
 const PopUp = styled.View`
   width: 100%;

@@ -48,19 +48,32 @@ const Logo = styled.Image`
 
 const InfoForm = styled.Text`
   width: 100%;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 15px;
   font-size: 11px;
   font-family: ${(props) => props.theme.fonts.body};
 `;
 
-const InfoText = styled.Text`
-  text-align: left;
-  width: 100%;
-  margin-top: 5px;
-  margin-bottom: 10px;
-  font-size: 11px;
-  font-family: ${(props) => props.theme.fonts.body};
+const ButtonElement = styled.TouchableOpacity`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  padding: 10px;
+  background-color: #949494;
+  color: #000;
+  padding: 12px 35px;
+  border-radius: 100px;
+  box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
+`;
+const TextButton = styled.Text`
+  font-size: 18px;
+  text-align: center;
+  font-family: ${(props) => props.theme.fonts.heading};
+`;
+
+const Spacing = styled.View`
+  height: 10px;
 `;
 
 export const PasswordForgot = () => {
@@ -148,26 +161,18 @@ export const PasswordForgot = () => {
         error={errorEmail}
         errorTime={errorTimeEmail}
       />
+      <Spacing />
+      <ButtonGradient OnPress={() => HandleForgetPassword()}>
+        Valider
+      </ButtonGradient>
+      <Logo source={require("../../img/Midnets_icone.png")} />
       <InfoForm>
         Un lien vous sera envoyé pour réinitialiser votre mot de passe à
         l’adresse mail utilisée pour l’inscription.
       </InfoForm>
-      <ButtonGradient OnPress={() => HandleForgetPassword()}>
-        Envoyer le mail
-      </ButtonGradient>
-      <Logo source={require("../../img/Midnets_icone.png")} />
-      <InfoText>
-        Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse
-        quam nihil molestiae consequatu
-      </InfoText>
-      <InfoText>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore{" "}
-      </InfoText>
-      <InfoText>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatu
-      </InfoText>
+      <ButtonElement>
+        <TextButton>Retour</TextButton>
+      </ButtonElement>
       <Snackbar
         visible={visible}
         onDismiss={() => setVisible(false)}

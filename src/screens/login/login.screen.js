@@ -26,10 +26,12 @@ const SpacerTop = styled.View`
 `;
 
 const ForgotPassword = styled.Text`
+  color: #989898;
   margin-top: -10px;
   margin-bottom: 25px;
   align-self: flex-end;
   text-decoration: underline;
+  text-decoration-color: #989898;
   font-family: ${(props) => props.theme.fonts.body};
 `;
 
