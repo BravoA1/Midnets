@@ -1,9 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
 import { HomeScreen } from "../home/home.screen.js";
 import { ContactScreen } from "../contact/contact.screen.js";
 import { ErrorScreen } from "../error/error.screen.js";
@@ -20,8 +18,8 @@ import { ThemeScreen } from "../quizz/theme.screen.js";
 export const NavBar = ({ navigation }) => {
   const { info, user } = useContext(UserContext);
 
-  console.log(info, "navbar");
-  console.log(user, "navbar");
+  // console.log(info, "navbar");
+  // console.log(user, "navbar");
 
   const QuizParent = () => (
     <QuizContextProvider>

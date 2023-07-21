@@ -1,8 +1,10 @@
-import { styled } from "styled-components";
+import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import { colors } from "../infrastructure/theme/colors";
 
-export default ButtonResponse = ({ children, onPress }) => {
+export default ButtonResponse = ({ children, OnPress, result, Disabled }) => {
   const ButtonElement = styled.TouchableOpacity`
     flex-direction: row;
     justify-content: center;
@@ -32,15 +34,30 @@ export default ButtonResponse = ({ children, onPress }) => {
     padding: 0px;
   `;
 
+  const [color, setColor] = useState("#D8C2EF");
+
+  useEffect(() => {
+    switch (result) {
+      case "wrong":
+        setColor(colors.ui.error);
+        break;
+      case "correct":
+        setColor(colors.ui.success);
+        break;
+      default:
+        setColor("#D8C2EF");
+    }
+  }, [result]);
+
   return (
     <BoxGradient style={styles.container}>
       <LinearButton
-        colors={["#D8C2EF", "rgba(255,255,255,0)"]}
+        colors={[`${color}`, "rgba(255,255,255,0)"]}
         locations={[0, 1]}
         start={{ x: 1, y: 0 }}
         end={{ x: 0, y: 1 }}
       >
-        <ButtonElement onPress={onPress}>
+        <ButtonElement onPress={OnPress} disabled={Disabled}>
           <TextButton>{children}</TextButton>
         </ButtonElement>
       </LinearButton>
