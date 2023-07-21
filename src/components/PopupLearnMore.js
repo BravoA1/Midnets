@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 import { Image, ScrollView, Text, View } from "react-native";
 import InsetShadow from "react-native-inset-shadow";
 import { styled } from "styled-components/native";
+import { CornerBlock } from "./CornerBlock";
 
 const Container = styled.View`
   position: absolute;
@@ -105,34 +106,31 @@ export const PopUpLearnMore = ({ data, setShowPopup, showPopup }) => {
           <Image source={require("../img/Exclude.png")} />
         </PopUpClose>
         <View style={{ flex: 1, zIndex: 300 }}>
-          <CornerText />
-          <ScrollView style={{ flex: 1, padding: 2 }}>
-            <PopUpSection>
-              <PopUpText>
-                Lorem ipsum dolor sit amet consectetur. At potenti nec nulla
-                purus ultricies eget. Suscipit consequat amet euismod netus.
-                Netus malesuada felis viverra ullamcorper. Lobortis nibh
-              </PopUpText>
-              <PopUpText>
-                fermentum turpis sed. Euismod nunc consequat purus sed. Nisi
-                augue egestas diam arcu quis nunc aliquet lectus. Ut volutpat{" "}
-              </PopUpText>
-              <PopUpText>
-                eget diam netus dictumst. Eget donec id amet faucibus justo sed
-                urna leo faucibus volutpat sapien. Ut porta diam egestas proin
-                et elit scelerisque pretium ultricies.
-              </PopUpText>
-            </PopUpSection>
-          </ScrollView>
-          <CornerText
-            style={{
-              transform: [{ rotate: "180deg" }],
-              top: "auto",
-              left: "auto",
-              right: 0,
-              bottom: 0,
-            }}
-          />
+          <CornerBlock
+            size="100px"
+            color="white"
+            borderHorizontal="4px"
+            borderVertical="4px"
+          >
+            <ScrollView style={{ flex: 1, padding: 2 }}>
+              <PopUpSection>
+                <PopUpText>
+                  Lorem ipsum dolor sit amet consectetur. At potenti nec nulla
+                  purus ultricies eget. Suscipit consequat amet euismod netus.
+                  Netus malesuada felis viverra ullamcorper. Lobortis nibh
+                </PopUpText>
+                <PopUpText>
+                  fermentum turpis sed. Euismod nunc consequat purus sed. Nisi
+                  augue egestas diam arcu quis nunc aliquet lectus. Ut volutpat{" "}
+                </PopUpText>
+                <PopUpText>
+                  eget diam netus dictumst. Eget donec id amet faucibus justo
+                  sed urna leo faucibus volutpat sapien. Ut porta diam egestas
+                  proin et elit scelerisque pretium ultricies.
+                </PopUpText>
+              </PopUpSection>
+            </ScrollView>
+          </CornerBlock>
         </View>
       </PopUp>
     </Container>
