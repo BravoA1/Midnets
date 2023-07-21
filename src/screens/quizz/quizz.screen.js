@@ -23,6 +23,7 @@ const TitleContainer = styled.View`
   padding-left: 5%;
   display: flex;
   align-items: flex-start;
+  align-items: flex-start;
   justify-content: center;
 `;
 const Title = styled.Text``;
