@@ -1,17 +1,23 @@
 import { useEffect, useState } from "react";
 import SVG, { Circle, Path } from "react-native-svg";
 
-export const CountDown = ({ seconds, onTimeUp }) => {
-  const pointsCount = seconds;
-  const [pointsToRender, setPointsToRender] = useState(seconds);
+export const CountDown = ({ time, setTime, onTimeUp, pause }) => {
+  //const pointsCount = 20;
+  const [pointsCount, setPointsCount] = useState(40);
+  //const [timeMax, setTimeMax] = useState(0);
+  const [pointsToRender, setPointsToRender] = useState(40);
   const [path, setPath] = useState(
     "M65 320a260 260 0 1 0 520 0a260 260 0 1 0 -520 0"
   );
   console.log(
+    "time",
+    time,
     "pointsToRender",
     pointsToRender,
-    "pointsToRender",
-    pointsToRender
+    "pointsCount",
+    pointsCount,
+    "pause",
+    pause
   );
 
   const width = 650;
@@ -22,11 +28,18 @@ export const CountDown = ({ seconds, onTimeUp }) => {
   const strokeWidth = 20;
 
   useEffect(() => {
-    if (pointsToRender >= 0) {
+    //setTimeMax(time);
+    setPointsCount(time * 2);
+  }, []);
+
+  useEffect(() => {
+    if (pause) return;
+    if (time >= 0) {
+      setPointsToRender((prevCount) => prevCount - 1);
       // Function to update the timer every second
       const interval = setInterval(() => {
-        setPointsToRender((prevSeconds) => prevSeconds - 1);
-      }, 1000);
+        setTime((prevTime) => prevTime - 0.5);
+      }, 500);
       // Clean up the interval on unmount or when seconds reach 0
       setPath(() => calculatePath());
       return () => {
@@ -36,12 +49,13 @@ export const CountDown = ({ seconds, onTimeUp }) => {
       // Time is up, invoke the callback function
       onTimeUp();
     }
-  }, [pointsToRender]);
+  }, [time]);
 
   const calculatePath = () => {
     const theta = (2 * Math.PI) / pointsCount;
     const radius = r - 8;
     let path = `M${cx} ${cy}V${radius}`;
+    //const pointsToRender = time * 2; //Math.floor((pointsCount * time) / timeMax);
     for (let i = 0; i <= pointsToRender; i++) {
       const x = cx - radius * Math.sin(i * theta);
       const y = cy - radius * Math.cos(i * theta);
@@ -53,8 +67,8 @@ export const CountDown = ({ seconds, onTimeUp }) => {
   return (
     <SVG
       xmlns="http://www.w3.org/2000/svg"
-      width={50}
-      height={50}
+      width={40}
+      height={40}
       viewBox={`0 0 ${width} ${height}`}
     >
       <Path
