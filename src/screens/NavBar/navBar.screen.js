@@ -15,6 +15,7 @@ import { useContext } from "react";
 import { UserContext } from "../../services/user/user.context.js";
 import { Signout } from "../temp/Signout.js";
 import { QuizContextProvider } from "../../services/quiz/quiz.context.js";
+import { ThemeScreen } from "../quizz/theme.screen.js";
 
 export const NavBar = ({ navigation }) => {
   const { info, user } = useContext(UserContext);
@@ -33,8 +34,7 @@ export const NavBar = ({ navigation }) => {
     <NavigationContainer
       screenOptions={{
         headerShown: false,
-      }}
-    >
+      }}>
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
@@ -71,8 +71,7 @@ export const NavBar = ({ navigation }) => {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           headerShown: false,
-        })}
-      >
+        })}>
         {/*Futur screen a ajouté */
         /* <Tab.Screen name="Back" component={Back} />
       <Tab.Screen name="Home" component={HomeScreen} />
@@ -83,6 +82,7 @@ export const NavBar = ({ navigation }) => {
         <Tab.Screen name="Contact" component={ContactScreen} />
         <Tab.Screen name="Error" component={ErrorScreen} />
         {!user && <Tab.Screen name="Login" component={Login} />}
+        <Tab.Screen name="Theme" component={ThemeScreen} />
         <Tab.Screen name="Quizz" component={QuizParent} />
         {user && <Tab.Screen name="Signout" component={Signout} />}
         <Tab.Screen

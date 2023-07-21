@@ -33,7 +33,7 @@ const PopUpClose = styled.TouchableOpacity`
   height: 50px;
   padding-top: 5px;
   background-color: white;
-  border-radius: 50%;
+  border-radius: 70px;
   z-index: 250;
 `;
 
