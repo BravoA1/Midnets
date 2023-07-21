@@ -1,7 +1,9 @@
 import Slider from "@react-native-community/slider";
 import { StatusBar } from "expo-status-bar";
-import { Dimensions, StyleSheet, Image } from "react-native";
+import { Dimensions, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { styled } from "styled-components/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { QuizzScreen } from "./quizz.screen";
 
 let screenWidth = Dimensions.get("window").width;
 
@@ -92,7 +94,7 @@ const Select = styled.View`
   padding-bottom: 5%;
 `;
 
-const Option = styled.View`
+const Touche = styled.TouchableOpacity`
   width: 45%;
   height: 100px;
   margin-top: 3%;
@@ -108,6 +110,8 @@ const OptionTitle = styled.Text`
   top: 0;
   left: -10px;
   padding-horizontal: 10px;
+  z-index: 1;
+  height: 21px;
 `;
 
 const Triangle = styled.View`
@@ -129,7 +133,9 @@ const img5 = require("../../img/quiz/img5.jpg");
 const img6 = require("../../img/quiz/img6.jpg");
 const bg = require("../../img/background2.png");
 
-export const ThemeScreen = () => {
+const Tab = createBottomTabNavigator();
+
+export const ThemeScreen = ({ navigation }) => {
   return (
     <Scrollable>
       <Container>
@@ -169,37 +175,40 @@ export const ThemeScreen = () => {
         </Border>
 
         <Select>
-          <Option>
+          <Touche onPress={() => navigation.navigate("Quizz")}>
             <OptionTitle>Art</OptionTitle>
             <Triangle></Triangle>
-            <Image source={img1} style={styles.image}></Image>
-          </Option>
-          <Option>
+            <Image source={img1} style={styles.image} />
+          </Touche>
+          <Touche onPress={() => navigation.navigate("Quizz")}>
             <OptionTitle>Littérature</OptionTitle>
             <Triangle></Triangle>
-
-            <Image source={img2} style={styles.image}></Image>
-          </Option>
-          <Option>
+            <Image source={img2} style={styles.image} />
+          </Touche>
+          <Touche onPress={() => navigation.navigate("Quizz")}>
             <OptionTitle>Musique</OptionTitle>
             <Triangle></Triangle>
-            <Image source={img3} style={styles.image}></Image>
-          </Option>
-          <Option>
+            <Image
+              source={img3}
+              style={styles.image}
+              onPress={navigation.navigate("Quizz")}
+            />
+          </Touche>
+          <Touche onPress={() => navigation.navigate("Quizz")}>
             <OptionTitle>Ingéniérie</OptionTitle>
             <Triangle></Triangle>
-            <Image source={img4} style={styles.image}></Image>
-          </Option>
-          <Option>
+            <Image source={img4} style={styles.image} />
+          </Touche>
+          <Touche onPress={() => navigation.navigate("Quizz")}>
             <OptionTitle>Sciences</OptionTitle>
             <Triangle></Triangle>
-            <Image source={img5} style={styles.image}></Image>
-          </Option>
-          <Option>
+            <Image source={img5} style={styles.image} />
+          </Touche>
+          <Touche onPress={() => navigation.navigate("Quizz")}>
             <OptionTitle>Photographie</OptionTitle>
             <Triangle></Triangle>
-            <Image source={img6} style={styles.image}></Image>
-          </Option>
+            <Image source={img6} style={styles.image} />
+          </Touche>
         </Select>
       </Container>
     </Scrollable>
@@ -209,9 +218,10 @@ export const ThemeScreen = () => {
 const styles = StyleSheet.create({
   image: {
     position: "absolute",
-    resizeMode: "cover",
     width: "100%",
     height: "80%",
+    resizeMode: "cover",
+    position: "absolute",
     top: 21,
   },
 });

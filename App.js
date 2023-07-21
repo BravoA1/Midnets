@@ -84,6 +84,9 @@ export default function App() {
                 case "Login":
                   iconName = "man";
                   break;
+                case "Theme":
+                  iconName = "chatbox-ellipses";
+                  break;
                 case "Quizz":
                   iconName = "chatbox-ellipses";
                   break;
@@ -92,8 +95,7 @@ export default function App() {
               }
               return <Ionicons name={iconName} size={size} color={color} />;
             },
-          })}
-        >
+          })}>
           {/*Futur screen a ajouté */
           /* <Tab.Screen name="Back" component={Back} />
           <Tab.Screen name="Home" component={HomeScreen} />
@@ -104,7 +106,8 @@ export default function App() {
           <Tab.Screen name="Contact" component={ContactScreen} />
           <Tab.Screen name="Error" component={ErrorScreen} />
           <Tab.Screen name="Login" component={Login} />
-          <Tab.Screen name="Quizz" component={ThemeScreen} />
+          <Tab.Screen name="Theme" component={ThemeScreen} />
+          <Tab.Screen name="Quizz" component={QuizzScreen} />
           <Tab.Screen
             name="Register"
             component={RegisterScreen}
