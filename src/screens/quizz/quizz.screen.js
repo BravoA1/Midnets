@@ -7,6 +7,7 @@ import ButtonResponse from "../../components/ButtonResponse.js";
 import { QuizContext } from "../../services/quiz/quiz.context.js";
 
 import ButtonRules from "../../components/ButtonRules.js";
+import { PopUpLearnMore } from "../../components/PopupLearnMore.js";
 
 const Container = styled.View`
   display: flex;
@@ -22,6 +23,7 @@ const TitleContainer = styled.View`
   width: 100%;
   padding-left: 5%;
   display: flex;
+  align-items: flex-start;
   align-items: flex-start;
   justify-content: center;
 `;
@@ -82,6 +84,7 @@ export const QuizzScreen = () => {
   const [numberQuestion, setNumberQuestion] = useState(5);
   const [score, setScore] = useState(0);
   const [buttonDisable, setButtonDisable] = useState(false);
+  const [showLearnMoreModale, setShowLearnMoreModale] = useState(false);
 
   /* DEBUG*/
   // useEffect(() => {
@@ -94,6 +97,11 @@ export const QuizzScreen = () => {
   //   console.log(alreadyAsk, "alreadyAsk");
   // }, [alreadyAsk]);
   /* DEBUG*/
+
+  useEffect(() => {
+    console.log(showLearnMoreModale);
+  }, [showLearnMoreModale]);
+
   useEffect(() => {
     if (!loading) {
       setTimeout(() => {
@@ -157,72 +165,69 @@ export const QuizzScreen = () => {
   }
 
   return (
-    <Container>
-      {loading ? (
-        <ActivityIndicator
-          size={"large"}
-          style={{
-            zIndex: 1,
-          }}
-        />
-      ) : !question ? (
-        <>
+    <>
+      <Container>
+        {loading ? (
           <ActivityIndicator
             size={"large"}
             style={{
               zIndex: 1,
             }}
           />
-          <Text>Pas de question</Text>
-        </>
-      ) : (
-        <>
-          <InsetShadow
-            containerStyle={styles.shadow}
-            shadowRadius={10}
-            shadowOpacity={20}
-            bottom={false}
-            left={false}
-          >
-            <Linear
-              colors={["#D8C2EF", "rgba(255,255,255,0)"]}
-              locations={[0, 1]}
-              start={{ x: 1, y: 0 }}
-              end={{ x: 0, y: 1 }}
-            >
-              <TitleContainer style={styles.container}>
-                <Title>Quiz: les femmes</Title>
-              </TitleContainer>
-            </Linear>
-          </InsetShadow>
-          <View style={styles.imgContainer}>
-            <Image
-              source={require("../../img/quizzMarieCurie.jpg")}
-              style={styles.img}
+        ) : !question ? (
+          <>
+            <ActivityIndicator
+              size={"large"}
+              style={{
+                zIndex: 1,
+              }}
             />
-          </View>
-          {/* View qui contient la question */}
-          <QuestionContainer>
-            <Question>{question}</Question>
-          </QuestionContainer>
-          {/* button reponse */}
-          <ResponseContainer1>
-            <ButtonResponse
-              result={result.one}
-              OnPress={() => Answers(0)}
-              Disabled={buttonDisable}
-            >
-              <Response>{answers[0]}</Response>
-            </ButtonResponse>
-            <ButtonResponse
-              result={result.two}
-              OnPress={() => Answers(1)}
-              Disabled={buttonDisable}
-            >
-              <Response>{answers[1]}</Response>
-            </ButtonResponse>
-          </ResponseContainer1>
-          {/* <ResponseContainer2>
+            <Text>Pas de question</Text>
+          </>
+        ) : (
+          <>
+            <InsetShadow
+              containerStyle={styles.shadow}
+              shadowRadius={10}
+              shadowOpacity={20}
+              bottom={false}
+              left={false}>
+              <Linear
+                colors={["#D8C2EF", "rgba(255,255,255,0)"]}
+                locations={[0, 1]}
+                start={{ x: 1, y: 0 }}
+                end={{ x: 0, y: 1 }}>
+                <TitleContainer style={styles.container}>
+                  <Title>Quiz: les femmes</Title>
+                </TitleContainer>
+              </Linear>
+            </InsetShadow>
+            <View style={styles.imgContainer}>
+              <Image
+                source={require("../../img/quizzMarieCurie.jpg")}
+                style={styles.img}
+              />
+            </View>
+            {/* View qui contient la question */}
+            <QuestionContainer>
+              <Question>{question}</Question>
+            </QuestionContainer>
+            {/* button reponse */}
+            <ResponseContainer1>
+              <ButtonResponse
+                result={result.one}
+                OnPress={() => Answers(0)}
+                Disabled={buttonDisable}>
+                <Response>{answers[0]}</Response>
+              </ButtonResponse>
+              <ButtonResponse
+                result={result.two}
+                OnPress={() => Answers(1)}
+                Disabled={buttonDisable}>
+                <Response>{answers[1]}</Response>
+              </ButtonResponse>
+            </ResponseContainer1>
+            {/* <ResponseContainer2>
       <ButtonResponse>
       <Response>Le curry vert</Response>
       </ButtonResponse>
@@ -230,29 +235,36 @@ export const QuizzScreen = () => {
       <Response>La mimolette</Response>
       </ButtonResponse>
     </ResponseContainer2> */}
-          {/* barre de progression avec les petits */}
-          <ProgresBar>
-            <ProgresPoint></ProgresPoint>
-            <ProgresPoint></ProgresPoint>
-            <ProgresPoint></ProgresPoint>
-            <ProgresPoint></ProgresPoint>
-            <ProgresPoint></ProgresPoint>
-            <ProgresPoint></ProgresPoint>
-            <ProgresPoint></ProgresPoint>
-          </ProgresBar>
-          {/* button poour accèder aux règles */}
-          <ButtonRules></ButtonRules>
-          {/* en savoir plus container */}
-          <MoreContainer>
-            <ButtonResponse>
-              <MoreText>En savoir plus</MoreText>
-            </ButtonResponse>
-          </MoreContainer>
-          {<Text>Score : {score}</Text>}
-          {<Text>Question restant : {numberQuestion}</Text>}
-        </>
+            {/* barre de progression avec les petits */}
+            <ProgresBar>
+              <ProgresPoint></ProgresPoint>
+              <ProgresPoint></ProgresPoint>
+              <ProgresPoint></ProgresPoint>
+              <ProgresPoint></ProgresPoint>
+              <ProgresPoint></ProgresPoint>
+              <ProgresPoint></ProgresPoint>
+              <ProgresPoint></ProgresPoint>
+            </ProgresBar>
+            {/* button poour accèder aux règles */}
+            <ButtonRules></ButtonRules>
+            {/* en savoir plus container */}
+            <MoreContainer>
+              <ButtonResponse OnPress={() => setShowLearnMoreModale(true)}>
+                <MoreText>En savoir plus</MoreText>
+              </ButtonResponse>
+            </MoreContainer>
+            {<Text>Score : {score}</Text>}
+            {<Text>Question restant : {numberQuestion}</Text>}
+          </>
+        )}
+      </Container>
+      {showLearnMoreModale && (
+        <PopUpLearnMore
+          showPopup={showLearnMoreModale}
+          setShowPopup={setShowLearnMoreModale}
+        />
       )}
-    </Container>
+    </>
   );
 };
 
