@@ -8,6 +8,8 @@ import { QuizContext } from "../../services/quiz/quiz.context.js";
 
 import ButtonRules from "../../components/ButtonRules.js";
 import { PopUpLearnMore } from "../../components/PopupLearnMore.js";
+import { CountDown } from "../../components/CountDown.jsx";
+import { Snackbar } from "react-native-paper";
 
 const Container = styled.View`
   display: flex;
@@ -77,7 +79,7 @@ export const QuizzScreen = () => {
 
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState([]);
-  const [correct, setCorrect] = useState(-1);
+  const [correct, setCorrect] = useState(-2);
   const [index, setIndex] = useState();
   const [result, setResult] = useState({ one: "", two: "" });
   const [alreadyAsk, setAlreadyAsk] = useState([]);
@@ -85,6 +87,8 @@ export const QuizzScreen = () => {
   const [score, setScore] = useState(0);
   const [buttonDisable, setButtonDisable] = useState(false);
   const [showLearnMoreModale, setShowLearnMoreModale] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [time, setTime] = useState(10);
 
   /* DEBUG*/
   // useEffect(() => {
@@ -115,7 +119,6 @@ export const QuizzScreen = () => {
   }, [index]);
 
   useEffect(() => {
-    // setIndex(Random());
     Reset();
   }, []);
 
@@ -148,6 +151,33 @@ export const QuizzScreen = () => {
     if (numberQuestion > 0) {
       setButtonDisable(true);
       console.log(correct);
+      switch (number) {
+        case -1:
+          if (correct === 0) {
+            setResult({ one: "correct", two: "" });
+          } else {
+            setResult({ one: "correct", two: "correct" });
+          }
+          setVisible(true);
+          break;
+        case 0:
+          if (correct === number) {
+            setResult({ one: "correct", two: "" });
+            setScore(score + 1);
+          } else {
+            setResult({ one: "wrong", two: "correct" });
+          }
+          break;
+        case 1:
+          if (correct === number) {
+            setResult({ one: "", two: "correct" });
+            setScore(score + 1);
+          } else {
+            setResult({ one: "correct", two: "wrong" });
+          }
+          break;
+        default:
+      }
       if (correct === 0 && correct === number) {
         setResult({ one: "correct", two: "" });
         setScore(score + 1);
@@ -186,17 +216,20 @@ export const QuizzScreen = () => {
           </>
         ) : (
           <>
+            <CountDown seconds={time} onTimeUp={() => Answers(-1)} />
             <InsetShadow
               containerStyle={styles.shadow}
               shadowRadius={10}
               shadowOpacity={20}
               bottom={false}
-              left={false}>
+              left={false}
+            >
               <Linear
                 colors={["#D8C2EF", "rgba(255,255,255,0)"]}
                 locations={[0, 1]}
                 start={{ x: 1, y: 0 }}
-                end={{ x: 0, y: 1 }}>
+                end={{ x: 0, y: 1 }}
+              >
                 <TitleContainer style={styles.container}>
                   <Title>Quiz: les femmes</Title>
                 </TitleContainer>
@@ -217,13 +250,15 @@ export const QuizzScreen = () => {
               <ButtonResponse
                 result={result.one}
                 OnPress={() => Answers(0)}
-                Disabled={buttonDisable}>
+                Disabled={buttonDisable}
+              >
                 <Response>{answers[0]}</Response>
               </ButtonResponse>
               <ButtonResponse
                 result={result.two}
                 OnPress={() => Answers(1)}
-                Disabled={buttonDisable}>
+                Disabled={buttonDisable}
+              >
                 <Response>{answers[1]}</Response>
               </ButtonResponse>
             </ResponseContainer1>
@@ -257,6 +292,13 @@ export const QuizzScreen = () => {
             {<Text>Question restant : {numberQuestion}</Text>}
           </>
         )}
+        <Snackbar
+          visible={visible}
+          onDismiss={() => setVisible(false)}
+          duration={1500}
+        >
+          Time up !
+        </Snackbar>
       </Container>
       {showLearnMoreModale && (
         <PopUpLearnMore

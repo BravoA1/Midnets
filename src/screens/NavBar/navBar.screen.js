@@ -32,7 +32,8 @@ export const NavBar = ({ navigation }) => {
     <NavigationContainer
       screenOptions={{
         headerShown: false,
-      }}>
+      }}
+    >
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
@@ -69,7 +70,10 @@ export const NavBar = ({ navigation }) => {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           headerShown: false,
-        })}>
+          unmountOnBlur: true,
+          // lazy: true,
+        })}
+      >
         {/*Futur screen a ajouté */
         /* <Tab.Screen name="Back" component={Back} />
       <Tab.Screen name="Home" component={HomeScreen} />
