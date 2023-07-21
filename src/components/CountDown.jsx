@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import SVG, { Circle, Path } from "react-native-svg";
 
-export const CountDown = ({ time, setTime, onTimeUp }) => {
+export const CountDown = ({ time, setTime, onTimeUp, pause }) => {
   //const pointsCount = 20;
   const [pointsCount, setPointsCount] = useState(40);
   //const [timeMax, setTimeMax] = useState(0);
@@ -15,7 +15,9 @@ export const CountDown = ({ time, setTime, onTimeUp }) => {
     "pointsToRender",
     pointsToRender,
     "pointsCount",
-    pointsCount
+    pointsCount,
+    "pause",
+    pause
   );
 
   const width = 650;
@@ -31,6 +33,7 @@ export const CountDown = ({ time, setTime, onTimeUp }) => {
   }, []);
 
   useEffect(() => {
+    if (pause) return;
     if (time >= 0) {
       setPointsToRender((prevCount) => prevCount - 1);
       // Function to update the timer every second
