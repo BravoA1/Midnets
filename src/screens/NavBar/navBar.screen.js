@@ -15,6 +15,7 @@ import { Signout } from "../temp/Signout.js";
 import { UserContext } from "../../services/user/user.context.js";
 import { QuizContextProvider } from "../../services/quiz/quiz.context.js";
 import { ThemeScreen } from "../quizz/theme.screen.js";
+import { RulesScreen } from "../quizz/rules.screen.js";
 
 export const NavBar = ({ navigation }) => {
   const { info, user } = useContext(UserContext);
@@ -85,7 +86,7 @@ export const NavBar = ({ navigation }) => {
         <Tab.Screen name="Contact" component={ContactScreen} />
         <Tab.Screen name="Error" component={ErrorScreen} />
         {!user && <Tab.Screen name="Login" component={Login} />}
-        <Tab.Screen name="QuizzTheme" component={ThemeScreen} />
+        <Tab.Screen name="QuizzTheme" component={RulesScreen} />
         <Tab.Screen
           name="Quizz"
           component={QuizParent}
