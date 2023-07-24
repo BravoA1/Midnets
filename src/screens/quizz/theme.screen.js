@@ -1,15 +1,15 @@
 import Slider from "@react-native-community/slider";
 import { StatusBar } from "expo-status-bar";
-import { Dimensions, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Dimensions, StyleSheet, Image } from "react-native";
 import { styled } from "styled-components/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { QuizzScreen } from "./quizz.screen";
 
 let screenWidth = Dimensions.get("window").width;
 
 const Scrollable = styled.ScrollView`
   flex: 1;
   width: 100%;
+  ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
 `;
 
 const Container = styled.View`
@@ -31,7 +31,7 @@ const TitleBlock = styled.View`
   margin-bottom: 40px;
   border-bottom-width: 2px;
   border-top-width: 2px;
-  padding: 10px 50px;
+  padding: 10px 0px;
   width: ${(screenWidth * 3) / 4}px;
 `;
 
@@ -46,6 +46,7 @@ const Border = styled.View`
   border-bottom-width: 2px;
   border-top-width: 2px;
   width: 100%;
+  background-color: white;
 `;
 
 const ParameterBlock = styled.View`
@@ -82,7 +83,8 @@ const SliderBox = styled.View`
 `;
 
 const Mode = styled.Text`
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: bold;
 `;
 
 const Select = styled.View`
@@ -211,6 +213,8 @@ export const ThemeScreen = ({ navigation }) => {
   );
 };
 
+// Dans un soucis de design, 
+// styled bloque l'usage de "resizeMode"
 const styles = StyleSheet.create({
   image: {
     position: "absolute",
