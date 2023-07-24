@@ -36,14 +36,14 @@ const ResultContainer = styled.View`
   height: 70%;
   margin-top: ${(props) => props.theme.space[4]};
   border-radius: 10%;
-  background: ${(props) => props.theme.colors.bg.darkgrey};
+  background: ${(props) => props.theme.colors.bg.secondary};
   position: absolute;
   align-items: center;
 `;
 
 //container avec le header
 const ResultBanner = styled.View`
-  background-color: ${(props) => props.theme.colors.bg.lightgrey};
+  background-color: ${(props) => props.theme.colors.bg.tertiary};
   width: 100%;
   height: 7%;
   top: ${(props) => props.theme.space[5]};
@@ -63,7 +63,7 @@ const ResultSmallContainer = styled.View`
 
 //container gris qui contient les deux view du score et du texte
 const ResultScoreContainer = styled.View`
-  background: ${(props) => props.theme.colors.bg.lightgrey};
+  background: ${(props) => props.theme.colors.bg.tertiary};
   width: 65%;
   height: 30%;
   border-radius: 10%;

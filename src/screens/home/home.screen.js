@@ -16,6 +16,7 @@ import { H1 } from "../../components/theme";
 import { useState } from "react";
 
 const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get("window").width;
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -53,7 +54,7 @@ const TitleContainer = styled.View`
 const BlackDot = styled.View`
   position: relative;
   width: 5%;
-  right: 107%;
+  right: ${windowWidth / 6.35}px;
   aspect-ratio: 1 / 1;
   background-color: black;
   border-radius: 500px;
@@ -61,7 +62,7 @@ const BlackDot = styled.View`
 
 const HorizontalLine = styled.View`
   width: 1%;
-  height: 75%;
+  height: 80%;
   background-color: black;
 `;
 
@@ -133,12 +134,10 @@ export const HomeScreen = () => {
         <Logo height={100} />
       </LogoContainer>
       <View style={{ flex: 1 }}>
-        <View style={{ flexDirection: "row", maxHeight: "65%" }}>
+        <View style={{ flexDirection: "row", maxHeight: "75%" }}>
           <NavBar>
             <VerticalLine />
-            <HorizontalLine
-              style={(portrait || defi || forum) && styles.horizontal}
-            />
+            <HorizontalLine style={(portrait || defi) && styles.horizontal} />
             <VerticalLine />
           </NavBar>
           <GroupContainer>
