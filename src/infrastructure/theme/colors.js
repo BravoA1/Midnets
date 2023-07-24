@@ -16,6 +16,9 @@ export const colors = {
   bg: {
     primary: "#FFFFFF",
     secondary: "#F1F1F1",
+    purple: "#9275B2",
+    darkgrey: "#565656",
+    lightgrey: "#D9D9D9",
   },
   text: {
     primary: "#262626",
@@ -25,5 +28,7 @@ export const colors = {
     error: "#D0421B",
     success: "#138000",
     purple: "#9275B2",
+    darkgrey: "#565656",
+    lightgrey: "D9D9D9",
   },
 };
