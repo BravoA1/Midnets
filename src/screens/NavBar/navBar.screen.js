@@ -17,6 +17,8 @@ import { QuizContextProvider } from "../../services/quiz/quiz.context.js";
 import { ThemeScreen } from "../quizz/theme.screen.js";
 import { RulesScreen } from "../quizz/rules.screen.js";
 import { AccessibilityScreen } from "../options/accessibility.screen.js";
+import { PortraitsScreen } from "../Portraits/portrait.screen.js";
+import { PortraitArticleScreen } from "../portraitArticle/portraitArticle.screen.js";
 
 export const NavBar = ({ navigation }) => {
   const { info, user } = useContext(UserContext);
@@ -35,7 +37,8 @@ export const NavBar = ({ navigation }) => {
     <NavigationContainer
       screenOptions={{
         headerShown: false,
-      }}>
+      }}
+    >
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
@@ -67,6 +70,9 @@ export const NavBar = ({ navigation }) => {
                 iconName = "chatbox-ellipses";
                 break;
 
+              case "Portrait":
+                iconName = "newspaper-outline";
+                break;
               default:
                 iconName = "construct-outline";
             }
@@ -75,7 +81,8 @@ export const NavBar = ({ navigation }) => {
           headerShown: false,
           // unmountOnBlur: true,
           // lazy: true,
-        })}>
+        })}
+      >
         {/*Futur screen a ajouté */
         /* <Tab.Screen name="Back" component={Back} />
       <Tab.Screen name="Home" component={HomeScreen} />
@@ -86,6 +93,7 @@ export const NavBar = ({ navigation }) => {
         <Tab.Screen name="Contact" component={ContactScreen} />
         <Tab.Screen name="Error" component={AccessibilityScreen} />
         {!user && <Tab.Screen name="Login" component={Login} />}
+        <Tab.Screen name="Portrait" component={PortraitsScreen} />
         <Tab.Screen name="QuizzTheme" component={ThemeScreen} />
         <Tab.Screen name="Result" component={ResultScreen} />
         <Tab.Screen
@@ -107,6 +115,13 @@ export const NavBar = ({ navigation }) => {
         <Tab.Screen
           name="ForgotPswd"
           component={PasswordForgot}
+          options={() => ({
+            tabBarButton: () => null,
+          })}
+        />
+        <Tab.Screen
+          name="PortraitArticle"
+          component={PortraitArticleScreen}
           options={() => ({
             tabBarButton: () => null,
           })}
