@@ -7,9 +7,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { HomeScreen } from "../../screens/home/home.screen";
 import { ContactScreen } from "../../screens/contact/contact.screen.js";
 import { ErrorScreen } from "../../screens/error/error.screen.js";
-import { Login } from "../../screens/login/login.screen.js";
-import { RegisterScreen } from "../../screens/register/register.screen";
-import { PasswordForgot } from "../../screens/passwordForgot/passwordForgot.screen";
 import { Signout } from "../../screens/temp/Signout.js";
 // Context
 import { UserContext } from "../../services/user/user.context";
@@ -56,7 +53,7 @@ export const AppNavigator = () => {
               case "Login":
                 iconName = "man";
                 break;
-              case "QuizzTheme":
+              case "QuizTheme":
                 iconName = "chatbox-ellipses";
                 break;
               default:
@@ -78,35 +75,13 @@ export const AppNavigator = () => {
         <Tab.Screen name="Error" component={ErrorScreen} />
         {!user && <Tab.Screen name="Login" component={AuthNavigator} />}
         <Tab.Screen
-          name="QuizzTheme"
+          name="QuizTheme"
           component={QuizNavigator}
           options={() => ({
             unmountOnBlur: true,
           })}
         />
-        {/* <Tab.Screen
-          name="Quizz"
-          component={QuizParent}
-          options={() => ({
-            tabBarButton: () => null,
-            unmountOnBlur: true,
-          })}
-        /> */}
         {user && <Tab.Screen name="Signout" component={Signout} />}
-        <Tab.Screen
-          name="Register"
-          component={RegisterScreen}
-          options={() => ({
-            tabBarButton: () => null,
-          })}
-        />
-        <Tab.Screen
-          name="ForgotPswd"
-          component={PasswordForgot}
-          options={() => ({
-            tabBarButton: () => null,
-          })}
-        />
       </Tab.Navigator>
       <StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />
     </NavigationContainer>
