@@ -1,15 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { ThemeScreen } from "../../screens/quizz/theme.screen";
-import { QuizzScreen } from "../../screens/quizz/quizz.screen";
-import { QuizContextProvider } from "../../services/quiz/quiz.context";
+import { QuizParent } from "../../screens/quizz/quizzParent.screen";
 
 const QuizStack = createStackNavigator();
-
-const QuizParent = () => (
-  <QuizContextProvider>
-    <QuizzScreen />
-  </QuizContextProvider>
-);
 
 export const QuizNavigator = () => {
   return (
