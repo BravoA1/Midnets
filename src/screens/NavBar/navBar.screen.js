@@ -34,8 +34,7 @@ export const NavBar = ({ navigation }) => {
     <NavigationContainer
       screenOptions={{
         headerShown: false,
-      }}
-    >
+      }}>
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
@@ -74,8 +73,7 @@ export const NavBar = ({ navigation }) => {
           headerShown: false,
           // unmountOnBlur: true,
           // lazy: true,
-        })}
-      >
+        })}>
         {/*Futur screen a ajouté */
         /* <Tab.Screen name="Back" component={Back} />
       <Tab.Screen name="Home" component={HomeScreen} />
@@ -86,7 +84,7 @@ export const NavBar = ({ navigation }) => {
         <Tab.Screen name="Contact" component={ContactScreen} />
         <Tab.Screen name="Error" component={ErrorScreen} />
         {!user && <Tab.Screen name="Login" component={Login} />}
-        <Tab.Screen name="QuizzTheme" component={RulesScreen} />
+        <Tab.Screen name="QuizzTheme" component={ThemeScreen} />
         <Tab.Screen
           name="Quizz"
           component={QuizParent}

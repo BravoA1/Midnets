@@ -12,7 +12,7 @@ const Scrollable = styled.ScrollView`
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
 `;
 
-const Container = styled.View`
+const Container = styled.SafeAreaView`
   flex: 1;
   width: 100%;
   align-items: center;

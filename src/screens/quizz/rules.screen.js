@@ -1,38 +1,73 @@
 import { StatusBar } from "expo-status-bar";
-import { Dimensions, StyleSheet, Image } from "react-native";
+import { Dimensions, FlatList, StyleSheet, Text } from "react-native";
 import { styled } from "styled-components/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import TitleRuban from "../../components/TitleRuban";
+import RubanCard from "../../components/RubanCard";
+import ButtonGradient from "../../components/ButtonGradient";
+import ButtonResponse from "../../components/ButtonResponse";
 
-let screenWidth = Dimensions.get("window").width;
+const screenWidth = Dimensions.get("window").width;
 
-const Container = styled.View`
-  flex: 1;
+const Container = styled.SafeAreaView`
   height: 100%;
+  margin-top: 20px;
 `;
 
 const bg = require("../../img/background.png");
 
 const BgContainer = styled.View`
   position: absolute;
-  top: 50%;
+  top: 25%;
   flex: 1;
   margin: auto;
-  border: red 1px solid;
   height: 50%;
+  width: 100%;
 `;
 
 const Background = styled.Image`
   height: 100%;
-  /* height: auto; */
+  width: 150%;
+  z-index: -1;
+  opacity: 0.4;
 `;
 
 const Scrollable = styled.ScrollView`
   flex: 1;
   width: 100%;
-  ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
+  height: 100%;
+  ${StatusBar.currentHeight && `padding-top: ${StatusBar.currentHeight}px`};
+`;
+
+const Content = styled.View`
+  height: 100%;
+  justify-content: space-between;
+`;
+
+const List = styled.View`
+  background-color: white;
   width: ${(screenWidth * 3) / 4}px;
-  margin: auto;
+  justify-content: center;
+`;
+
+const Line = styled.View`
+  background-color: black;
+  margin-vertical: 20px;
+  height: 3px;
+`;
+
+const Ul = styled.FlatList`
+  padding-horizontal: 20px;
+`;
+
+const Rule = styled.Text`
+  padding: 20px;
+  flex-wrap: wrap;
+  overflow: hidden;
+  width: 100%;
+`;
+
+const Btn = styled.View`
+  align-items: center;
+  margin-top: 20px;
 `;
 
 export const RulesScreen = ({ navigation }) => {
@@ -42,7 +77,26 @@ export const RulesScreen = ({ navigation }) => {
         <Background source={bg} />
       </BgContainer>
       <Scrollable>
-        <TitleRuban />
+        <RubanCard title={"Règles du Jeu"}>
+          <List>
+            <Line></Line>
+            <Ul
+              data={[
+                { key: "Une série de 20 questions" },
+                { key: "20 secondes pour répondre à chaque question" },
+                { key: "Tentez d'améliorer votre score" },
+              ]}
+              renderItem={({ item }) => (
+                <Rule style={{ fontSize: 20 }}>{`\u2022 ${item.key}`}</Rule>
+              )}
+            />
+            <Line></Line>
+          </List>
+        </RubanCard>
+
+        <Btn>
+          <ButtonGradient>Continuer</ButtonGradient>
+        </Btn>
       </Scrollable>
     </Container>
   );
