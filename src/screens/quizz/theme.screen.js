@@ -142,6 +142,10 @@ export const ThemeScreen = ({ navigation }) => {
     setValue(value);
   }
 
+  const navigateToQuizz = () => {
+    navigation.navigate("Quiz", { difficulty: value });
+  };
+
   return (
     <Scrollable>
       <Container>
@@ -183,32 +187,32 @@ export const ThemeScreen = ({ navigation }) => {
         </Border>
 
         <Select>
-          <Touche onPress={() => navigation.navigate("Quiz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Art</OptionTitle>
             <Triangle></Triangle>
             <Image source={img1} style={styles.image} />
           </Touche>
-          <Touche onPress={() => navigation.navigate("Quiz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Littérature</OptionTitle>
             <Triangle></Triangle>
             <Image source={img2} style={styles.image} />
           </Touche>
-          <Touche onPress={() => navigation.navigate("Quiz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Musique</OptionTitle>
             <Triangle></Triangle>
             <Image source={img3} style={styles.image} />
           </Touche>
-          <Touche onPress={() => navigation.navigate("Quiz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Ingéniérie</OptionTitle>
             <Triangle></Triangle>
             <Image source={img4} style={styles.image} />
           </Touche>
-          <Touche onPress={() => navigation.navigate("Quiz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Sciences</OptionTitle>
             <Triangle></Triangle>
             <Image source={img5} style={styles.image} />
           </Touche>
-          <Touche onPress={() => navigation.navigate("Quiz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Photographie</OptionTitle>
             <Triangle></Triangle>
             <Image source={img6} style={styles.image} />

@@ -96,35 +96,36 @@ const ProgresPoint = styled.View`
   margin-right: 2%;
 `;
 
-export const QuizzScreen = () => {
-  const { quizData, loading } = useContext(QuizContext);
-
+export const QuizzScreen = ({ difficulty }) => {
+  // Context
+  const { quizDataEasy, quizDataMedium, loading } = useContext(QuizContext);
+  // Question UseState
+  const [index, setIndex] = useState();
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState([]);
   const [correct, setCorrect] = useState(-2);
-  const [index, setIndex] = useState();
-  const [result, setResult] = useState({ one: "", two: "" });
+  const [result, setResult] = useState({
+    one: "",
+    two: "",
+    three: "",
+    four: "",
+  });
   const [alreadyAsk, setAlreadyAsk] = useState([]);
-  const [numberQuestion, setNumberQuestion] = useState(5);
+
+  // For result UseState
+  const QuestionNumber = difficulty > 2 ? 5 : 10;
+  const [numberQuestion, setNumberQuestion] = useState(QuestionNumber);
   const [score, setScore] = useState(0);
+
+  // PopUp and Button UseState
   const [buttonDisable, setButtonDisable] = useState(false);
   const [showLearnMoreModale, setShowLearnMoreModale] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [time, setTime] = useState(10);
+
+  // Timer UseState
+  const [time, setTime] = useState(difficulty === 2 ? 15 : 20);
   const [pause, setPause] = useState(false);
   const [reset, setReset] = useState(true);
-
-  /* DEBUG*/
-  // useEffect(() => {
-  //   console.log(question, "question");
-  // }, [question]);
-  // useEffect(() => {
-  //   console.log(answers, "answers");
-  // }, [answers]);
-  // useEffect(() => {
-  //   console.log(alreadyAsk, "alreadyAsk");
-  // }, [alreadyAsk]);
-  /* DEBUG*/
 
   useEffect(() => {
     if (!showLearnMoreModale) {
@@ -132,36 +133,56 @@ export const QuizzScreen = () => {
     }
   }, [showLearnMoreModale]);
 
-  useEffect(() => {
-    if (!loading) {
-      setTimeout(() => {
-        setQuestion(quizData[index].question);
-        setAnswers(quizData[index].answers);
-        setCorrect(quizData[index].correct);
-        setResult({ one: "", two: "" });
-        setButtonDisable(false);
-      }, 2000);
-    }
-  }, [index]);
-
+  // Reset all on first render
   useEffect(() => {
     Reset();
   }, []);
 
   useEffect(() => {
+    // Quand l'index change
+    if (!loading) {
+      // Timeout reactivate button and set new Question with timer
+      setTimeout(() => {
+        setButtonDisable(false);
+        if (difficulty === 2) {
+          setTime(15);
+          NewQuestion(quizDataMedium[index]);
+        } else {
+          setTime(20);
+          NewQuestion(quizDataEasy[index]);
+        }
+      }, 2000);
+    }
+  }, [index]);
+
+  // When loading as finish get the first question index
+  useEffect(() => {
     if (!loading) {
       setIndex(Random());
     }
-    console.log(loading);
+    console.log(loading, "loading");
   }, [loading]);
 
-  function Reset() {
-    setScore(0);
-    setNumberQuestion(5);
-    setAlreadyAsk([]);
-    setResult({ one: "", two: "" });
+  // Initialise the new Question
+  function NewQuestion(quizData) {
+    setQuestion(quizData.question);
+    setAnswers(quizData.answers);
+    setCorrect(quizData.correct);
+    setReset(true);
+    setResult({ one: "", two: "", three: "", four: "" });
   }
 
+  // Reset all the parameter
+  function Reset() {
+    setScore(0);
+    setTime(difficulty === 2 ? 15 : 20);
+    setNumberQuestion(QuestionNumber);
+    setAlreadyAsk([]);
+    setButtonDisable(true);
+    setResult({ one: "", two: "", three: "", four: "" });
+  }
+
+  // Randomize index without having the same as an old one
   function Random() {
     let indexTemp;
     do {
@@ -171,56 +192,108 @@ export const QuizzScreen = () => {
     return indexTemp;
   }
 
+  // Logic to see if answers is correct or not
   function Answers(number) {
-    console.log(number);
-    console.log(correct);
+    console.log(number, " number");
+    console.log(correct, "correct");
     if (numberQuestion > 0) {
+      // To prevent user from spamming button
       setButtonDisable(true);
-      console.log(correct);
       switch (number) {
+        // Timer case
         case -1:
-          if (numberQuestion > 0) {
-            if (correct === 0) {
-              setResult({ one: "correct", two: "" });
-            } else {
-              setResult({ one: "", two: "correct" });
-            }
-            setVisible(true);
-            setTime(10);
-            setReset(true);
+          switch (correct) {
+            case 0:
+              setResult({ one: "correct", two: "", three: "", four: "" });
+              break;
+            case 1:
+              setResult({ one: "", two: "correct", three: "", four: "" });
+              break;
+            case 2:
+              setResult({ one: "", two: "", three: "correct", four: "" });
+              break;
+            case 3:
+              setResult({ one: "", two: "", three: "", four: "correct" });
+              break;
           }
+          setVisible(true);
           break;
         case 0:
-          if (correct === number) {
-            setResult({ one: "correct", two: "" });
-            setScore(score + 1);
-          } else {
-            setResult({ one: "wrong", two: "correct" });
+          switch (correct) {
+            case 0:
+              setResult({ one: "correct", two: "", three: "", four: "" });
+              setScore(score + 1);
+              break;
+            case 1:
+              setResult({ one: "correct", two: "wrong", three: "", four: "" });
+              break;
+            case 2:
+              setResult({ one: "correct", two: "", three: "wrong", four: "" });
+              break;
+            case 3:
+              setResult({ one: "correct", two: "", three: "", four: "wrong" });
+              break;
           }
           break;
         case 1:
-          if (correct === number) {
-            setResult({ one: "", two: "correct" });
-            setScore(score + 1);
-          } else {
-            setResult({ one: "correct", two: "wrong" });
+          switch (correct) {
+            case 0:
+              setResult({ one: "wrong", two: "correct", three: "", four: "" });
+              break;
+            case 1:
+              setResult({ one: "", two: "correct", three: "", four: "" });
+              setScore(score + 1);
+              break;
+            case 2:
+              setResult({ one: "", two: "correct", three: "wrong", four: "" });
+              break;
+            case 3:
+              setResult({ one: "", two: "correct", three: "", four: "wrong" });
+              break;
+          }
+          break;
+        case 2:
+          switch (correct) {
+            case 0:
+              setResult({ one: "wrong", two: "", three: "correct", four: "" });
+              break;
+            case 1:
+              setResult({ one: "", two: "wrong", three: "correct", four: "" });
+              break;
+            case 2:
+              setResult({ one: "", two: "", three: "correct", four: "" });
+              setScore(score + 1);
+              break;
+            case 3:
+              setResult({ one: "", two: "", three: "correct", four: "wrong" });
+              break;
+          }
+          break;
+        case 3:
+          switch (correct) {
+            case 0:
+              setResult({ one: "wrong", two: "", three: "", four: "correct" });
+              break;
+            case 1:
+              setResult({ one: "", two: "wrong", three: "", four: "correct" });
+              break;
+            case 2:
+              setResult({ one: "", two: "", three: "wrong", four: "correct" });
+              setScore(score + 1);
+              break;
+            case 3:
+              setResult({ one: "", two: "", three: "", four: "correct" });
+              break;
           }
           break;
         default:
       }
-      if (correct === 0 && correct === number) {
-        setResult({ one: "correct", two: "" });
-        setScore(score + 1);
-      } else if (correct === 0 && correct !== number) {
-        setResult({ one: "correct", two: "wrong" });
-      } else if (correct === 1 && correct === number) {
-        setResult({ one: "", two: "correct" });
-        setScore(score + 1);
-      } else {
-        setResult({ one: "wrong", two: "correct" });
-      }
+      // Set a new index and change the number of question
       setIndex(Random());
       setNumberQuestion(numberQuestion - 1);
+    } else {
+      // Disable button to prevent error
+      setButtonDisable(true);
     }
   }
 
@@ -229,22 +302,24 @@ export const QuizzScreen = () => {
       <SafeAreaView>
         <Container>
           {loading ? (
-            <ActivityIndicator
-              size={"large"}
-              style={{
-                zIndex: 1,
-              }}
-            />
-          ) : !question ? (
-            <>
+            <View style={{ justifyContent: "center", alignItem: "center" }}>
               <ActivityIndicator
                 size={"large"}
                 style={{
                   zIndex: 1,
                 }}
               />
-              <Text>Pas de question</Text>
-            </>
+            </View>
+          ) : !question ? (
+            <View style={{ justifyContent: "center", alignItem: "center" }}>
+              <ActivityIndicator
+                size={"large"}
+                style={{
+                  zIndex: 1,
+                }}
+              />
+              <Text>Pas de Question</Text>
+            </View>
           ) : (
             <>
               <CountDown
@@ -300,23 +375,63 @@ export const QuizzScreen = () => {
                   <Response>{answers[1]}</Response>
                 </ButtonResponse>
               </ResponseContainer1>
-              {/* <ResponseContainer2>
-        <ButtonResponse>
-        <Response>Le curry vert</Response>
-        </ButtonResponse>
-        <ButtonResponse>
-        <Response>La mimolette</Response>
-        </ButtonResponse>
-      </ResponseContainer2> */}
+              {difficulty === 2 ? (
+                <ResponseContainer2>
+                  <ButtonResponse
+                    result={result.three}
+                    OnPress={() => Answers(2)}
+                    Disabled={buttonDisable}
+                  >
+                    <Response>Le curry vert</Response>
+                  </ButtonResponse>
+                  <ButtonResponse
+                    result={result.four}
+                    OnPress={() => Answers(3)}
+                    Disabled={buttonDisable}
+                  >
+                    <Response>La mimolette</Response>
+                  </ButtonResponse>
+                </ResponseContainer2>
+              ) : (
+                <></>
+              )}
               {/* barre de progression avec les petits */}
               <ProgresBar>
-                <ProgresPoint></ProgresPoint>
-                <ProgresPoint></ProgresPoint>
-                <ProgresPoint></ProgresPoint>
-                <ProgresPoint></ProgresPoint>
-                <ProgresPoint></ProgresPoint>
-                <ProgresPoint></ProgresPoint>
-                <ProgresPoint></ProgresPoint>
+                <ProgresPoint
+                  style={{ backgroundColor: "black" }}
+                ></ProgresPoint>
+                <ProgresPoint
+                  style={{
+                    backgroundColor:
+                      numberQuestion < (QuestionNumber * 75) / 100
+                        ? "black"
+                        : "gray",
+                  }}
+                ></ProgresPoint>
+                <ProgresPoint
+                  style={{
+                    backgroundColor:
+                      numberQuestion < (QuestionNumber * 50) / 100
+                        ? "black"
+                        : "gray",
+                  }}
+                ></ProgresPoint>
+                <ProgresPoint
+                  style={{
+                    backgroundColor:
+                      numberQuestion < (QuestionNumber * 25) / 100
+                        ? "black"
+                        : "gray",
+                  }}
+                ></ProgresPoint>
+                <ProgresPoint
+                  style={{
+                    backgroundColor:
+                      numberQuestion < (QuestionNumber * 10) / 100
+                        ? "black"
+                        : "gray",
+                  }}
+                ></ProgresPoint>
               </ProgresBar>
               {/* button poour accèder aux règles */}
               <ButtonRules></ButtonRules>
