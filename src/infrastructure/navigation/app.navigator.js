@@ -3,39 +3,29 @@ import { useContext } from "react";
 import { StatusBar } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+// Screen
+import { HomeScreen } from "../../screens/home/home.screen";
+import { ContactScreen } from "../../screens/contact/contact.screen.js";
+import { ErrorScreen } from "../../screens/error/error.screen.js";
+import { Signout } from "../../screens/temp/Signout.js";
+// Context
+import { UserContext } from "../../services/user/user.context";
+import { QuizNavigator } from "./quiz.navigator";
+import { AuthNavigator } from "./auth.navigator";
 
-import { HomeScreen } from "../home/home.screen.js";
-import { ContactScreen } from "../contact/contact.screen.js";
-import { ErrorScreen } from "../error/error.screen.js";
-import { Login } from "../login/login.screen.js";
-import { QuizzScreen } from "../quizz/quizz.screen.js";
-import { RegisterScreen } from "../register/register.screen";
-import { PasswordForgot } from "../passwordForgot/passwordForgot.screen";
-import { Signout } from "../temp/Signout.js";
-import { UserContext } from "../../services/user/user.context.js";
-import { QuizContextProvider } from "../../services/quiz/quiz.context.js";
-import { ThemeScreen } from "../quizz/theme.screen.js";
-import { RulesScreen } from "../quizz/rules.screen.js";
-import { AccessibilityScreen } from "../options/accessibility.screen.js";
-
-export const NavBar = ({ navigation }) => {
+export const AppNavigator = () => {
   const { info, user } = useContext(UserContext);
 
   // console.log(info, "navbar");
   // console.log(user, "navbar");
-
-  const QuizParent = () => (
-    <QuizContextProvider>
-      <QuizzScreen />
-    </QuizContextProvider>
-  );
 
   const Tab = createBottomTabNavigator();
   return (
     <NavigationContainer
       screenOptions={{
         headerShown: false,
-      }}>
+      }}
+    >
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
@@ -63,19 +53,17 @@ export const NavBar = ({ navigation }) => {
               case "Login":
                 iconName = "man";
                 break;
-              case "QuizzTheme":
+              case "QuizTheme":
                 iconName = "chatbox-ellipses";
                 break;
-
               default:
                 iconName = "construct-outline";
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           headerShown: false,
-          // unmountOnBlur: true,
-          // lazy: true,
-        })}>
+        })}
+      >
         {/*Futur screen a ajouté */
         /* <Tab.Screen name="Back" component={Back} />
       <Tab.Screen name="Home" component={HomeScreen} />
@@ -84,33 +72,16 @@ export const NavBar = ({ navigation }) => {
 
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Contact" component={ContactScreen} />
-        <Tab.Screen name="Error" component={AccessibilityScreen} />
-        {!user && <Tab.Screen name="Login" component={Login} />}
-        <Tab.Screen name="QuizzTheme" component={ThemeScreen} />
-        <Tab.Screen name="Result" component={ResultScreen} />
+        <Tab.Screen name="Error" component={ErrorScreen} />
+        {!user && <Tab.Screen name="Login" component={AuthNavigator} />}
         <Tab.Screen
-          name="Quizz"
-          component={QuizParent}
+          name="QuizTheme"
+          component={QuizNavigator}
           options={() => ({
-            tabBarButton: () => null,
             unmountOnBlur: true,
           })}
         />
         {user && <Tab.Screen name="Signout" component={Signout} />}
-        <Tab.Screen
-          name="Register"
-          component={RegisterScreen}
-          options={() => ({
-            tabBarButton: () => null,
-          })}
-        />
-        <Tab.Screen
-          name="ForgotPswd"
-          component={PasswordForgot}
-          options={() => ({
-            tabBarButton: () => null,
-          })}
-        />
       </Tab.Navigator>
       <StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />
     </NavigationContainer>

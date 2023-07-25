@@ -3,6 +3,8 @@ import { StatusBar } from "expo-status-bar";
 import { Dimensions, StyleSheet, Image } from "react-native";
 import { styled } from "styled-components/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useEffect, useState } from "react";
+import { TitleBlock } from "../../components/TitleBlock";
 
 let screenWidth = Dimensions.get("window").width;
 
@@ -23,22 +25,6 @@ const Container = styled.SafeAreaView`
 const Background = styled.Image`
   position: absolute;
   top: 0;
-`;
-
-const TitleBlock = styled.View`
-  width: 100%;
-  margin-top: 20px;
-  margin-bottom: 40px;
-  border-bottom-width: 2px;
-  border-top-width: 2px;
-  padding: 10px 0px;
-  width: ${(screenWidth * 3) / 4}px;
-`;
-
-const Title = styled.Text`
-  text-align: center;
-  font-size: 25px;
-  font-family: ${(props) => props.theme.fonts.headingBold};
 `;
 
 const Border = styled.View`
@@ -138,13 +124,21 @@ const bg = require("../../img/background2.png");
 const Tab = createBottomTabNavigator();
 
 export const ThemeScreen = ({ navigation }) => {
+  const [value, setValue] = useState(1);
+
+  function handleChange(value) {
+    setValue(value);
+  }
+
+  const navigateToQuizz = () => {
+    navigation.navigate("Quiz", { difficulty: value });
+  };
+
   return (
     <Scrollable>
       <Container>
         <Background source={bg} />
-        <TitleBlock>
-          <Title>Défis</Title>
-        </TitleBlock>
+        <TitleBlock title="Défis" />
 
         <Border>
           <ParameterBlock>
@@ -163,6 +157,8 @@ export const ThemeScreen = ({ navigation }) => {
               minimumValue={1}
               maximumValue={3}
               step={1}
+              onValueChange={handleChange}
+              value={value}
               thumbTintColor={"white"}
               minimumTrackTintColor={"gray"}
               maximumTrackTintColor={"gray"}
@@ -177,32 +173,32 @@ export const ThemeScreen = ({ navigation }) => {
         </Border>
 
         <Select>
-          <Touche onPress={() => navigation.navigate("Quizz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Art</OptionTitle>
             <Triangle></Triangle>
             <Image source={img1} style={styles.image} />
           </Touche>
-          <Touche onPress={() => navigation.navigate("Quizz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Littérature</OptionTitle>
             <Triangle></Triangle>
             <Image source={img2} style={styles.image} />
           </Touche>
-          <Touche onPress={() => navigation.navigate("Quizz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Musique</OptionTitle>
             <Triangle></Triangle>
             <Image source={img3} style={styles.image} />
           </Touche>
-          <Touche onPress={() => navigation.navigate("Quizz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Ingéniérie</OptionTitle>
             <Triangle></Triangle>
             <Image source={img4} style={styles.image} />
           </Touche>
-          <Touche onPress={() => navigation.navigate("Quizz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Sciences</OptionTitle>
             <Triangle></Triangle>
             <Image source={img5} style={styles.image} />
           </Touche>
-          <Touche onPress={() => navigation.navigate("Quizz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Photographie</OptionTitle>
             <Triangle></Triangle>
             <Image source={img6} style={styles.image} />
