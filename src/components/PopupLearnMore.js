@@ -84,7 +84,7 @@ export const PopUpLearnMore = ({ data, setShowPopup, showPopup }) => {
 
   const handlePress = () => {
     setShowPopup(!showPopup);
-    console.log("close modal");
+    //console.log("close modal");
   };
 
   // ?  View dans le insetShadow car il veut un enfant dans son composant

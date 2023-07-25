@@ -15,6 +15,8 @@ import { Signout } from "../temp/Signout.js";
 import { UserContext } from "../../services/user/user.context.js";
 import { QuizContextProvider } from "../../services/quiz/quiz.context.js";
 import { ThemeScreen } from "../quizz/theme.screen.js";
+import { PortraitsScreen } from "../Portraits/portrait.screen.js";
+import { PortraitArticleScreen } from "../portraitArticle/portraitArticle.screen.js";
 
 export const NavBar = ({ navigation }) => {
   const { info, user } = useContext(UserContext);
@@ -65,6 +67,9 @@ export const NavBar = ({ navigation }) => {
               case "QuizzTheme":
                 iconName = "chatbox-ellipses";
                 break;
+              case "Portrait":
+                iconName = "newspaper-outline";
+                break;
               default:
                 iconName = "construct-outline";
             }
@@ -85,6 +90,7 @@ export const NavBar = ({ navigation }) => {
         <Tab.Screen name="Contact" component={ContactScreen} />
         <Tab.Screen name="Error" component={ErrorScreen} />
         {!user && <Tab.Screen name="Login" component={Login} />}
+        <Tab.Screen name="Portrait" component={PortraitsScreen} />
         <Tab.Screen name="QuizzTheme" component={ThemeScreen} />
         <Tab.Screen
           name="Quizz"
@@ -105,6 +111,13 @@ export const NavBar = ({ navigation }) => {
         <Tab.Screen
           name="ForgotPswd"
           component={PasswordForgot}
+          options={() => ({
+            tabBarButton: () => null,
+          })}
+        />
+        <Tab.Screen
+          name="PortraitArticle"
+          component={PortraitArticleScreen}
           options={() => ({
             tabBarButton: () => null,
           })}
