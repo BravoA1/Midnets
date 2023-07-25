@@ -141,6 +141,7 @@ export const QuizzScreen = ({ difficulty }) => {
   useEffect(() => {
     // Quand l'index change
     if (!loading) {
+      console.log("Loading Finish");
       // Timeout reactivate button and set new Question with timer
       setTimeout(() => {
         setButtonDisable(false);
@@ -165,6 +166,7 @@ export const QuizzScreen = ({ difficulty }) => {
 
   // Initialise the new Question
   function NewQuestion(quizData) {
+    console.log(quizData);
     setQuestion(quizData.question);
     setAnswers(quizData.answers);
     setCorrect(quizData.correct);
@@ -186,7 +188,11 @@ export const QuizzScreen = ({ difficulty }) => {
   function Random() {
     let indexTemp;
     do {
-      indexTemp = Math.floor(Math.random() * quizData.length);
+      indexTemp = Math.floor(
+        difficulty === 2
+          ? Math.random() * quizDataMedium.length
+          : Math.random() * quizDataEasy.length
+      );
     } while (alreadyAsk.includes(indexTemp));
     setAlreadyAsk([...alreadyAsk, indexTemp]);
     return indexTemp;
@@ -225,64 +231,64 @@ export const QuizzScreen = ({ difficulty }) => {
               setScore(score + 1);
               break;
             case 1:
-              setResult({ one: "correct", two: "wrong", three: "", four: "" });
+              setResult({ one: "wrong", two: "correct", three: "", four: "" });
               break;
             case 2:
-              setResult({ one: "correct", two: "", three: "wrong", four: "" });
+              setResult({ one: "wrong", two: "", three: "correct", four: "" });
               break;
             case 3:
-              setResult({ one: "correct", two: "", three: "", four: "wrong" });
+              setResult({ one: "wrong", two: "", three: "", four: "correct" });
               break;
           }
           break;
         case 1:
           switch (correct) {
             case 0:
-              setResult({ one: "wrong", two: "correct", three: "", four: "" });
+              setResult({ one: "correct", two: "wrong", three: "", four: "" });
               break;
             case 1:
               setResult({ one: "", two: "correct", three: "", four: "" });
               setScore(score + 1);
               break;
             case 2:
-              setResult({ one: "", two: "correct", three: "wrong", four: "" });
+              setResult({ one: "", two: "wrong", three: "correct", four: "" });
               break;
             case 3:
-              setResult({ one: "", two: "correct", three: "", four: "wrong" });
+              setResult({ one: "", two: "wrong", three: "", four: "correct" });
               break;
           }
           break;
         case 2:
           switch (correct) {
             case 0:
-              setResult({ one: "wrong", two: "", three: "correct", four: "" });
+              setResult({ one: "correct", two: "", three: "wrong", four: "" });
               break;
             case 1:
-              setResult({ one: "", two: "wrong", three: "correct", four: "" });
+              setResult({ one: "", two: "correct", three: "wrong", four: "" });
               break;
             case 2:
               setResult({ one: "", two: "", three: "correct", four: "" });
               setScore(score + 1);
               break;
             case 3:
-              setResult({ one: "", two: "", three: "correct", four: "wrong" });
+              setResult({ one: "", two: "", three: "wrong", four: "correct" });
               break;
           }
           break;
         case 3:
           switch (correct) {
             case 0:
-              setResult({ one: "wrong", two: "", three: "", four: "correct" });
+              setResult({ one: "correct", two: "", three: "", four: "wrong" });
               break;
             case 1:
-              setResult({ one: "", two: "wrong", three: "", four: "correct" });
+              setResult({ one: "", two: "correct", three: "", four: "wrong" });
               break;
             case 2:
-              setResult({ one: "", two: "", three: "wrong", four: "correct" });
-              setScore(score + 1);
+              setResult({ one: "", two: "", three: "correct", four: "wrong" });
               break;
             case 3:
               setResult({ one: "", two: "", three: "", four: "correct" });
+              setScore(score + 1);
               break;
           }
           break;
@@ -344,7 +350,11 @@ export const QuizzScreen = ({ difficulty }) => {
                   end={{ x: 0, y: 1 }}
                 >
                   <TitleContainer style={styles.container}>
-                    <Title>Quiz: les femmes</Title>
+                    <Title>
+                      {difficulty === 2
+                        ? "Quiz: Mary Cury"
+                        : "Quiz: les femmes"}
+                    </Title>
                   </TitleContainer>
                 </Linear>
               </InsetShadow>
@@ -382,14 +392,14 @@ export const QuizzScreen = ({ difficulty }) => {
                     OnPress={() => Answers(2)}
                     Disabled={buttonDisable}
                   >
-                    <Response>Le curry vert</Response>
+                    <Response>{answers[2]}</Response>
                   </ButtonResponse>
                   <ButtonResponse
                     result={result.four}
                     OnPress={() => Answers(3)}
                     Disabled={buttonDisable}
                   >
-                    <Response>La mimolette</Response>
+                    <Response>{answers[3]}</Response>
                   </ButtonResponse>
                 </ResponseContainer2>
               ) : (

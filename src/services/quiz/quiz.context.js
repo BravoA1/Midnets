@@ -23,29 +23,30 @@ export const QuizContextProvider = ({ children }) => {
         });
         setQuizDataEasy(data);
       })
-      .then(() => setLoading(false))
+      .then(
+        firebase
+          .firestore()
+          .collection("quiz")
+          .doc("medium")
+          .collection("quiz")
+          .get()
+          .then((snapshot) => {
+            let data = [];
+            snapshot.forEach((doc) => {
+              data.push(doc.data());
+            });
+            setQuizDataMedium(data);
+          })
+          .then(() => setLoading(false))
+          .catch((error) => {
+            console.error(`error in getQuizDataMedium ${error}`);
+            setQuizDataMedium([]);
+            setLoading(false);
+          })
+      )
       .catch((error) => {
-        console.error(`error in getQuizDataEasy ${error}`);
+        console.error(`error in getQuizData ${error}`);
         setQuizDataEasy([]);
-        setLoading(false);
-      });
-    firebase
-      .firestore()
-      .collection("quiz")
-      .doc("medium")
-      .collection("quiz")
-      .get()
-      .then((snapshot) => {
-        let data = [];
-        snapshot.forEach((doc) => {
-          data.push(doc.data());
-        });
-        setQuizDataMedium(data);
-      })
-      .then(() => setLoading(false))
-      .catch((error) => {
-        console.error(`error in getQuizDataMedium ${error}`);
-        setQuizDataMedium([]);
         setLoading(false);
       });
   }, []);
