@@ -12,6 +12,8 @@ export const QuizContextProvider = ({ children }) => {
     firebase
       .firestore()
       .collection("quiz")
+      .doc("easy")
+      .collection("quiz")
       .get()
       .then((snapshot) => {
         let data = [];
