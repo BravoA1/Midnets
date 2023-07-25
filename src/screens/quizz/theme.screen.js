@@ -4,6 +4,8 @@ import { Dimensions, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { styled } from "styled-components/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useEffect, useState } from "react";
+import { QuizzScreen } from "./quizz.screen";
+import { TitleBlock } from "../../components/TitleBlock";
 
 let screenWidth = Dimensions.get("window").width;
 
@@ -23,22 +25,6 @@ const Container = styled.View`
 const Background = styled.Image`
   position: absolute;
   top: 0;
-`;
-
-const TitleBlock = styled.View`
-  width: 100%;
-  margin-top: 20px;
-  margin-bottom: 40px;
-  border-bottom-width: 2px;
-  border-top-width: 2px;
-  padding: 10px 50px;
-  width: ${(screenWidth * 3) / 4}px;
-`;
-
-const Title = styled.Text`
-  text-align: center;
-  font-size: 25px;
-  font-family: ${(props) => props.theme.fonts.headingBold};
 `;
 
 const Border = styled.View`
@@ -150,9 +136,7 @@ export const ThemeScreen = ({ navigation }) => {
     <Scrollable>
       <Container>
         <Background source={bg} />
-        <TitleBlock>
-          <Title>Défis</Title>
-        </TitleBlock>
+        <TitleBlock title="Défis" />
 
         <Border>
           <ParameterBlock>
