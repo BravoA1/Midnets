@@ -15,6 +15,7 @@ import { Signout } from "../temp/Signout.js";
 import { UserContext } from "../../services/user/user.context.js";
 import { QuizContextProvider } from "../../services/quiz/quiz.context.js";
 import { ThemeScreen } from "../quizz/theme.screen.js";
+import { ResultScreen } from "../result/result.screen.js";
 
 export const NavBar = ({ navigation }) => {
   const { info, user } = useContext(UserContext);
@@ -65,6 +66,9 @@ export const NavBar = ({ navigation }) => {
               case "QuizzTheme":
                 iconName = "chatbox-ellipses";
                 break;
+              case "Result":
+                iconName = "analytics";
+                break;
               default:
                 iconName = "construct-outline";
             }
@@ -86,6 +90,7 @@ export const NavBar = ({ navigation }) => {
         <Tab.Screen name="Error" component={ErrorScreen} />
         {!user && <Tab.Screen name="Login" component={Login} />}
         <Tab.Screen name="QuizzTheme" component={ThemeScreen} />
+        <Tab.Screen name="Result" component={ResultScreen} />
         <Tab.Screen
           name="Quizz"
           component={QuizParent}
