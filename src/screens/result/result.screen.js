@@ -162,7 +162,9 @@ const ButtonsContainer = styled.View`
   flex-direction: row;
 `;
 
-export const ResultScreen = () => {
+export const ResultScreen = ({ navigation, route }) => {
+  const { score, numberQuestion, difficulty } = route.params;
+
   return (
     <SafeArea>
       <ResultBanner>
@@ -176,7 +178,7 @@ export const ResultScreen = () => {
             style={styles.imgback}
           >
             <ResultScoreContainer>
-              <ScorePoint>110</ScorePoint>
+              <ScorePoint>{score ? score : "pas de score"}</ScorePoint>
               <ScoreText>score de Lorembidule</ScoreText>
             </ResultScoreContainer>
           </ImageBackground>
@@ -186,7 +188,9 @@ export const ResultScreen = () => {
             <AnswerBorder></AnswerBorder>
             <AnswerTextContainer>
               <AnswerTextNumber>
-                <TextForAnswerNumber>6</TextForAnswerNumber>
+                <TextForAnswerNumber>
+                  {score ? score : "pas de params"}
+                </TextForAnswerNumber>
               </AnswerTextNumber>
               <AnswerText>
                 <TextForAnswerText>Bonnes réponses</TextForAnswerText>
@@ -198,7 +202,9 @@ export const ResultScreen = () => {
             <AnswerBorder></AnswerBorder>
             <AnswerTextContainer>
               <AnswerTextNumber>
-                <TextForAnswerNumber>4</TextForAnswerNumber>
+                <TextForAnswerNumber>
+                  {score ? numberQuestion - score : "pas de params"}
+                </TextForAnswerNumber>
               </AnswerTextNumber>
               <AnswerText>
                 <TextForAnswerText>Mauvaises réponses</TextForAnswerText>
@@ -210,8 +216,20 @@ export const ResultScreen = () => {
       </ResultContainer>
 
       <ButtonsContainer>
-        <ButtonGradient>Menu Défis</ButtonGradient>
-        <ButtonGradient>Niveau suivant</ButtonGradient>
+        <ButtonGradient OnPress={() => navigation.navigate("Theme")}>
+          Menu Défis
+        </ButtonGradient>
+        {difficulty < 3 ? (
+          <ButtonGradient
+            OnPress={() =>
+              navigation.navigate("Quiz", { difficulty: difficulty + 1 })
+            }
+          >
+            Niveau suivant
+          </ButtonGradient>
+        ) : (
+          <></>
+        )}
       </ButtonsContainer>
     </SafeArea>
   );

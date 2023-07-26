@@ -70,7 +70,12 @@ const Btn = styled.View`
   margin-top: 20px;
 `;
 
-export const RulesScreen = ({ navigation }) => {
+export const RulesScreen = ({ navigation, setShowPopup, showPopup }) => {
+  const handlePress = () => {
+    setShowPopup(!showPopup);
+    //console.log("close modal");
+  };
+
   return (
     <Container>
       <BgContainer>
@@ -95,7 +100,7 @@ export const RulesScreen = ({ navigation }) => {
         </RubanCard>
 
         <Btn>
-          <ButtonGradient>Continuer</ButtonGradient>
+          <ButtonGradient OnPress={handlePress}>Continuer</ButtonGradient>
         </Btn>
       </Scrollable>
     </Container>

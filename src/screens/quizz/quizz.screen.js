@@ -17,6 +17,7 @@ import ButtonRules from "../../components/ButtonRules.js";
 import { PopUpLearnMore } from "../../components/PopupLearnMore.js";
 import { CountDown } from "../../components/CountDown.jsx";
 import { Snackbar } from "react-native-paper";
+import { RulesScreen } from "./rules.screen.js";
 
 const Container = styled.View`
   display: flex;
@@ -96,7 +97,7 @@ const ProgresPoint = styled.View`
   margin-right: 2%;
 `;
 
-export const QuizzScreen = ({ difficulty }) => {
+export const QuizzScreen = ({ navigation, difficulty }) => {
   // Context
   const { quizDataEasy, quizDataMedium, loading } = useContext(QuizContext);
   // Question UseState
@@ -113,13 +114,14 @@ export const QuizzScreen = ({ difficulty }) => {
   const [alreadyAsk, setAlreadyAsk] = useState([]);
 
   // For result UseState
-  const QuestionNumber = difficulty > 2 ? 5 : 10;
+  const QuestionNumber = difficulty > 2 ? 5 : 3;
   const [numberQuestion, setNumberQuestion] = useState(QuestionNumber);
   const [score, setScore] = useState(0);
 
   // PopUp and Button UseState
   const [buttonDisable, setButtonDisable] = useState(false);
   const [showLearnMoreModale, setShowLearnMoreModale] = useState(false);
+  const [showRuleModale, setShowRuleModale] = useState(false);
   const [visible, setVisible] = useState(false);
 
   // Timer UseState
@@ -127,11 +129,18 @@ export const QuizzScreen = ({ difficulty }) => {
   const [pause, setPause] = useState(false);
   const [reset, setReset] = useState(true);
 
+  // PopUp for showMore
   useEffect(() => {
     if (!showLearnMoreModale) {
       setPause(false);
     }
   }, [showLearnMoreModale]);
+  // PopUp for Rule
+  useEffect(() => {
+    if (!showRuleModale) {
+      setPause(false);
+    }
+  }, [showRuleModale]);
 
   // Reset all on first render
   useEffect(() => {
@@ -163,6 +172,17 @@ export const QuizzScreen = ({ difficulty }) => {
     }
     console.log(loading, "loading");
   }, [loading]);
+
+  useEffect(() => {
+    if (numberQuestion <= 0) {
+      navigation.navigate("Result", {
+        score: score,
+        numberQuestion: QuestionNumber,
+        difficulty: difficulty,
+      });
+      setPause(true);
+    }
+  }, [numberQuestion]);
 
   // Initialise the new Question
   function NewQuestion(quizData) {
@@ -444,7 +464,11 @@ export const QuizzScreen = ({ difficulty }) => {
                 ></ProgresPoint>
               </ProgresBar>
               {/* button poour accèder aux règles */}
-              <ButtonRules></ButtonRules>
+              <ButtonRules
+                OnPress={() => {
+                  setShowRuleModale(true), setPause(true);
+                }}
+              ></ButtonRules>
               {/* en savoir plus container */}
               <MoreContainer>
                 <ButtonResponse
@@ -455,8 +479,6 @@ export const QuizzScreen = ({ difficulty }) => {
                   <MoreText>En savoir plus</MoreText>
                 </ButtonResponse>
               </MoreContainer>
-              {<Text>Score : {score}</Text>}
-              {<Text>Question restant : {numberQuestion}</Text>}
             </>
           )}
           <Snackbar
@@ -469,6 +491,12 @@ export const QuizzScreen = ({ difficulty }) => {
         </Container>
         {showLearnMoreModale && (
           <PopUpLearnMore
+            showPopup={showLearnMoreModale}
+            setShowPopup={setShowLearnMoreModale}
+          />
+        )}
+        {showRuleModale && (
+          <RulesScreen
             showPopup={showLearnMoreModale}
             setShowPopup={setShowLearnMoreModale}
           />
