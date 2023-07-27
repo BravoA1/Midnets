@@ -10,10 +10,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import InsetShadow from "react-native-inset-shadow";
-import ButtonResponse from "../../components/button/ButtonResponse.js";
-import { QuizContext } from "../../services/quiz/quiz.context.js";
 
+import ButtonResponse from "../../components/button/ButtonResponse.js";
 import ButtonRules from "../../components/button/ButtonRules.js";
+import InputFrom from "../../components/InputForm.js";
+
+import { QuizContext } from "../../services/quiz/quiz.context.js";
 import { PopUpLearnMore } from "../../components/PopupLearnMore.js";
 import { CountDown } from "../../components/CountDown.jsx";
 import { Snackbar } from "react-native-paper";
@@ -123,7 +125,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   const [alreadyAsk, setAlreadyAsk] = useState([]);
 
   // For result UseState
-  const QuestionNumber = difficulty > 2 ? 5 : 10;
+  const QuestionNumber = difficulty > 2 ? (difficulty === 3 ? 30 : 5) : 10;
   const [numberQuestion, setNumberQuestion] = useState(QuestionNumber);
   const [score, setScore] = useState(0);
 
@@ -134,7 +136,9 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   const [visible, setVisible] = useState(false);
 
   // Timer UseState
-  const [time, setTime] = useState(difficulty === 2 ? 15 : 20);
+  const [time, setTime] = useState(
+    difficulty === 2 ? 15 : difficulty === 3 ? 30 : 20
+  );
   const [pause, setPause] = useState(false);
   const [reset, setReset] = useState(true);
 
@@ -144,6 +148,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
       setPause(false);
     }
   }, [showLearnMoreModale]);
+
   // PopUp for Rule
   useEffect(() => {
     console.log(showRuleModale, " rule modale");
@@ -220,7 +225,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
     let indexTemp;
     do {
       indexTemp = Math.floor(
-        difficulty === 2
+        difficulty > 1
           ? Math.random() * quizDataMedium.length
           : Math.random() * quizDataEasy.length
       );
@@ -338,6 +343,13 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
     }
   }
 
+  function AnswersSpecific(answersUser) {
+    console.log(answers[correct].toLowerCase());
+    console.log(answersUser.toLowerCase());
+    if (answers[correct].toLowerCase() === answersUser.toLowerCase()) {
+    }
+  }
+
   return (
     <>
       <SafeAreaView>
@@ -359,7 +371,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
                   zIndex: 1,
                 }}
               />
-              <Text>Pas de Question</Text>
+              <Text>Question en chargement</Text>
             </View>
           ) : (
             <>
@@ -427,7 +439,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
                     </ButtonResponse>
                   </>
                 ) : (
-                  <></>
+                  <InputFrom placeholder={"Answers"} type={"textBasic"} setInfo={AnswersSpecific} />
                 )}
               </ResponseContainer1>
               {difficulty === 2 ? (
@@ -494,7 +506,6 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               <ButtonRules
                 OnPress={() => {
                   setShowRuleModale(true);
-                  // navigation.navigate("Rule");
                   setPause(true);
                 }}
               ></ButtonRules>
@@ -513,7 +524,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
             </>
           )}
           <Snackbar
-            style={{ zIndex: 500 }}
+            style={{ zIndex: 10 }}
             visible={visible}
             onDismiss={() => setVisible(false)}
             duration={1500}
