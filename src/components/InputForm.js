@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { StyleSheet } from "react-native";
 import { TextInput, View, Text } from "react-native";
 import { styled } from "styled-components/native";
 
@@ -23,6 +24,7 @@ const Input = styled.View`
   border-radius: 100px;
   background-color: #d9d9d9;
   box-shadow: 0px 4px 1px rgba(0, 0, 0, 0.25);
+  elevation: 4;
 `;
 
 const IconInputImage = styled.Image`
@@ -52,12 +54,22 @@ export default function InputForm({
   error,
   errorTime,
 }) {
+  const styles = StyleSheet.create({
+    input: {
+      borderColor: error ? "red" : "#a3a3a3",
+      shadowColor: "black",
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.25,
+      shadowRadius: 2,
+    },
+  });
+
   const renderInput = (type) => {
     switch (type) {
       case "email":
         // console.log('mail')
         return (
-          <Input style={{ borderColor: error ? "red" : "#a3a3a3" }}>
+          <Input style={styles.input}>
             <IconInputImage source={require("../img/arobase-grey.png")} />
             {errorTime ? (
               <InputContent
@@ -96,7 +108,7 @@ export default function InputForm({
       case "password":
         // console.log('mot de passe')
         return (
-          <Input style={{ borderColor: error ? "red" : "#a3a3a3" }}>
+          <Input style={styles.input}>
             <IconInputImage source={require("../img/Key.png")} />
             {errorTime ? (
               <InputContent
@@ -145,7 +157,7 @@ export default function InputForm({
       case "text":
         // console.log('text')
         return (
-          <Input style={{ borderColor: error ? "red" : "#a3a3a3" }}>
+          <Input style={styles.input}>
             <Spacer />
             {errorTime ? (
               <InputContent

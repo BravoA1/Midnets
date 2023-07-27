@@ -1,4 +1,5 @@
 import { TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import { View, Text, Dimensions, Image } from "react-native";
 import { styled } from "styled-components";
 
@@ -47,6 +48,7 @@ const CardNewPortraitView = styled.View`
   z-index: 200;
   transform: rotate(27.372deg);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  elevation: 4;
 `;
 const CardNewPortraitViewText = styled.Text`
   text-align: center;
@@ -55,6 +57,15 @@ const CardNewPortraitViewText = styled.Text`
 `;
 
 export const CardPortrait = ({ OnPress, isNewPortrait, url, height }) => {
+  const styles = StyleSheet.create({
+    isNewPortrait: {
+      shadowColor: "black",
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+    },
+  });
+
   return (
     <TouchableOpacity onPress={OnPress}>
       <NameView>
@@ -64,7 +75,7 @@ export const CardPortrait = ({ OnPress, isNewPortrait, url, height }) => {
         <CardImage resizeMode="cover" style={{ height: height }} source={url} />
       </CardBlock>
       {isNewPortrait && (
-        <CardNewPortraitView>
+        <CardNewPortraitView style={styles.isNewPortrait}>
           <CardNewPortraitViewText>Nouveau portrait</CardNewPortraitViewText>
         </CardNewPortraitView>
       )}

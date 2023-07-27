@@ -26,7 +26,10 @@ const Container = styled.SafeAreaView`
   background-color: white;
 `;
 const LogoContainer = styled.View`
-  padding-top: 40px;
+  padding: 40px;
+  background-color: white;
+  box-shadow: 0 6px 5px rgba(0, 0, 0, 0.5);
+  elevation: 5;
 `;
 
 const NavBar = styled.View`

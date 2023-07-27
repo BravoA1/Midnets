@@ -3,6 +3,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
 import { colors } from "../infrastructure/theme/colors";
+import { Dimensions } from "react-native";
+
+const screenWidth = Dimensions.get("window").width;
 
 export default ButtonResponse = ({ children, OnPress, result, Disabled }) => {
   const ButtonElement = styled.TouchableOpacity`
@@ -15,7 +18,7 @@ export default ButtonResponse = ({ children, OnPress, result, Disabled }) => {
     border-radius: 100px;
   `;
   const BoxGradient = styled.View`
-    width: 40%;
+    width: ${screenWidth * 0.35};
     box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
     background-color: #fff;
     border-radius: 100px;

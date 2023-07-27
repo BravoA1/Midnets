@@ -7,6 +7,7 @@ import ButtonGoogle from "../../components/ButtonGoogle.js";
 import { useState } from "react";
 import { Snackbar } from "react-native-paper";
 import { firebase } from "../../../config";
+import ButtonResponse from "../../components/ButtonResponse.js";
 
 let screenWidth = Dimensions.get("window").width;
 
@@ -156,7 +157,7 @@ export const Login = ({ navigation }) => {
       <ForgotPassword onPress={() => navigation.navigate("ForgotPswd")}>
         mot de passe oublié ?
       </ForgotPassword>
-      <ButtonGradient OnPress={() => HandleLogin()}>Connexion</ButtonGradient>
+      <ButtonResponse OnPress={() => HandleLogin()}>Connexion</ButtonResponse>
       <ButtonRegister onPress={() => navigation.navigate("Register")}>
         <TextButton>Inscription</TextButton>
       </ButtonRegister>

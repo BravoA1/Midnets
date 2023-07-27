@@ -5,6 +5,8 @@ import styled from "styled-components/native";
 import Logo from "../../components/Logo";
 import InputForm from "../../components/InputForm.js";
 import { firebase } from "../../../config";
+import { ScrollView } from "react-native";
+import { View } from "react-native";
 
 let screenWidth = Dimensions.get("window").width;
 
@@ -210,85 +212,88 @@ export const RegisterScreen = ({ navigation }) => {
   }
 
   return (
-    <SafeArea>
-      <Logo height={75} />
-      <InputBlock style={{ marginTop: 50 }}>
-        <InputForm
-          type="text"
-          placeholder="pseudo"
-          setInfo={setInfo}
-          info={info}
-          error={errorName}
-          errorTime={errorTimeName}
+    <ScrollView>
+      <SafeArea>
+        <Logo height={75} />
+        <InputBlock style={{ marginTop: 50 }}>
+          <InputForm
+            type="text"
+            placeholder="pseudo"
+            setInfo={setInfo}
+            info={info}
+            error={errorName}
+            errorTime={errorTimeName}
+          >
+            pseudo
+          </InputForm>
+        </InputBlock>
+        <InputBlock>
+          <InputForm
+            type="email"
+            placeholder="email"
+            setInfo={setInfo}
+            info={info}
+            error={errorEmail}
+            errorTime={errorTimeEmail}
+          >
+            adresse mail
+          </InputForm>
+        </InputBlock>
+        <InputBlock>
+          <InputForm
+            type="password"
+            placeholder="mot de passe"
+            setInfo={setInfo}
+            info={info}
+            error={errorPassword}
+            errorTime={errorTimePassword}
+          >
+            mot de passe
+          </InputForm>
+        </InputBlock>
+        <InputBlock>
+          <InputForm
+            type="password"
+            placeholder="confirmer le mot de passe"
+            setInfo={setInfo}
+            info={info}
+            confirm={true}
+            error={errorConfirmPassword}
+            errorTime={errorTimeConfirmPassword}
+          >
+            confirmation mot de passe
+          </InputForm>
+        </InputBlock>
+        <ButtonRegister onPress={() => HandleRegister()}>
+          <TextButton>S'inscrire</TextButton>
+        </ButtonRegister>
+        <ButtonLog>
+          <GoogleIcon source={require("../../img/Google.png")} />
+          <TextButtonGoogle>S'inscrire avec google</TextButtonGoogle>
+        </ButtonLog>
+        <Snackbar
+          visible={visible}
+          onDismiss={() => setVisible(false)}
+          style={{
+            backgroundColor: "#9275B2",
+          }}
+          theme={{
+            colors: {
+              inverseOnSurface: "white",
+              inversePrimary: "#D9D9D9",
+            },
+          }}
+          action={{
+            label: "close",
+            onPress: () => {
+              setVisible(false);
+            },
+          }}
         >
-          pseudo
-        </InputForm>
-      </InputBlock>
-      <InputBlock>
-        <InputForm
-          type="email"
-          placeholder="email"
-          setInfo={setInfo}
-          info={info}
-          error={errorEmail}
-          errorTime={errorTimeEmail}
-        >
-          adresse mail
-        </InputForm>
-      </InputBlock>
-      <InputBlock>
-        <InputForm
-          type="password"
-          placeholder="mot de passe"
-          setInfo={setInfo}
-          info={info}
-          error={errorPassword}
-          errorTime={errorTimePassword}
-        >
-          mot de passe
-        </InputForm>
-      </InputBlock>
-      <InputBlock>
-        <InputForm
-          type="password"
-          placeholder="confirmer le mot de passe"
-          setInfo={setInfo}
-          info={info}
-          confirm={true}
-          error={errorConfirmPassword}
-          errorTime={errorTimeConfirmPassword}
-        >
-          confirmation mot de passe
-        </InputForm>
-      </InputBlock>
-      <ButtonRegister onPress={() => HandleRegister()}>
-        <TextButton>S'inscrire</TextButton>
-      </ButtonRegister>
-      <ButtonLog>
-        <GoogleIcon source={require("../../img/Google.png")} />
-        <TextButtonGoogle>S'inscrire avec google</TextButtonGoogle>
-      </ButtonLog>
-      <Snackbar
-        visible={visible}
-        onDismiss={() => setVisible(false)}
-        style={{
-          backgroundColor: "#9275B2",
-        }}
-        theme={{
-          colors: {
-            inverseOnSurface: "white",
-            inversePrimary: "#D9D9D9",
-          },
-        }}
-        action={{
-          label: "close",
-          onPress: () => {
-            setVisible(false);
-          },
-        }}
-      >
-        {errorMessage}
-      </Snackbar>
-    </SafeArea>
+          {errorMessage}
+        </Snackbar>
+        <View style={{ paddingBottom: 20 }} />
+      </SafeArea>
+    </ScrollView>
   );
 };
