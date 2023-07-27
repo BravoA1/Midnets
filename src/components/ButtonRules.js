@@ -4,13 +4,14 @@ import { StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 export default ButtonRules = ({ children, OnPress }) => {
-  const ButtonElement = styled.TouchableOpacity`
+  const ButtonElement = styled.View`
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
     padding-top: ${(props) => props.theme.space[2]};
   `;
-  const BoxGradient = styled.View`
+  const BoxGradient = styled.TouchableOpacity`
+    z-index: 1;
     width: 55px;
     height: 55px;
     box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
@@ -35,18 +36,18 @@ export default ButtonRules = ({ children, OnPress }) => {
   `;
 
   return (
-    <BoxGradient style={styles.container}>
+    <BoxGradient style={styles.container} onPress={OnPress}>
       <LinearButton
         colors={["#D8C2EF", "rgba(255,255,255,0)"]}
         locations={[0, 1]}
         start={{ x: 1, y: 0 }}
         end={{ x: 0, y: 1 }}
       >
-        <ButtonElement onPress={OnPress}>
+        <ButtonElement>
           {/* <TextButton>{children}</TextButton> */}
-          <Text>Règles</Text>
-          <Ionicons name="chevron-down" size={24} color="black" />
         </ButtonElement>
+        <Text>Règles</Text>
+        <Ionicons name="chevron-down" size={24} color="black" />
       </LinearButton>
     </BoxGradient>
   );

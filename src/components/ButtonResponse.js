@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { colors } from "../infrastructure/theme/colors";
 
 export default ButtonResponse = ({ children, OnPress, result, Disabled }) => {
-  const ButtonElement = styled.TouchableOpacity`
+  const ButtonElement = styled.View`
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -14,7 +14,8 @@ export default ButtonResponse = ({ children, OnPress, result, Disabled }) => {
     width: 100%;
     border-radius: 100px;
   `;
-  const BoxGradient = styled.View`
+  const BoxGradient = styled.TouchableOpacity`
+    z-index: 1;
     width: 40%;
     box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
     background-color: #fff;
@@ -50,14 +51,14 @@ export default ButtonResponse = ({ children, OnPress, result, Disabled }) => {
   }, [result]);
 
   return (
-    <BoxGradient style={styles.container}>
+    <BoxGradient style={styles.container} onPress={OnPress} disabled={Disabled}>
       <LinearButton
         colors={[`${color}`, "rgba(255,255,255,0)"]}
         locations={[0, 1]}
         start={{ x: 1, y: 0 }}
         end={{ x: 0, y: 1 }}
       >
-        <ButtonElement onPress={OnPress} disabled={Disabled}>
+        <ButtonElement>
           <TextButton>{children}</TextButton>
         </ButtonElement>
       </LinearButton>
