@@ -84,8 +84,12 @@ export const NavBar = ({ navigation }) => {
 
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Contact" component={ContactScreen} />
-        <Tab.Screen name="Error" component={AccessibilityScreen} />
-        {!user && <Tab.Screen name="Login" component={Login} />}
+        <Tab.Screen name="Error" component={ErrorScreen} />
+        {user ? (
+          <Tab.Screen name="Signout" component={Signout} />
+        ) : (
+          <Tab.Screen name="Login" component={Login} />
+        )}
         <Tab.Screen name="QuizzTheme" component={ThemeScreen} />
         <Tab.Screen
           name="Quizz"
@@ -95,7 +99,6 @@ export const NavBar = ({ navigation }) => {
             unmountOnBlur: true,
           })}
         />
-        {user && <Tab.Screen name="Signout" component={Signout} />}
         <Tab.Screen
           name="Register"
           component={RegisterScreen}
