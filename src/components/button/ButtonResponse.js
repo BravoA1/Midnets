@@ -1,10 +1,18 @@
 import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { useEffect, useState } from "react";
-import { colors } from "../infrastructure/theme/colors";
+import { colors } from "../../infrastructure/theme/colors";
 
-export default ButtonResponse = ({ children, OnPress, result, Disabled }) => {
+const screenWitdh = Dimensions.get("window").width;
+
+export default ButtonResponse = ({
+  children,
+  OnPress,
+  result,
+  Disabled,
+  width = 0.4,
+}) => {
   const ButtonElement = styled.View`
     flex-direction: row;
     justify-content: center;
@@ -16,7 +24,7 @@ export default ButtonResponse = ({ children, OnPress, result, Disabled }) => {
   `;
   const BoxGradient = styled.TouchableOpacity`
     z-index: 1;
-    width: 40%;
+    width: ${screenWitdh * width}px;
     box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
     background-color: #fff;
     border-radius: 100px;

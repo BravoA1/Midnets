@@ -7,7 +7,7 @@ import {
   StyleSheet,
   ImageBackground,
 } from "react-native";
-import ButtonGradient from "../../components/ButtonGradient";
+import ButtonGradient from "../../components/button/ButtonGradient";
 import styled from "styled-components/native";
 import { H1 } from "../../components/theme";
 

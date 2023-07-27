@@ -2,8 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
 import { styled } from "styled-components/native";
 import RubanCard from "../../components/RubanCard";
-import ButtonGradient from "../../components/ButtonGradient";
-import ButtonResponse from "../../components/ButtonResponse";
+import ButtonGradient from "../../components/button/ButtonGradient";
+import ButtonResponse from "../../components/button/ButtonResponse";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;

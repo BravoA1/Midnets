@@ -10,10 +10,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import InsetShadow from "react-native-inset-shadow";
-import ButtonResponse from "../../components/ButtonResponse.js";
+import ButtonResponse from "../../components/button/ButtonResponse.js";
 import { QuizContext } from "../../services/quiz/quiz.context.js";
 
-import ButtonRules from "../../components/ButtonRules.js";
+import ButtonRules from "../../components/button/ButtonRules.js";
 import { PopUpLearnMore } from "../../components/PopupLearnMore.js";
 import { CountDown } from "../../components/CountDown.jsx";
 import { Snackbar } from "react-native-paper";
@@ -407,24 +407,33 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               </QuestionContainer>
               {/* button reponse */}
               <ResponseContainer1>
-                <ButtonResponse
-                  result={result.one}
-                  OnPress={() => Answers(0)}
-                  Disabled={buttonDisable}
-                >
-                  <Response>{answers[0]}</Response>
-                </ButtonResponse>
-                <ButtonResponse
-                  result={result.two}
-                  OnPress={() => Answers(1)}
-                  Disabled={buttonDisable}
-                >
-                  <Response>{answers[1]}</Response>
-                </ButtonResponse>
+                {difficulty < 3 ? (
+                  <>
+                    <ButtonResponse
+                      width={0.35}
+                      result={result.one}
+                      OnPress={() => Answers(0)}
+                      Disabled={buttonDisable}
+                    >
+                      <Response>{answers[0]}</Response>
+                    </ButtonResponse>
+                    <ButtonResponse
+                      width={0.35}
+                      result={result.two}
+                      OnPress={() => Answers(1)}
+                      Disabled={buttonDisable}
+                    >
+                      <Response>{answers[1]}</Response>
+                    </ButtonResponse>
+                  </>
+                ) : (
+                  <></>
+                )}
               </ResponseContainer1>
               {difficulty === 2 ? (
                 <ResponseContainer2>
                   <ButtonResponse
+                    width={0.35}
                     result={result.three}
                     OnPress={() => Answers(2)}
                     Disabled={buttonDisable}
@@ -432,6 +441,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
                     <Response>{answers[2]}</Response>
                   </ButtonResponse>
                   <ButtonResponse
+                    width={0.35}
                     result={result.four}
                     OnPress={() => Answers(3)}
                     Disabled={buttonDisable}
@@ -491,6 +501,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               {/* en savoir plus container */}
               <MoreContainer>
                 <ButtonResponse
+                  width={0.5}
                   OnPress={() => {
                     setShowLearnMoreModale(true);
                     setPause(true);
