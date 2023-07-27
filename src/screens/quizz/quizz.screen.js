@@ -510,6 +510,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
           <RulesScreen
             showPopup={showRuleModale}
             setShowPopup={setShowRuleModale}
+            difficulty={difficulty}
           />
         )}
       </SafeAreaView>

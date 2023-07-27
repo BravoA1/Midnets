@@ -76,10 +76,31 @@ const Btn = styled.View`
   margin-top: 20px;
 `;
 
-export const RulesScreen = ({ navigation, setShowPopup, showPopup }) => {
+export const RulesScreen = ({
+  navigation,
+  setShowPopup,
+  showPopup,
+  difficulty,
+}) => {
   const handlePress = () => {
     setShowPopup(!showPopup);
     //console.log("close modal");
+  };
+
+  const text = {
+    question: difficulty ? (difficulty > 1 ? "10" : "5") : "10",
+    time: difficulty
+      ? difficulty > 1
+        ? difficulty > 2
+          ? "30"
+          : "15"
+        : "20"
+      : "20",
+    type: difficulty
+      ? difficulty > 2
+        ? " ou vous devez remplir l'input"
+        : " en QCM"
+      : "",
   };
 
   return (
@@ -93,8 +114,10 @@ export const RulesScreen = ({ navigation, setShowPopup, showPopup }) => {
             <Line></Line>
             <Ul
               data={[
-                { key: "Une série de 20 questions" },
-                { key: "20 secondes pour répondre à chaque question" },
+                { key: `Une série de ${text.question} questions ${text.type}` },
+                {
+                  key: `${text.time} secondes pour répondre à chaque question`,
+                },
                 { key: "Tentez d'améliorer votre score" },
               ]}
               renderItem={({ item }) => (
