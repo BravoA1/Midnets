@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { Dimensions, FlatList, StyleSheet, Text } from "react-native";
+import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
 import { styled } from "styled-components/native";
 import RubanCard from "../../components/RubanCard";
 import ButtonGradient from "../../components/ButtonGradient";
@@ -8,8 +8,11 @@ import ButtonResponse from "../../components/ButtonResponse";
 const screenWidth = Dimensions.get("window").width;
 
 const Container = styled.SafeAreaView`
+  position: absolute;
+  z-index: 100;
   height: 100%;
-  margin-top: 20px;
+  width: 100%;
+  background-color: white;
 `;
 
 const bg = require("../../img/background.png");
@@ -17,6 +20,7 @@ const bg = require("../../img/background.png");
 const BgContainer = styled.View`
   position: absolute;
   top: 25%;
+  z-index: 50;
   flex: 1;
   margin: auto;
   height: 50%;
@@ -31,7 +35,9 @@ const Background = styled.Image`
 `;
 
 const Scrollable = styled.ScrollView`
+  margin-top: 20px;
   flex: 1;
+  z-index: 200;
   width: 100%;
   height: 100%;
   ${StatusBar.currentHeight && `padding-top: ${StatusBar.currentHeight}px`};

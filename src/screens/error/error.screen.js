@@ -24,7 +24,7 @@ const Error = styled.Text`
   text-align: center;
   font-size: ${(props) => props.theme.fontSizes.body};
   font-weight: ${(props) => props.theme.fontWeights.medium};
-  color: ${(props) => props.theme.colors.text.purple};
+  color: ${(props) => props.theme.colors.brand.primary};
 `;
 
 const HomeButton = styled.TouchableOpacity`

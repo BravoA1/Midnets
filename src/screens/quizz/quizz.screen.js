@@ -38,10 +38,11 @@ const TitleContainer = styled.View`
   justify-content: center;
 `;
 const Title = styled.Text``;
-const QuestionContainer = styled.View`
+const QuestionContainer = styled.ScrollView`
   margin-top: ${(props) => props.theme.space[3]};
   background-color: darkgray;
   width: 85%;
+  height: 25%;
   padding: ${(props) => props.theme.space[4]};
   border-radius: 8px;
 `;
@@ -114,7 +115,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   const [alreadyAsk, setAlreadyAsk] = useState([]);
 
   // For result UseState
-  const QuestionNumber = difficulty > 2 ? 5 : 3;
+  const QuestionNumber = difficulty > 2 ? 5 : 10;
   const [numberQuestion, setNumberQuestion] = useState(QuestionNumber);
   const [score, setScore] = useState(0);
 
@@ -137,6 +138,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   }, [showLearnMoreModale]);
   // PopUp for Rule
   useEffect(() => {
+    console.log(showRuleModale, " rule modale");
     if (!showRuleModale) {
       setPause(false);
     }
@@ -174,6 +176,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   }, [loading]);
 
   useEffect(() => {
+    // If there is not more question redirect to ResultScreen
     if (numberQuestion <= 0) {
       navigation.navigate("Result", {
         score: score,
@@ -218,7 +221,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
     return indexTemp;
   }
 
-  // Logic to see if answers is correct or not
+  // Logic to see if answers is correct or not (it simple but very poorly optimise)
   function Answers(number) {
     console.log(number, " number");
     console.log(correct, "correct");
@@ -244,6 +247,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
           }
           setVisible(true);
           break;
+        // User case
         case 0:
           switch (correct) {
             case 0:
@@ -261,6 +265,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               break;
           }
           break;
+        // User case
         case 1:
           switch (correct) {
             case 0:
@@ -278,6 +283,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               break;
           }
           break;
+        // User case
         case 2:
           switch (correct) {
             case 0:
@@ -295,6 +301,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               break;
           }
           break;
+        // User case
         case 3:
           switch (correct) {
             case 0:
@@ -466,14 +473,17 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               {/* button poour accèder aux règles */}
               <ButtonRules
                 OnPress={() => {
-                  setShowRuleModale(true), setPause(true);
+                  setShowRuleModale(true);
+                  // navigation.navigate("Rule");
+                  setPause(true);
                 }}
               ></ButtonRules>
               {/* en savoir plus container */}
               <MoreContainer>
                 <ButtonResponse
                   OnPress={() => {
-                    setShowLearnMoreModale(true), setPause(true);
+                    setShowLearnMoreModale(true);
+                    setPause(true);
                   }}
                 >
                   <MoreText>En savoir plus</MoreText>
@@ -482,6 +492,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
             </>
           )}
           <Snackbar
+            style={{ zIndex: 2 }}
             visible={visible}
             onDismiss={() => setVisible(false)}
             duration={1500}
@@ -497,8 +508,8 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
         )}
         {showRuleModale && (
           <RulesScreen
-            showPopup={showLearnMoreModale}
-            setShowPopup={setShowLearnMoreModale}
+            showPopup={showRuleModale}
+            setShowPopup={setShowRuleModale}
           />
         )}
       </SafeAreaView>
