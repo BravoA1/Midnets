@@ -51,6 +51,7 @@ const Question = styled.Text`
   font-family: ${(props) => props.theme.fonts.headingBold};
   font-size: 23.9px;
   text-align: left;
+  padding-bottom: ${(props) => props.theme.space[4]};
 `;
 const ResponseContainer1 = styled.View`
   margin-top: ${(props) => props.theme.space[4]};
@@ -96,6 +97,13 @@ const ProgresPoint = styled.View`
   border-radius: 20px;
   margin-left: 2%;
   margin-right: 2%;
+`;
+
+const TimerContainer = styled.View`
+  position: absolute;
+  top: 35%;
+  left: 80%;
+  z-index: 1;
 `;
 
 export const QuizzScreen = ({ navigation, difficulty }) => {
@@ -355,14 +363,16 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
             </View>
           ) : (
             <>
-              <CountDown
-                time={time}
-                setTime={setTime}
-                onTimeUp={() => Answers(-1)}
-                pause={pause}
-                reset={reset}
-                setReset={setReset}
-              />
+              <TimerContainer>
+                <CountDown
+                  time={time}
+                  setTime={setTime}
+                  onTimeUp={() => Answers(-1)}
+                  pause={pause}
+                  reset={reset}
+                  setReset={setReset}
+                />
+              </TimerContainer>
               <InsetShadow
                 containerStyle={styles.shadow}
                 shadowRadius={10}
@@ -392,7 +402,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
                 />
               </View>
               {/* View qui contient la question */}
-              <QuestionContainer>
+              <QuestionContainer contentContainerStyle={{ paddingBottom: 30 }}>
                 <Question>{question}</Question>
               </QuestionContainer>
               {/* button reponse */}
@@ -492,7 +502,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
             </>
           )}
           <Snackbar
-            style={{ zIndex: 2 }}
+            style={{ zIndex: 500 }}
             visible={visible}
             onDismiss={() => setVisible(false)}
             duration={1500}

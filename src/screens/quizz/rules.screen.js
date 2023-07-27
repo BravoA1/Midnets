@@ -6,11 +6,12 @@ import ButtonGradient from "../../components/ButtonGradient";
 import ButtonResponse from "../../components/ButtonResponse";
 
 const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const Container = styled.SafeAreaView`
   position: absolute;
   z-index: 100;
-  height: 100%;
+  height: ${screenHeight}px;
   width: 100%;
   background-color: white;
 `;
