@@ -6,10 +6,11 @@ import {
   StatusBar,
   StyleSheet,
   ImageBackground,
+  Platform,
 } from "react-native";
-import ButtonGradient from "../../components/ButtonGradient";
 import styled from "styled-components/native";
 import { H1 } from "../../components/theme";
+import ButtonResponse from "../../components/ButtonResponse";
 
 let screenWidth = Dimensions.get("window").width;
 
@@ -67,27 +68,29 @@ const ResultScoreContainer = styled.View`
   justify-content: space-evenly;
   position: relative;
   top: ${(props) => props.theme.space[4]};
-  /* padding-top: ${(props) => props.theme.sizes[1]}; */
   margin-left: auto;
   margin-right: auto;
   /* Android */
+  padding-bottom: ${Platform.OS === "ios"
+    ? "0"
+    : (props) => props.theme.sizes[1]};
 `;
 
 const ScorePoint = styled.Text`
-  /* background: lightblue; */
-  /* height: 40%; */
   font-size: ${(props) => props.theme.fontSizes.h4};
   font-family: ${(props) => props.theme.fonts.heading};
-  /* justify-content: center; */
-  /* align-items: center; */
+
   text-align: center;
-  margin-top: ${(props) => props.theme.sizes[1]};
+  margin-top: ${Platform.OS === "ios"
+    ? (props) => props.theme.sizes[1]
+    : "0px"};
 `;
 
 //container dans lequel on met le nom de l'user
 const ScoreText = styled.Text`
+  /* background-color: lightblue; */
   width: 90%;
-  height: 40%;
+  /* min-height: 40%; */
   text-align: center;
   font-size: ${(props) => props.theme.fontSizes.body};
   margin: auto;
@@ -156,10 +159,12 @@ const TextForAnswerText = styled.Text`
 `;
 
 const ButtonsContainer = styled.View`
-  width: 70%;
+  width: 90%;
   position: absolute;
-  bottom: ${(props) => props.theme.space[4]};
+  bottom: ${(props) => props.theme.space[3]};
   flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const ResultScreen = () => {
@@ -210,8 +215,8 @@ export const ResultScreen = () => {
       </ResultContainer>
 
       <ButtonsContainer>
-        <ButtonGradient>Menu Défis</ButtonGradient>
-        <ButtonGradient>Niveau suivant</ButtonGradient>
+        <ButtonResponse>Menu Défis</ButtonResponse>
+        <ButtonResponse>Niveau suivant</ButtonResponse>
       </ButtonsContainer>
     </SafeArea>
   );

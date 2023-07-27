@@ -7,6 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { HomeScreen } from "../../screens/home/home.screen";
 import { ContactScreen } from "../../screens/contact/contact.screen.js";
 import { ErrorScreen } from "../../screens/error/error.screen.js";
+import { ResultScreen } from "../../screens/result/result.screen";
 import { Signout } from "../../screens/temp/Signout.js";
 // Context
 import { UserContext } from "../../services/user/user.context";
@@ -56,6 +57,9 @@ export const AppNavigator = () => {
               case "QuizTheme":
                 iconName = "chatbox-ellipses";
                 break;
+              case "Result":
+                iconName = "analytics";
+                break;
               default:
                 iconName = "construct-outline";
             }
@@ -73,6 +77,7 @@ export const AppNavigator = () => {
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Contact" component={ContactScreen} />
         <Tab.Screen name="Error" component={ErrorScreen} />
+        <Tab.Screen name="Result" component={ResultScreen} />
         {!user && <Tab.Screen name="Login" component={AuthNavigator} />}
         <Tab.Screen
           name="QuizTheme"
