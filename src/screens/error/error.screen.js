@@ -8,9 +8,9 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  SafeAreaView,
 } from "react-native";
 import { theme } from "../../infrastructure/theme";
-import { SafeAreaMaybe } from "../../components/SafeAreaMaybe";
 
 const image_oops = require("../../img/oops.jpg");
 const image_background = require("../../img/background.png");
@@ -24,7 +24,7 @@ const ScreenWidth_045 = (ScreenWidth * 45) / 100;
 
 export const ErrorScreen = ({ navigation }) => {
   return (
-    <SafeAreaMaybe>
+    <SafeAreaView>
       <ImageBackground source={image_background}>
         <Image source={image_fork} style={styles.imageForkTop} />
         <Image source={image_fork} style={styles.imageForkBottom} />
@@ -53,7 +53,7 @@ export const ErrorScreen = ({ navigation }) => {
           </View>
         </ScrollView>
       </ImageBackground>
-    </SafeAreaMaybe>
+    </SafeAreaView>
   );
 };
 
