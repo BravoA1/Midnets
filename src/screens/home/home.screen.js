@@ -14,6 +14,7 @@ import Logo from "../../components/Logo";
 import styled from "styled-components/native";
 import { H1 } from "../../components/theme";
 import { useState } from "react";
+import { CardPortrait } from "../../components/CardPortrait";
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
@@ -111,9 +112,15 @@ const New = styled.View`
   display: flex;
   flex: 1;
   align-items: center;
+  gap: 10px;
 `;
 
-export const HomeScreen = () => {
+const PortraitView = styled.View`
+  margin: 10px 0;
+  width: ${(windowWidth * 3) / 4}px;
+`;
+
+export const HomeScreen = ({ navigation }) => {
   const [portrait, setPortrait] = useState(false);
   const [defi, setDefi] = useState(false);
   const [forum, setForum] = useState(false);
@@ -303,50 +310,14 @@ export const HomeScreen = () => {
         <New>
           <LongVerticalLine />
           <H1>A là une </H1>
-          <FlatList
-            style={{ flex: 1, width: "100%" }}
-            data={[1, 2, 3, 4, 5]}
-            renderItem={() => (
-              <View
-                style={{
-                  alignItems: "flex-start",
-                  flex: 1,
-                  width: "80%",
-                  margin: "5%",
-                  padding: 10,
-                }}
-              >
-                <Text
-                  style={{
-                    backgroundColor: "lightgray",
-                    padding: 5,
-                    fontSize: 20,
-                  }}
-                >
-                  Prenom Nom
-                </Text>
-                <View
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: "yellow",
-                  }}
-                ></View>
-                <Text
-                  style={{
-                    position: "relative",
-                    bottom: "75%",
-                    left: "80%",
-                    backgroundColor: "lightgray",
-                    fontWeight: "600",
-                    fontSize: 25,
-                  }}
-                >
-                  Année
-                </Text>
-              </View>
-            )}
-          />
+          <PortraitView>
+            <CardPortrait
+              OnPress={() => navigation.navigate("PortraitArticle")}
+              url={require("../../img/portraitSuzyHazelwood.jpg")}
+              height={100}
+              isNewPortrait={true}
+            />
+          </PortraitView>
         </New>
       </View>
     </Container>

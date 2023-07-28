@@ -5,12 +5,15 @@ import { firebase } from "../../../config";
 export const QuizContext = createContext();
 
 export const QuizContextProvider = ({ children }) => {
-  const [quizData, setQuizData] = useState([]);
+  const [quizDataEasy, setQuizDataEasy] = useState([]);
+  const [quizDataMedium, setQuizDataMedium] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     firebase
       .firestore()
+      .collection("quiz")
+      .doc("easy")
       .collection("quiz")
       .get()
       .then((snapshot) => {
@@ -18,18 +21,44 @@ export const QuizContextProvider = ({ children }) => {
         snapshot.forEach((doc) => {
           data.push(doc.data());
         });
-        setQuizData(data);
+        setQuizDataEasy(data);
       })
-      .then(() => setLoading(false))
+      .then(
+        firebase
+          .firestore()
+          .collection("quiz")
+          .doc("medium")
+          .collection("quiz")
+          .get()
+          .then((snapshot) => {
+            let data = [];
+            snapshot.forEach((doc) => {
+              data.push(doc.data());
+            });
+            setQuizDataMedium(data);
+          })
+          .then(() => setLoading(false))
+          .catch((error) => {
+            console.error(`error in getQuizDataMedium ${error}`);
+            setQuizDataMedium([]);
+            setLoading(false);
+          })
+      )
       .catch((error) => {
         console.error(`error in getQuizData ${error}`);
-        setQuizData([]);
+        setQuizDataEasy([]);
         setLoading(false);
       });
   }, []);
 
   return (
-    <QuizContext.Provider value={{ quizData: quizData, loading: loading }}>
+    <QuizContext.Provider
+      value={{
+        quizDataEasy: quizDataEasy,
+        quizDataMedium: quizDataMedium,
+        loading: loading,
+      }}
+    >
       {children}
     </QuizContext.Provider>
   );

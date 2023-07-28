@@ -11,7 +11,7 @@ import {
 import { useState } from "react";
 import InputForm from "../../components/InputForm.js";
 import { styled } from "styled-components/native";
-import ButtonGradient from "../../components/ButtonGradient.js";
+import ButtonGradient from "../../components/button/ButtonGradient.js";
 import { firebase } from "../../../config";
 import { Snackbar } from "react-native-paper";
 
@@ -76,7 +76,7 @@ const Spacing = styled.View`
   height: 10px;
 `;
 
-export const PasswordForgot = () => {
+export const PasswordForgot = ({ navigation }) => {
   const [info, setInfo] = useState({ email: "" });
   const [visible, setVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -170,7 +170,7 @@ export const PasswordForgot = () => {
         Un lien vous sera envoyé pour réinitialiser votre mot de passe à
         l’adresse mail utilisée pour l’inscription.
       </InfoForm>
-      <ButtonElement>
+      <ButtonElement onPress={() => navigation.navigate("login")}>
         <TextButton>Retour</TextButton>
       </ButtonElement>
       <Snackbar

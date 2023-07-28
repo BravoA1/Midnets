@@ -1,13 +1,18 @@
 import { useState } from "react";
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { Image, ScrollView, Text, View } from "react-native";
 import InsetShadow from "react-native-inset-shadow";
 import { styled } from "styled-components/native";
+import { CornerBlock } from "./CornerBlock";
+
+const screenHeight = Dimensions.get("window").height;
+
+const screen80 = screenHeight * 0.8;
 
 const Container = styled.View`
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: ${screenHeight}px;
   padding: 30px 35px;
   z-index: 300;
   background-color: rgba(213, 128, 255, 0.2);
@@ -15,7 +20,7 @@ const Container = styled.View`
 
 const PopUp = styled.View`
   width: 100%;
-  flex: 1;
+  height: ${screen80}px;
   padding: 15px;
   border-radius: 20px;
   margin-top: 30px;
@@ -83,7 +88,7 @@ export const PopUpLearnMore = ({ data, setShowPopup, showPopup }) => {
 
   const handlePress = () => {
     setShowPopup(!showPopup);
-    console.log("close modal");
+    //console.log("close modal");
   };
 
   // ?  View dans le insetShadow car il veut un enfant dans son composant
@@ -105,34 +110,31 @@ export const PopUpLearnMore = ({ data, setShowPopup, showPopup }) => {
           <Image source={require("../img/Exclude.png")} />
         </PopUpClose>
         <View style={{ flex: 1, zIndex: 300 }}>
-          <CornerText />
-          <ScrollView style={{ flex: 1, padding: 2 }}>
-            <PopUpSection>
-              <PopUpText>
-                Lorem ipsum dolor sit amet consectetur. At potenti nec nulla
-                purus ultricies eget. Suscipit consequat amet euismod netus.
-                Netus malesuada felis viverra ullamcorper. Lobortis nibh
-              </PopUpText>
-              <PopUpText>
-                fermentum turpis sed. Euismod nunc consequat purus sed. Nisi
-                augue egestas diam arcu quis nunc aliquet lectus. Ut volutpat{" "}
-              </PopUpText>
-              <PopUpText>
-                eget diam netus dictumst. Eget donec id amet faucibus justo sed
-                urna leo faucibus volutpat sapien. Ut porta diam egestas proin
-                et elit scelerisque pretium ultricies.
-              </PopUpText>
-            </PopUpSection>
-          </ScrollView>
-          <CornerText
-            style={{
-              transform: [{ rotate: "180deg" }],
-              top: "auto",
-              left: "auto",
-              right: 0,
-              bottom: 0,
-            }}
-          />
+          <CornerBlock
+            size="100px"
+            color="white"
+            borderHorizontal="4px"
+            borderVertical="4px"
+          >
+            <ScrollView style={{ flex: 1, padding: 2 }}>
+              <PopUpSection>
+                <PopUpText>
+                  Lorem ipsum dolor sit amet consectetur. At potenti nec nulla
+                  purus ultricies eget. Suscipit consequat amet euismod netus.
+                  Netus malesuada felis viverra ullamcorper. Lobortis nibh
+                </PopUpText>
+                <PopUpText>
+                  fermentum turpis sed. Euismod nunc consequat purus sed. Nisi
+                  augue egestas diam arcu quis nunc aliquet lectus. Ut volutpat{" "}
+                </PopUpText>
+                <PopUpText>
+                  eget diam netus dictumst. Eget donec id amet faucibus justo
+                  sed urna leo faucibus volutpat sapien. Ut porta diam egestas
+                  proin et elit scelerisque pretium ultricies.
+                </PopUpText>
+              </PopUpSection>
+            </ScrollView>
+          </CornerBlock>
         </View>
       </PopUp>
     </Container>

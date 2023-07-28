@@ -1,21 +1,24 @@
 import Slider from "@react-native-community/slider";
 import { StatusBar } from "expo-status-bar";
-import { Dimensions, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Dimensions, StyleSheet, Image } from "react-native";
 import { styled } from "styled-components/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { QuizzScreen } from "./quizz.screen";
+import { useEffect, useState } from "react";
 import { TitleBlock } from "../../components/TitleBlock";
 
 let screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const Scrollable = styled.ScrollView`
   flex: 1;
   width: 100%;
+  ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
 `;
 
-const Container = styled.View`
+const Container = styled.SafeAreaView`
   flex: 1;
   width: 100%;
+  height: ${screenHeight}px;
   align-items: center;
   margin: auto;
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
@@ -31,6 +34,7 @@ const Border = styled.View`
   border-bottom-width: 2px;
   border-top-width: 2px;
   width: 100%;
+  background-color: white;
 `;
 
 const ParameterBlock = styled.View`
@@ -67,7 +71,8 @@ const SliderBox = styled.View`
 `;
 
 const Mode = styled.Text`
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: bold;
 `;
 
 const Select = styled.View`
@@ -121,8 +126,18 @@ const bg = require("../../img/background2.png");
 const Tab = createBottomTabNavigator();
 
 export const ThemeScreen = ({ navigation }) => {
+  const [value, setValue] = useState(1);
+
+  function handleChange(value) {
+    setValue(value);
+  }
+
+  const navigateToQuizz = () => {
+    navigation.navigate("Quiz", { difficulty: value });
+  };
+
   return (
-    <Scrollable>
+    <Scrollable contentContainerStyle={{ paddingBottom: 30 }}>
       <Container>
         <Background source={bg} />
         <TitleBlock title="Défis" />
@@ -144,6 +159,8 @@ export const ThemeScreen = ({ navigation }) => {
               minimumValue={1}
               maximumValue={3}
               step={1}
+              onValueChange={handleChange}
+              value={value}
               thumbTintColor={"white"}
               minimumTrackTintColor={"gray"}
               maximumTrackTintColor={"gray"}
@@ -158,32 +175,32 @@ export const ThemeScreen = ({ navigation }) => {
         </Border>
 
         <Select>
-          <Touche onPress={() => navigation.navigate("Quizz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Art</OptionTitle>
             <Triangle></Triangle>
             <Image source={img1} style={styles.image} />
           </Touche>
-          <Touche onPress={() => navigation.navigate("Quizz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Littérature</OptionTitle>
             <Triangle></Triangle>
             <Image source={img2} style={styles.image} />
           </Touche>
-          <Touche onPress={() => navigation.navigate("Quizz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Musique</OptionTitle>
             <Triangle></Triangle>
             <Image source={img3} style={styles.image} />
           </Touche>
-          <Touche onPress={() => navigation.navigate("Quizz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Ingéniérie</OptionTitle>
             <Triangle></Triangle>
             <Image source={img4} style={styles.image} />
           </Touche>
-          <Touche onPress={() => navigation.navigate("Quizz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Sciences</OptionTitle>
             <Triangle></Triangle>
             <Image source={img5} style={styles.image} />
           </Touche>
-          <Touche onPress={() => navigation.navigate("Quizz")}>
+          <Touche onPress={navigateToQuizz}>
             <OptionTitle>Photographie</OptionTitle>
             <Triangle></Triangle>
             <Image source={img6} style={styles.image} />
@@ -194,6 +211,8 @@ export const ThemeScreen = ({ navigation }) => {
   );
 };
 
+// Dans un soucis de design,
+// styled bloque l'usage de "resizeMode"
 const styles = StyleSheet.create({
   image: {
     position: "absolute",

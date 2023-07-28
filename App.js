@@ -12,7 +12,7 @@ import {
 } from "@expo-google-fonts/alata";
 import { Platform } from "react-native";
 import { UserContextProvider } from "./src/services/user/user.context";
-import { NavBar } from "./src/screens/NavBar/navBar.screen";
+import { Navigation } from "./src/infrastructure/navigation";
 
 const isAndroid = Platform.OS === "android";
 export default function App() {
@@ -37,7 +37,7 @@ export default function App() {
   return (
     <UserContextProvider>
       <ThemeProvider theme={theme}>
-        <NavBar />
+        <Navigation />
       </ThemeProvider>
     </UserContextProvider>
   );
