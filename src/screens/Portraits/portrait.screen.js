@@ -1,6 +1,8 @@
 import { Dimensions, ScrollView, StatusBar, View } from "react-native";
 import { CardPortrait } from "../../components/CardPortrait";
 import { styled } from "styled-components/native";
+import { useEffect } from "react";
+import { createNavigationContainerRef } from "@react-navigation/native";
 
 let screenWidth = Dimensions.get("window").width;
 
@@ -63,7 +65,20 @@ const BlockCard = styled.View`
   gap: 20px;
 `;
 
-export const PortraitsScreen = ({ navigation }) => {
+export const PortraitsScreen = ({ navigation, name }) => {
+  const navigateToArticle = (name) => {
+    navigation.navigate("PortraitArticle", { name: name });
+  };
+  if (name) {
+    navigateToArticle(name);
+  }
+  // useEffect(() => {
+  //   console.log("fdp");
+  //   if (name) {
+  //     navigateToArticle(name);
+  //   }
+  // }, []);
+
   return (
     <SafeArea>
       <ScrollView>
@@ -80,28 +95,28 @@ export const PortraitsScreen = ({ navigation }) => {
         </CategoryBlock>
         <BlockCard>
           <CardPortrait
-            OnPress={() => navigation.navigate("PortraitArticle")}
+            OnPress={() => navigateToArticle("Marie curie")}
             url={require("../../img/portraitMarieCurie.jpg")}
             height={150}
             isNewPortrait={true}
           />
           <CardPortrait
-            OnPress={() => navigation.navigate("PortraitArticle")}
+            OnPress={() => navigateToArticle("Suzy hazelwood")}
             url={require("../../img/portraitSuzyHazelwood.jpg")}
             height={100}
           />
           <CardPortrait
-            OnPress={() => navigation.navigate("PortraitArticle")}
+            OnPress={() => navigateToArticle("Suzy hazelwood")}
             url={require("../../img/portraitSuzyHazelwood.jpg")}
             height={100}
           />
           <CardPortrait
-            OnPress={() => navigation.navigate("PortraitArticle")}
+            OnPress={() => navigateToArticle("Suzy hazelwood")}
             url={require("../../img/portraitSuzyHazelwood.jpg")}
             height={100}
           />
           <CardPortrait
-            OnPress={() => navigation.navigate("PortraitArticle")}
+            OnPress={() => navigateToArticle("Suzy hazelwood")}
             url={require("../../img/portraitSuzyHazelwood.jpg")}
             height={100}
           />

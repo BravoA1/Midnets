@@ -96,7 +96,7 @@ const ProgresPoint = styled.View`
   margin-right: 2%;
 `;
 
-export const QuizzScreen = ({ difficulty }) => {
+export const QuizzScreen = ({ difficulty, navigation }) => {
   // Context
   const { quizDataEasy, quizDataMedium, loading } = useContext(QuizContext);
   // Question UseState
@@ -197,6 +197,10 @@ export const QuizzScreen = ({ difficulty }) => {
     setAlreadyAsk([...alreadyAsk, indexTemp]);
     return indexTemp;
   }
+
+  const navigateToArticleWithPopup = (name) => {
+    navigation.navigate("PortraitArticlePopup", { name: name });
+  };
 
   // Logic to see if answers is correct or not
   function Answers(number) {
@@ -449,7 +453,7 @@ export const QuizzScreen = ({ difficulty }) => {
               <MoreContainer>
                 <ButtonResponse
                   OnPress={() => {
-                    setShowLearnMoreModale(true), setPause(true);
+                    navigateToArticleWithPopup("Marie Curie"), setPause(true);
                   }}
                 >
                   <MoreText>En savoir plus</MoreText>
@@ -467,12 +471,12 @@ export const QuizzScreen = ({ difficulty }) => {
             Time up !
           </Snackbar>
         </Container>
-        {showLearnMoreModale && (
+        {/* {showLearnMoreModale && (
           <PopUpLearnMore
             showPopup={showLearnMoreModale}
             setShowPopup={setShowLearnMoreModale}
           />
-        )}
+        )} */}
       </SafeAreaView>
     </>
   );

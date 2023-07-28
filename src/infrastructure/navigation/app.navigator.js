@@ -13,6 +13,7 @@ import { UserContext } from "../../services/user/user.context";
 import { QuizNavigator } from "./quiz.navigator";
 import { AuthNavigator } from "./auth.navigator";
 import { PortraitsScreen } from "../../screens/Portraits/portrait.screen";
+import { PortraitNavigator } from "./portrait.navigator";
 
 export const AppNavigator = () => {
   const { info, user } = useContext(UserContext);
@@ -76,7 +77,7 @@ export const AppNavigator = () => {
 
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Contact" component={ContactScreen} />
-        <Tab.Screen name="Portrait" component={PortraitsScreen} />
+        <Tab.Screen name="Portrait" component={PortraitNavigator} />
         <Tab.Screen name="Error" component={ErrorScreen} />
         {!user && <Tab.Screen name="Login" component={AuthNavigator} />}
         <Tab.Screen

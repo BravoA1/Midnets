@@ -128,6 +128,10 @@ export const HomeScreen = ({ navigation }) => {
   const [defi, setDefi] = useState(false);
   const [forum, setForum] = useState(false);
 
+  const navigateToArticle = (name) => {
+    navigation.navigate("Portrait", { name });
+  };
+
   const styles = StyleSheet.create({
     blackdot: {
       width: "10%",
@@ -315,7 +319,7 @@ export const HomeScreen = ({ navigation }) => {
           <H1>A là une </H1>
           <PortraitView>
             <CardPortrait
-              OnPress={() => navigation.navigate("PortraitArticle")}
+              OnPress={() => navigateToArticle("Suzy hazelwood")}
               url={require("../../img/portraitSuzyHazelwood.jpg")}
               height={100}
               isNewPortrait={true}

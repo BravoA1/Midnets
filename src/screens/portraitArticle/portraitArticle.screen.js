@@ -18,7 +18,7 @@ const SafeArea = styled.SafeAreaView`
 `;
 
 const NameText = styled.Text`
-  width: 75%;
+  width: 85%;
   background-color: #d9d9d9;
   font-size: ${(screenWidth * 6) / 100}px;
   font-family: ${(props) => props.theme.fonts.body};
@@ -44,7 +44,7 @@ const IconLearnMore = styled.TouchableOpacity`
   right: -25px;
   padding: 5px;
   background-color: white;
-  border-radius: 50%;
+  border-radius: 500px;
 `;
 
 const ArticleComponentView = styled.View`
@@ -73,8 +73,21 @@ const ViewIcons = styled.View`
   margin-top: 10px;
 `;
 
-export const PortraitArticleScreen = ({ navigation }) => {
+const Triangle = styled.View`
+  position: absolute;
+  height: 0;
+  width: 0;
+  border-top-width: ${screenWidth * 0.05}px;
+  border-top-color: #9e9e9e;
+  border-left-width: ${screenWidth * 0.05}px;
+  border-left-color: transparent;
+  top: 100%;
+  left: 0;
+`;
+
+export const PortraitArticleScreen = ({ navigation, route }) => {
   const [showLearnMoreModale, setShowLearnMoreModale] = useState(false);
+  const { name } = route.params;
 
   return (
     <>
@@ -82,7 +95,8 @@ export const PortraitArticleScreen = ({ navigation }) => {
         <ScrollView>
           <ContainerView>
             <View>
-              <NameText>Marie CURIE</NameText>
+              <NameText>{name && name}</NameText>
+              <Triangle></Triangle>
             </View>
             <View>
               <PortraitImage
