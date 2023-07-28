@@ -20,6 +20,7 @@ import { useState } from "react";
 import { CardPortrait } from "../../components/CardPortrait";
 import MaskedView from "@react-native-community/masked-view";
 import ButtonResponse from "../../components/button/ButtonResponse";
+import ButtonGradient2 from "../../components/button/ButtonGradient2";
 
 const isAndroid = Platform.OS === "android";
 const windowHeight = Dimensions.get("window").height;
@@ -294,12 +295,17 @@ export const HomeScreen = ({ navigation }) => {
 									start={{ x: 0, y: 0 }}
 									end={{ x: 1, y: 0 }}
 								>
-									<Paragraph style={{ display: portrait ? "flex" : "none" }}>
-										The missile knows where it is at all times. It knows this
-										because it knows where it isn't, by subtracting where it is,
-										from where it isn't, or where it isn't, from where it is,
-										whichever is greater, it obtains a difference, or deviation.
-									</Paragraph>
+									<TouchableOpacity
+										onPress={() => navigation.navigate("Error")}
+									>
+										<Paragraph style={{ display: portrait ? "flex" : "none" }}>
+											The missile knows where it is at all times. It knows this
+											because it knows where it isn't, by subtracting where it
+											is, from where it isn't, or where it isn't, from where it
+											is, whichever is greater, it obtains a difference, or
+											deviation.
+										</Paragraph>
+									</TouchableOpacity>
 								</ParagraphGradiant>
 							</Collumn>
 							<Collumn>
@@ -349,12 +355,17 @@ export const HomeScreen = ({ navigation }) => {
 									start={{ x: 0, y: 0 }}
 									end={{ x: 1, y: 0 }}
 								>
-									<Paragraph style={{ display: defi ? "flex" : "none" }}>
-										The missile knows where it is at all times. It knows this
-										because it knows where it isn't, by subtracting where it is,
-										from where it isn't, or where it isn't, from where it is,
-										whichever is greater, it obtains a difference, or deviation.
-									</Paragraph>
+									<TouchableOpacity
+										onPress={() => navigation.navigate("QuizTheme")}
+									>
+										<Paragraph style={{ display: defi ? "flex" : "none" }}>
+											The missile knows where it is at all times. It knows this
+											because it knows where it isn't, by subtracting where it
+											is, from where it isn't, or where it isn't, from where it
+											is, whichever is greater, it obtains a difference, or
+											deviation.
+										</Paragraph>
+									</TouchableOpacity>
 								</ParagraphGradiant>
 							</Collumn>
 							<Collumn>
@@ -404,12 +415,17 @@ export const HomeScreen = ({ navigation }) => {
 									start={{ x: 0, y: 0 }}
 									end={{ x: 1, y: 0 }}
 								>
-									<Paragraph style={{ display: forum ? "flex" : "none" }}>
-										The missile knows where it is at all times. It knows this
-										because it knows where it isn't, by subtracting where it is,
-										from where it isn't, or where it isn't, from where it is,
-										whichever is greater, it obtains a difference, or deviation.
-									</Paragraph>
+									<TouchableOpacity
+										onPress={() => navigation.navigate("ForumHome")}
+									>
+										<Paragraph style={{ display: forum ? "flex" : "none" }}>
+											The missile knows where it is at all times. It knows this
+											because it knows where it isn't, by subtracting where it
+											is, from where it isn't, or where it isn't, from where it
+											is, whichever is greater, it obtains a difference, or
+											deviation.
+										</Paragraph>
+									</TouchableOpacity>
 								</ParagraphGradiant>
 							</Collumn>
 						</GroupContainer>
@@ -457,7 +473,9 @@ export const HomeScreen = ({ navigation }) => {
 								</Paragraph>
 							</MaskedView>
 						</PortraitView>
-						<ButtonResponse>En savoir plus</ButtonResponse>
+						<ButtonResponse OnPress={() => navigation.navigate("Error")}>
+							En savoir plus
+						</ButtonResponse>
 						<LongVerticalLine />
 					</New>
 					<ForumLink>
@@ -480,12 +498,16 @@ export const HomeScreen = ({ navigation }) => {
 										associations)
 									</Text>
 								</View>
-								<ButtonResponse>Y accéder</ButtonResponse>
+								<ButtonResponse OnPress={() => navigation.navigate("Error")}>
+									Y accéder
+								</ButtonResponse>
 							</ImageBackground>
 						</ImageBackground>
 					</ForumLink>
-					<View>
-						<ButtonResponse>A propos de Midnets</ButtonResponse>
+					<View style={{ width: "100%", alignItems: "center" }}>
+						<ButtonGradient2 OnPress={() => navigation.navigate("Error")}>
+							A propos de Midnets
+						</ButtonGradient2>
 					</View>
 				</ScrollView>
 			</Container>
