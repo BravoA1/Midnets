@@ -12,6 +12,7 @@ import { Signout } from "../../screens/temp/Signout.js";
 import { UserContext } from "../../services/user/user.context";
 import { QuizNavigator } from "./quiz.navigator";
 import { AuthNavigator } from "./auth.navigator";
+import { Forum } from "../../screens/forum/forum.screen";
 
 export const AppNavigator = () => {
   const { info, user } = useContext(UserContext);
@@ -56,6 +57,9 @@ export const AppNavigator = () => {
               case "QuizTheme":
                 iconName = "chatbox-ellipses";
                 break;
+              case "ForumHome":
+                iconName = "book";
+                break;
               default:
                 iconName = "construct-outline";
             }
@@ -82,6 +86,7 @@ export const AppNavigator = () => {
           })}
         />
         {user && <Tab.Screen name="Signout" component={Signout} />}
+        <Tab.Screen name="ForumHome" component={Forum} />
       </Tab.Navigator>
       <StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />
     </NavigationContainer>
