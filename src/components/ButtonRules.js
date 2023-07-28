@@ -1,9 +1,9 @@
 import { styled } from "styled-components";
 import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-export default ButtonRules = ({ children }) => {
+export default ButtonRules = ({ navigation }) => {
   const ButtonElement = styled.TouchableOpacity`
     flex-flow: column nowrap;
     justify-content: center;
@@ -18,7 +18,7 @@ export default ButtonRules = ({ children }) => {
     border-radius: 100px;
     overflow: hidden;
     position: absolute;
-    bottom: 0;
+    bottom: 2%;
     left: ${(props) => props.theme.space[4]};
   `;
 
@@ -34,15 +34,18 @@ export default ButtonRules = ({ children }) => {
     padding: 0px;
   `;
 
+  const navigateToRules = () => {
+    navigation.navigate("Rules");
+  };
+
   return (
     <BoxGradient style={styles.container}>
       <LinearButton
         colors={["#D8C2EF", "rgba(255,255,255,0)"]}
         locations={[0, 1]}
         start={{ x: 1, y: 0 }}
-        end={{ x: 0, y: 1 }}
-      >
-        <ButtonElement>
+        end={{ x: 0, y: 1 }}>
+        <ButtonElement onPress={() => navigation.navigate("Rules")}>
           {/* <TextButton>{children}</TextButton> */}
           <Text>Règles</Text>
           <Ionicons name="chevron-down" size={24} color="black" />

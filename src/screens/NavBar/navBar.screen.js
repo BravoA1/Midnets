@@ -95,6 +95,7 @@ export const NavBar = ({ navigation }) => {
         {!user && <Tab.Screen name="Login" component={Login} />}
         <Tab.Screen name="Portrait" component={PortraitsScreen} />
         <Tab.Screen name="QuizzTheme" component={ThemeScreen} />
+        <Tab.Screen name="RulesQuiz" component={RulesScreen} />
         <Tab.Screen name="Result" component={ResultScreen} />
         <Tab.Screen
           name="Quizz"
