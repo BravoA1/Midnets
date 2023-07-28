@@ -57,8 +57,9 @@ export const AppNavigator = () => {
               case "QuizTheme":
                 iconName = "chatbox-ellipses";
                 break;
-              case "ForumHome" :
-                iconName = "book"
+              case "ForumHome":
+                iconName = "book";
+                break;
               default:
                 iconName = "construct-outline";
             }
@@ -85,7 +86,7 @@ export const AppNavigator = () => {
           })}
         />
         {user && <Tab.Screen name="Signout" component={Signout} />}
-        <Tab.Screen name="ForumHome" component={Forum}/>
+        <Tab.Screen name="ForumHome" component={Forum} />
       </Tab.Navigator>
       <StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />
     </NavigationContainer>
