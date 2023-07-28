@@ -4,7 +4,7 @@ import { Dimensions, StyleSheet, Image } from "react-native";
 import { styled } from "styled-components/native";
 import { useState } from "react";
 import { TitleBlock } from "../../components/TitleBlock";
-import ButtonRules from "../../components/ButtonRules";
+// import ButtonRules from "../../components/ButtonRules";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -204,7 +204,7 @@ export const ThemeScreen = ({ navigation }) => {
             <Image source={img6} style={styles.image} />
           </Touche>
         </Select>
-        <ButtonRules />
+        {/* <ButtonRules /> */}
       </Container>
     </Scrollable>
   );
