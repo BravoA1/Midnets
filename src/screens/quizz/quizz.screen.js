@@ -126,7 +126,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   const [alreadyAsk, setAlreadyAsk] = useState([]);
 
   // For result UseState
-  const QuestionNumber = difficulty > 2 ? (difficulty === 3 ? 5 : 10) : 5;
+  const QuestionNumber = difficulty > 1 ? 5 : 10;
   const [numberQuestion, setNumberQuestion] = useState(QuestionNumber);
   const [score, setScore] = useState(0);
 
@@ -164,6 +164,10 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   useEffect(() => {
     Reset();
   }, []);
+
+  useEffect(() => {
+    setIndex(Random());
+  }, [difficulty]);
 
   useEffect(() => {
     // Quand l'index change

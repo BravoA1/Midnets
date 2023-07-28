@@ -61,9 +61,6 @@ export const AppNavigator = () => {
               case "ForumHome":
                 iconName = "book";
                 break;
-              case "Result":
-                iconName = "analytics";
-                break;
               default:
                 iconName = "construct-outline";
             }
@@ -81,7 +78,6 @@ export const AppNavigator = () => {
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Contact" component={ContactScreen} />
         <Tab.Screen name="Error" component={ErrorScreen} />
-        <Tab.Screen name="Result" component={ResultScreen} />
         {!user && <Tab.Screen name="Login" component={AuthNavigator} />}
         <Tab.Screen
           name="QuizTheme"
