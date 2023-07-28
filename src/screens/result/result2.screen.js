@@ -11,11 +11,8 @@ import {
 import styled from "styled-components/native";
 import { H1 } from "../../components/theme";
 import ButtonResponse from "../../components/ButtonResponse";
-import RubanCard from "../../components/RubanCard";
-import { CornerBlock } from "../../components/CornerBlock";
 
 let screenWidth = Dimensions.get("window").width;
-let screenHeight = Dimensions.get("window").height;
 
 const image_background = require("../../img/background.png");
 
@@ -24,45 +21,53 @@ const SafeArea = styled(SafeAreaView)`
   align-items: center;
   margin: auto;
   width: ${(screenWidth * 3) / 4}px;
+  ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
   margin-top: ${(props) => props.theme.space[5]};
 `;
 
-// const ButtonsContainer = styled.View`
-//   width: 90%;
-//   height: 20%;
-//   bottom: ${(props) => props.theme.space[3]};
-//   flex-direction: row;
-//   align-items: center;
-//   border: 1px solid red;
-// `;
-
 //container de tout le résultat sauf les boutons
 const ResultContainer = styled.View`
-  width: ${(screenWidth * 3) / 4}px;
-  height: ${(screenHeight * 2) / 4}px;
-  padding: 5%;
-  background: ${(props) => props.theme.colors.bg.primary};
-  justify-content: center;
+  width: 90%;
+  height: 75%;
+  /* margin-top: ${(props) => props.theme.space[4]}; */
+  border-radius: 10px;
+  /* background: ${(props) => props.theme.colors.bg.primary}; */
+  background: #565656;
+  position: absolute;
   align-items: center;
 `;
 
-const CornerContainer = styled.View`
-  height: 100%;
+//container avec le header
+const ResultBanner = styled.View`
+  background-color: ${(props) => props.theme.colors.bg.tertiary};
   width: 100%;
-  padding: 7%;
-  position: absolute;
+  height: 7%;
+  top: ${(props) => props.theme.space[3]};
+  z-index: 1;
+  position: relative;
+`;
+
+//container dans lequel on vient tout mettre sauf le header et le container gris foncé
+const ResultSmallContainer = styled.View`
+  width: 80%;
+  height: 70%;
+  /* position: inherit; */
+  top: ${(props) => props.theme.space[7]};
+  margin-top: ${(props) => props.theme.space[3]};
+  justify-content: center;
+  flex-direction: row;
 `;
 
 //container gris qui contient les deux view du score et du texte
 const ResultScoreContainer = styled.View`
   /* IOS */
   background: ${(props) => props.theme.colors.bg.tertiary};
-  width: 60%;
-  height: 35%;
+  width: 65%;
+  height: 30%;
   border-radius: 10px;
   justify-content: space-evenly;
   position: relative;
-  top: -20%;
+  top: ${(props) => props.theme.space[4]};
   margin-left: auto;
   margin-right: auto;
   /* Android */
@@ -70,6 +75,7 @@ const ResultScoreContainer = styled.View`
     ? "0"
     : (props) => props.theme.sizes[1]};
 `;
+
 const ScorePoint = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.h4};
   font-family: ${(props) => props.theme.fonts.heading};
@@ -82,7 +88,9 @@ const ScorePoint = styled.Text`
 
 //container dans lequel on met le nom de l'user
 const ScoreText = styled.Text`
+  /* background-color: lightblue; */
   width: 90%;
+  /* min-height: 40%; */
   text-align: center;
   font-size: ${(props) => props.theme.fontSizes.body};
   margin: auto;
@@ -91,46 +99,31 @@ const ScoreText = styled.Text`
 
 //container avec les deux view pour bonnes et mauvaises réponses
 const ResultAnswerContainer = styled.View`
-  background-color: white;
-  width: ${(screenWidth * 3) / 4}px;
-  position: absolute;
-  top: 50%;
-  margin-top: 20px;
-  align-items: center;
+  width: 100%;
+  /* flex: 1; */
+  height: 25%;
+  justify-content: space-between;
+  position: relative;
+  margin-top: ${(props) => props.theme.space[5]};
+  bottom: ${(props) => props.theme.space[6]};
 `;
 
-const ResultAnswerContainer1 = styled.View`
-  background-color: white;
-  width: ${(screenWidth * 3) / 4}px;
-  position: absolute;
-  top: 70%;
-  margin-top: 20px;
-  align-items: center;
+const ResultAnswer = styled.View`
+  background: white;
+  width: 100%;
+  height: 40%;
 `;
-
-// const ResultAnswer = styled.View`
-//   background: white;
-//   width: 100%;
-//   height: 100%;
-//   position: relative;
-// `;
 
 const AnswerBorder = styled.View`
-  /* margin-top: 1%;
+  margin-top: 1%;
   margin-bottom: 1%;
   height: 5%;
   background: black;
-  width: 100%; */
   width: 100%;
-  height: 3px;
-  background: black;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  font-size: 14px;
-  font-weight: 400;
 `;
 
 const AnswerTextContainer = styled.View`
+  height: 60%;
   /* background: red; */
   justify-content: center;
   flex-direction: row;
@@ -165,22 +158,6 @@ const TextForAnswerText = styled.Text`
   margin: auto;
 `;
 
-const BlockResult = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: ${(screenWidth * 2) / 4}px;
-`;
-
-const Score = styled.Text`
-  font-size: 24px;
-  padding-right: 20px;
-`;
-
-const Result = styled.Text`
-  text-align: center;
-`;
-
 const ButtonsContainer = styled.View`
   width: 90%;
   position: absolute;
@@ -194,54 +171,23 @@ const ButtonsContainer = styled.View`
 export const ResultScreen = () => {
   return (
     <SafeArea>
-      <RubanCard title="Résultat">
-        <ResultContainer>
-          <CornerContainer>
-            <CornerBlock
-              size="100px"
-              color="white"
-              borderHorizontal="4px"
-              borderVertical="4px"
-            >
-              <ImageBackground
-                source={image_background}
-                resizeMode="cover"
-                style={styles.imgback}
-              ></ImageBackground>
-            </CornerBlock>
-          </CornerContainer>
-          <ResultScoreContainer>
-            <ScorePoint>110</ScorePoint>
-            <ScoreText>score de Lorembidule</ScoreText>
-          </ResultScoreContainer>
-        </ResultContainer>
+      <ResultBanner>
+        <H1>Résultat</H1>
+      </ResultBanner>
+      <ResultContainer>
+        <ResultSmallContainer>
+          <ImageBackground
+            source={image_background}
+            resizeMode="cover"
+            style={styles.imgback}
+          >
+            <ResultScoreContainer>
+              <ScorePoint>110</ScorePoint>
+              <ScoreText>score de Lorembidule</ScoreText>
+            </ResultScoreContainer>
+          </ImageBackground>
+        </ResultSmallContainer>
         <ResultAnswerContainer>
-          <AnswerBorder></AnswerBorder>
-          <BlockResult>
-            <Score>6</Score>
-            <Result>BONNES REPONSES</Result>
-          </BlockResult>
-          <AnswerBorder></AnswerBorder>
-          {/* <ResultAnswer>
-            <AnswerBorder></AnswerBorder>
-            <Text>Réponses</Text>
-            <AnswerBorder></AnswerBorder>
-          </ResultAnswer> */}
-        </ResultAnswerContainer>
-        <ResultAnswerContainer1>
-          <AnswerBorder></AnswerBorder>
-          <BlockResult>
-            <Score>4</Score>
-            <Result>MAUVAISES REPONSES</Result>
-          </BlockResult>
-          <AnswerBorder></AnswerBorder>
-          {/* <ResultAnswer>
-            <AnswerBorder></AnswerBorder>
-            <Text>Réponses</Text>
-            <AnswerBorder></AnswerBorder>
-          </ResultAnswer> */}
-        </ResultAnswerContainer1>
-        {/* <ResultAnswerContainer>
           <ResultAnswer>
             <AnswerBorder></AnswerBorder>
             <AnswerTextContainer>
@@ -266,18 +212,17 @@ export const ResultScreen = () => {
             </AnswerTextContainer>
             <AnswerBorder></AnswerBorder>
           </ResultAnswer>
-        </ResultAnswerContainer> */}
-      </RubanCard>
-      {/* <ResultContainer></ResultContainer> */}
+        </ResultAnswerContainer>
+      </ResultContainer>
 
-      {/* <ButtonsContainer>
+      <ButtonsContainer>
         <View style={{ width: "45%", backgroundColor: "green" }}>
           <ButtonResponse>Menu Défis</ButtonResponse>
         </View>
         <View style={{ width: "45%", backgroundColor: "yellow" }}>
           <ButtonResponse>Niveau suivant</ButtonResponse>
         </View>
-      </ButtonsContainer> */}
+      </ButtonsContainer>
     </SafeArea>
   );
 };
@@ -287,6 +232,6 @@ const styles = StyleSheet.create({
     position: "relative",
     flex: 1,
     width: "100%",
-    height: "100%",
+    height: "105%",
   },
 });
