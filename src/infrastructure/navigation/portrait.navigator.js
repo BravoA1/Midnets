@@ -9,7 +9,7 @@ import { HomeScreen } from "../../screens/home/home.screen";
 const PortraitStack = createStackNavigator();
 
 export const PortraitNavigator = ({ navigation, route }) => {
-  //const { name } = route.params;
+  // const { name } = route.params;
 
   return (
     <PortraitStack.Navigator screenOptions={{ headerShown: false }}>
