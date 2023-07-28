@@ -44,6 +44,7 @@ const TextButton = styled.Text`
   font-size: 16px;
   text-align: center;
   font-family: ${(props) => props.theme.fonts.headingBold};
+  margin-top: ${Platform.OS === "ios" ? "0px" : "30px"};
 `;
 
 export const Login = ({ navigation }) => {

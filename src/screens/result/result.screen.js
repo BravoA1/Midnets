@@ -9,7 +9,7 @@ import {
   Platform,
 } from "react-native";
 import styled from "styled-components/native";
-import { ButtonResponse } from "../../components/button/ButtonResponse";
+import ButtonResponse from "../../components/button/ButtonResponse";
 import RubanCard from "../../components/RubanCard";
 import { CornerBlock } from "../../components/CornerBlock";
 
@@ -169,15 +169,21 @@ const TextForAnswerText = styled.Text`
   font-size: ${Platform.OS === "ios" ? "20px" : "15px"};
 `;
 
+const ButtonView = styled.View`
+  width: 50%;
+  flex: 1;
+  flex-direction: row;
+  padding: 0px;
+`;
+
 const ButtonsContainer = styled.View`
   width: 100%;
   height: 10%;
   position: absolute;
   bottom: ${(props) => props.theme.space[3]};
   flex-direction: row;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   align-items: center;
-  border: 1px solid red;
 `;
 
 export const ResultScreen = () => {
@@ -233,12 +239,12 @@ export const ResultScreen = () => {
       </RubanCard>
 
       <ButtonsContainer>
-        {/* <View style={{ width: "45%", backgroundColor: "green" }}>
-          <ButtonResponse>Niveau suivant</ButtonResponse>
-        </View>
-        <View style={{ width: "45%", backgroundColor: "yellow" }}>
-          <ButtonResponse>Niveau suivant</ButtonResponse>
-        </View>*/}
+        <ButtonView style={{ justifyContent: "flex-start" }}>
+          <ButtonResponse width={0.35}>Menus Défis</ButtonResponse>
+        </ButtonView>
+        <ButtonView style={{ justifyContent: "flex-end" }}>
+          <ButtonResponse width={0.35}>Niveau suivant</ButtonResponse>
+        </ButtonView>
       </ButtonsContainer>
     </SafeArea>
   );
