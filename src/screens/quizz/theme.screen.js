@@ -2,11 +2,12 @@ import Slider from "@react-native-community/slider";
 import { StatusBar } from "expo-status-bar";
 import { Dimensions, StyleSheet, Image } from "react-native";
 import { styled } from "styled-components/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TitleBlock } from "../../components/TitleBlock";
+// import ButtonRules from "../../components/ButtonRules";
 
-let screenWidth = Dimensions.get("window").width;
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const Scrollable = styled.ScrollView`
   flex: 1;
@@ -17,6 +18,7 @@ const Scrollable = styled.ScrollView`
 const Container = styled.SafeAreaView`
   flex: 1;
   width: 100%;
+  height: ${screenHeight}px;
   align-items: center;
   margin: auto;
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
@@ -121,8 +123,6 @@ const img5 = require("../../img/quiz/img5.jpg");
 const img6 = require("../../img/quiz/img6.jpg");
 const bg = require("../../img/background2.png");
 
-const Tab = createBottomTabNavigator();
-
 export const ThemeScreen = ({ navigation }) => {
   const [value, setValue] = useState(1);
 
@@ -135,7 +135,7 @@ export const ThemeScreen = ({ navigation }) => {
   };
 
   return (
-    <Scrollable>
+    <Scrollable contentContainerStyle={{ paddingBottom: 30 }}>
       <Container>
         <Background source={bg} />
         <TitleBlock title="Défis" />
@@ -204,12 +204,13 @@ export const ThemeScreen = ({ navigation }) => {
             <Image source={img6} style={styles.image} />
           </Touche>
         </Select>
+        {/* <ButtonRules /> */}
       </Container>
     </Scrollable>
   );
 };
 
-// Dans un soucis de design, 
+// Dans un soucis de design,
 // styled bloque l'usage de "resizeMode"
 const styles = StyleSheet.create({
   image: {

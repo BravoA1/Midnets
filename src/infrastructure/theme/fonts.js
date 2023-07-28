@@ -1,7 +1,7 @@
 export const fonts = {
   body: "Alata_400Regular",
   heading: "Lora_600SemiBold",
-  headingBold: 'Lora_700Bold'
+  headingBold: "Lora_700Bold",
 };
 
 export const fontWeights = {

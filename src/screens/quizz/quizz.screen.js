@@ -10,13 +10,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import InsetShadow from "react-native-inset-shadow";
-import ButtonResponse from "../../components/ButtonResponse.js";
-import { QuizContext } from "../../services/quiz/quiz.context.js";
 
-import ButtonRules from "../../components/ButtonRules.js";
+import ButtonResponse from "../../components/button/ButtonResponse.js";
+import ButtonRules from "../../components/button/ButtonRules.js";
+import InputFrom from "../../components/InputForm.js";
+
+import { QuizContext } from "../../services/quiz/quiz.context.js";
 import { PopUpLearnMore } from "../../components/PopupLearnMore.js";
 import { CountDown } from "../../components/CountDown.jsx";
 import { Snackbar } from "react-native-paper";
+import { RulesScreen } from "./rules.screen.js";
 
 const Container = styled.View`
   display: flex;
@@ -37,10 +40,11 @@ const TitleContainer = styled.View`
   justify-content: center;
 `;
 const Title = styled.Text``;
-const QuestionContainer = styled.View`
+const QuestionContainer = styled.ScrollView`
   margin-top: ${(props) => props.theme.space[3]};
   background-color: darkgray;
   width: 85%;
+  height: 25%;
   padding: ${(props) => props.theme.space[4]};
   border-radius: 8px;
 `;
@@ -49,6 +53,7 @@ const Question = styled.Text`
   font-family: ${(props) => props.theme.fonts.headingBold};
   font-size: 23.9px;
   text-align: left;
+  padding-bottom: ${(props) => props.theme.space[4]};
 `;
 const ResponseContainer1 = styled.View`
   margin-top: ${(props) => props.theme.space[4]};
@@ -96,7 +101,14 @@ const ProgresPoint = styled.View`
   margin-right: 2%;
 `;
 
-export const QuizzScreen = ({ difficulty, navigation }) => {
+const TimerContainer = styled.View`
+  position: absolute;
+  top: 35%;
+  left: 80%;
+  z-index: 1;
+`;
+
+export const QuizzScreen = ({ navigation, difficulty }) => {
   // Context
   const { quizDataEasy, quizDataMedium, loading } = useContext(QuizContext);
   // Question UseState
@@ -113,25 +125,37 @@ export const QuizzScreen = ({ difficulty, navigation }) => {
   const [alreadyAsk, setAlreadyAsk] = useState([]);
 
   // For result UseState
-  const QuestionNumber = difficulty > 2 ? 5 : 10;
+  const QuestionNumber = difficulty > 2 ? (difficulty === 3 ? 30 : 5) : 10;
   const [numberQuestion, setNumberQuestion] = useState(QuestionNumber);
   const [score, setScore] = useState(0);
 
   // PopUp and Button UseState
   const [buttonDisable, setButtonDisable] = useState(false);
   const [showLearnMoreModale, setShowLearnMoreModale] = useState(false);
+  const [showRuleModale, setShowRuleModale] = useState(false);
   const [visible, setVisible] = useState(false);
 
   // Timer UseState
-  const [time, setTime] = useState(difficulty === 2 ? 15 : 20);
+  const [time, setTime] = useState(
+    difficulty === 2 ? 15 : difficulty === 3 ? 30 : 20
+  );
   const [pause, setPause] = useState(false);
   const [reset, setReset] = useState(true);
 
+  // PopUp for showMore
   useEffect(() => {
     if (!showLearnMoreModale) {
       setPause(false);
     }
   }, [showLearnMoreModale]);
+
+  // PopUp for Rule
+  useEffect(() => {
+    console.log(showRuleModale, " rule modale");
+    if (!showRuleModale) {
+      setPause(false);
+    }
+  }, [showRuleModale]);
 
   // Reset all on first render
   useEffect(() => {
@@ -164,6 +188,18 @@ export const QuizzScreen = ({ difficulty, navigation }) => {
     console.log(loading, "loading");
   }, [loading]);
 
+  useEffect(() => {
+    // If there is not more question redirect to ResultScreen
+    if (numberQuestion <= 0) {
+      navigation.navigate("Result", {
+        score: score,
+        numberQuestion: QuestionNumber,
+        difficulty: difficulty,
+      });
+      setPause(true);
+    }
+  }, [numberQuestion]);
+
   // Initialise the new Question
   function NewQuestion(quizData) {
     console.log(quizData);
@@ -189,7 +225,7 @@ export const QuizzScreen = ({ difficulty, navigation }) => {
     let indexTemp;
     do {
       indexTemp = Math.floor(
-        difficulty === 2
+        difficulty > 1
           ? Math.random() * quizDataMedium.length
           : Math.random() * quizDataEasy.length
       );
@@ -197,10 +233,6 @@ export const QuizzScreen = ({ difficulty, navigation }) => {
     setAlreadyAsk([...alreadyAsk, indexTemp]);
     return indexTemp;
   }
-
-  const navigateToArticleWithPopup = (name) => {
-    navigation.navigate("PortraitArticlePopup", { name: name });
-  };
 
   // Logic to see if answers is correct or not
   function Answers(number) {
@@ -228,6 +260,7 @@ export const QuizzScreen = ({ difficulty, navigation }) => {
           }
           setVisible(true);
           break;
+        // User case
         case 0:
           switch (correct) {
             case 0:
@@ -245,6 +278,7 @@ export const QuizzScreen = ({ difficulty, navigation }) => {
               break;
           }
           break;
+        // User case
         case 1:
           switch (correct) {
             case 0:
@@ -262,6 +296,7 @@ export const QuizzScreen = ({ difficulty, navigation }) => {
               break;
           }
           break;
+        // User case
         case 2:
           switch (correct) {
             case 0:
@@ -279,6 +314,7 @@ export const QuizzScreen = ({ difficulty, navigation }) => {
               break;
           }
           break;
+        // User case
         case 3:
           switch (correct) {
             case 0:
@@ -307,6 +343,13 @@ export const QuizzScreen = ({ difficulty, navigation }) => {
     }
   }
 
+  function AnswersSpecific(answersUser) {
+    console.log(answers[correct].toLowerCase());
+    console.log(answersUser.toLowerCase());
+    if (answers[correct].toLowerCase() === answersUser.toLowerCase()) {
+    }
+  }
+
   return (
     <>
       <SafeAreaView>
@@ -328,18 +371,20 @@ export const QuizzScreen = ({ difficulty, navigation }) => {
                   zIndex: 1,
                 }}
               />
-              <Text>Pas de Question</Text>
+              <Text>Question en chargement</Text>
             </View>
           ) : (
             <>
-              <CountDown
-                time={time}
-                setTime={setTime}
-                onTimeUp={() => Answers(-1)}
-                pause={pause}
-                reset={reset}
-                setReset={setReset}
-              />
+              <TimerContainer>
+                <CountDown
+                  time={time}
+                  setTime={setTime}
+                  onTimeUp={() => Answers(-1)}
+                  pause={pause}
+                  reset={reset}
+                  setReset={setReset}
+                />
+              </TimerContainer>
               <InsetShadow
                 containerStyle={styles.shadow}
                 shadowRadius={10}
@@ -369,29 +414,42 @@ export const QuizzScreen = ({ difficulty, navigation }) => {
                 />
               </View>
               {/* View qui contient la question */}
-              <QuestionContainer>
+              <QuestionContainer contentContainerStyle={{ paddingBottom: 30 }}>
                 <Question>{question}</Question>
               </QuestionContainer>
               {/* button reponse */}
               <ResponseContainer1>
-                <ButtonResponse
-                  result={result.one}
-                  OnPress={() => Answers(0)}
-                  Disabled={buttonDisable}
-                >
-                  <Response>{answers[0]}</Response>
-                </ButtonResponse>
-                <ButtonResponse
-                  result={result.two}
-                  OnPress={() => Answers(1)}
-                  Disabled={buttonDisable}
-                >
-                  <Response>{answers[1]}</Response>
-                </ButtonResponse>
+                {difficulty < 3 ? (
+                  <>
+                    <ButtonResponse
+                      width={0.35}
+                      result={result.one}
+                      OnPress={() => Answers(0)}
+                      Disabled={buttonDisable}
+                    >
+                      <Response>{answers[0]}</Response>
+                    </ButtonResponse>
+                    <ButtonResponse
+                      width={0.35}
+                      result={result.two}
+                      OnPress={() => Answers(1)}
+                      Disabled={buttonDisable}
+                    >
+                      <Response>{answers[1]}</Response>
+                    </ButtonResponse>
+                  </>
+                ) : (
+                  <InputFrom
+                    placeholder={"Answers"}
+                    type={"textBasic"}
+                    setInfo={AnswersSpecific}
+                  />
+                )}
               </ResponseContainer1>
               {difficulty === 2 ? (
                 <ResponseContainer2>
                   <ButtonResponse
+                    width={0.35}
                     result={result.three}
                     OnPress={() => Answers(2)}
                     Disabled={buttonDisable}
@@ -399,6 +457,7 @@ export const QuizzScreen = ({ difficulty, navigation }) => {
                     <Response>{answers[2]}</Response>
                   </ButtonResponse>
                   <ButtonResponse
+                    width={0.35}
                     result={result.four}
                     OnPress={() => Answers(3)}
                     Disabled={buttonDisable}
@@ -448,22 +507,28 @@ export const QuizzScreen = ({ difficulty, navigation }) => {
                 ></ProgresPoint>
               </ProgresBar>
               {/* button poour accèder aux règles */}
-              <ButtonRules></ButtonRules>
+              <ButtonRules
+                OnPress={() => {
+                  setShowRuleModale(true);
+                  setPause(true);
+                }}
+              ></ButtonRules>
               {/* en savoir plus container */}
               <MoreContainer>
                 <ButtonResponse
+                  width={0.5}
                   OnPress={() => {
-                    navigateToArticleWithPopup("Marie Curie"), setPause(true);
+                    setShowLearnMoreModale(true);
+                    setPause(true);
                   }}
                 >
                   <MoreText>En savoir plus</MoreText>
                 </ButtonResponse>
               </MoreContainer>
-              {<Text>Score : {score}</Text>}
-              {<Text>Question restant : {numberQuestion}</Text>}
             </>
           )}
           <Snackbar
+            style={{ zIndex: 10 }}
             visible={visible}
             onDismiss={() => setVisible(false)}
             duration={1500}
@@ -471,12 +536,19 @@ export const QuizzScreen = ({ difficulty, navigation }) => {
             Time up !
           </Snackbar>
         </Container>
-        {/* {showLearnMoreModale && (
+        {showLearnMoreModale && (
           <PopUpLearnMore
             showPopup={showLearnMoreModale}
             setShowPopup={setShowLearnMoreModale}
           />
-        )} */}
+        )}
+        {showRuleModale && (
+          <RulesScreen
+            showPopup={showRuleModale}
+            setShowPopup={setShowRuleModale}
+            difficulty={difficulty}
+          />
+        )}
       </SafeAreaView>
     </>
   );

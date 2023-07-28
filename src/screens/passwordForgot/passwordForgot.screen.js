@@ -11,7 +11,7 @@ import {
 import { useState } from "react";
 import InputForm from "../../components/InputForm.js";
 import { styled } from "styled-components/native";
-import ButtonGradient from "../../components/ButtonGradient.js";
+import ButtonGradient from "../../components/button/ButtonGradient.js";
 import { firebase } from "../../../config";
 import { Snackbar } from "react-native-paper";
 

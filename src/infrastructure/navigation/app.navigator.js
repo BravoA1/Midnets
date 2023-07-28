@@ -7,6 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { HomeScreen } from "../../screens/home/home.screen";
 import { ContactScreen } from "../../screens/contact/contact.screen.js";
 import { ErrorScreen } from "../../screens/error/error.screen.js";
+import { ResultScreen } from "../../screens/result/result.screen";
 import { Signout } from "../../screens/temp/Signout.js";
 // Context
 import { UserContext } from "../../services/user/user.context";
@@ -14,6 +15,7 @@ import { QuizNavigator } from "./quiz.navigator";
 import { AuthNavigator } from "./auth.navigator";
 import { PortraitsScreen } from "../../screens/Portraits/portrait.screen";
 import { PortraitNavigator } from "./portrait.navigator";
+import { Forum } from "../../screens/forum/forum.screen";
 
 export const AppNavigator = () => {
   const { info, user } = useContext(UserContext);
@@ -61,6 +63,12 @@ export const AppNavigator = () => {
               case "Portrait":
                 iconName = "newspaper-outline";
                 break;
+              case "ForumHome":
+                iconName = "book";
+                break;
+              case "Result":
+                iconName = "analytics";
+                break;
               default:
                 iconName = "construct-outline";
             }
@@ -79,6 +87,7 @@ export const AppNavigator = () => {
         <Tab.Screen name="Contact" component={ContactScreen} />
         <Tab.Screen name="Portrait" component={PortraitNavigator} />
         <Tab.Screen name="Error" component={ErrorScreen} />
+        <Tab.Screen name="Result" component={ResultScreen} />
         {!user && <Tab.Screen name="Login" component={AuthNavigator} />}
         <Tab.Screen
           name="QuizTheme"
@@ -88,6 +97,7 @@ export const AppNavigator = () => {
           })}
         />
         {user && <Tab.Screen name="Signout" component={Signout} />}
+        <Tab.Screen name="ForumHome" component={Forum} />
       </Tab.Navigator>
       <StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />
     </NavigationContainer>

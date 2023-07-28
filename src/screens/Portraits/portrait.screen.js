@@ -65,19 +65,10 @@ const BlockCard = styled.View`
   gap: 20px;
 `;
 
-export const PortraitsScreen = ({ navigation, name }) => {
+export const PortraitsScreen = ({ navigation }) => {
   const navigateToArticle = (name) => {
     navigation.navigate("PortraitArticle", { name: name });
   };
-  if (name) {
-    navigateToArticle(name);
-  }
-  // useEffect(() => {
-  //   console.log("fdp");
-  //   if (name) {
-  //     navigateToArticle(name);
-  //   }
-  // }, []);
 
   return (
     <SafeArea>

@@ -10,12 +10,19 @@ import { View } from "react-native";
 
 let screenWidth = Dimensions.get("window").width;
 
+const Scrollable = styled.ScrollView`
+  flex: 1;
+  width: 100%;
+  ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
+`;
+
 const SafeArea = styled(SafeAreaView)`
   flex: 1;
   align-items: center;
   margin: auto;
   width: ${(screenWidth * 3) / 4}px;
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
+  padding-bottom: 30px;
 `;
 
 const InputBlock = styled.View`
@@ -212,7 +219,7 @@ export const RegisterScreen = ({ navigation }) => {
   }
 
   return (
-    <ScrollView>
+    <Scrollable>
       <SafeArea>
         <Logo height={75} />
         <InputBlock style={{ marginTop: 50 }}>
@@ -292,8 +299,7 @@ export const RegisterScreen = ({ navigation }) => {
         >
           {errorMessage}
         </Snackbar>
-        <View style={{ paddingBottom: 20 }} />
       </SafeArea>
-    </ScrollView>
+    </Scrollable>
   );
 };

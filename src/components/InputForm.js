@@ -191,6 +191,29 @@ export default function InputForm({
             )}
           </Input>
         );
+      case "textBasic":
+        // console.log('text')
+        return (
+          <Input style={{ borderColor: error ? "red" : "#a3a3a3" }}>
+            <Spacer />
+            {errorTime ? (
+              <InputContent
+                value={""}
+                onChangeText={(text) => setInfo(text)}
+                placeholder={placeholder}
+                placeholderTextColor="rgba(0,0,0,.3)"
+                inputMode="text"
+              />
+            ) : (
+              <InputContent
+                onSubmitEditing={(text) => setInfo(text)}
+                placeholder={placeholder}
+                placeholderTextColor="rgba(0,0,0,.3)"
+                inputMode="text"
+              />
+            )}
+          </Input>
+        );
       default:
         break;
     }
