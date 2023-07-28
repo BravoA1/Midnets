@@ -47,7 +47,7 @@ const LinearButton = styled(LinearGradient)`
             end={{ x: 1, y: 0 }}
           >
           <ButtonElement>
-            <GoogleIcon source={require('../img/Google.png')} />
+            <GoogleIcon source={require('../../img/Google.png')} />
             <TextButtonGoogle>{children}</TextButtonGoogle>
           </ButtonElement>
         </LinearButton>

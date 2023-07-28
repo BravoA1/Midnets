@@ -9,14 +9,14 @@ const RubanContainer = styled.View`
 
 const BorderTop = styled.View`
   background-color: ${(props) => props.theme.colors.bg.primary};
-  height: 40px;
+  height: 30px;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   width: ${(screenWidth * 3) / 4}px;
 `;
 
 const BorderBottom = styled.View`
-  height: 25px;
+  height: 10px;
   background-color: ${(props) => props.theme.colors.bg.primary};
   width: ${(screenWidth * 3) / 4}px;
 `;
@@ -35,6 +35,9 @@ const Title = styled.Text`
   font-weight: 400;
   text-align: center;
   background-color: ${(props) => props.theme.colors.bg.tertiary};
+  font-family: ${(props) => props.theme.fonts.headingBold};
+
+  padding-top: ${Platform.OS === "ios" ? "1%" : "0"};
 `;
 
 const Triangle = styled.View`
@@ -53,7 +56,7 @@ const Triangle = styled.View`
 const Container = styled.View``;
 
 const Bottom = styled.View`
-  height: 20px;
+  height: 10px;
   background-color: ${(props) => props.theme.colors.bg.primary};
   width: ${(screenWidth * 3) / 4}px;
   border-bottom-right-radius: 10px;

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { TitleBlock } from "../../components/TitleBlock";
 
 let screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const Scrollable = styled.ScrollView`
   flex: 1;
@@ -17,6 +18,7 @@ const Scrollable = styled.ScrollView`
 const Container = styled.SafeAreaView`
   flex: 1;
   width: 100%;
+  height: ${screenHeight}px;
   align-items: center;
   margin: auto;
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
@@ -135,7 +137,7 @@ export const ThemeScreen = ({ navigation }) => {
   };
 
   return (
-    <Scrollable>
+    <Scrollable contentContainerStyle={{ paddingBottom: 30 }}>
       <Container>
         <Background source={bg} />
         <TitleBlock title="Défis" />
@@ -209,7 +211,7 @@ export const ThemeScreen = ({ navigation }) => {
   );
 };
 
-// Dans un soucis de design, 
+// Dans un soucis de design,
 // styled bloque l'usage de "resizeMode"
 const styles = StyleSheet.create({
   image: {

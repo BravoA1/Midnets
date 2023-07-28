@@ -9,8 +9,7 @@ import {
   Platform,
 } from "react-native";
 import styled from "styled-components/native";
-import { H1 } from "../../components/theme";
-import ButtonResponse from "../../components/ButtonResponse";
+import { ButtonResponse } from "../../components/button/ButtonResponse";
 import RubanCard from "../../components/RubanCard";
 import { CornerBlock } from "../../components/CornerBlock";
 
@@ -24,22 +23,15 @@ const SafeArea = styled(SafeAreaView)`
   align-items: center;
   margin: auto;
   width: ${(screenWidth * 3) / 4}px;
-  margin-top: ${(props) => props.theme.space[5]};
+  margin-top: ${Platform.OS === "ios"
+    ? (props) => props.theme.space[5]
+    : (props) => props.theme.space[4]};
 `;
-
-// const ButtonsContainer = styled.View`
-//   width: 90%;
-//   height: 20%;
-//   bottom: ${(props) => props.theme.space[3]};
-//   flex-direction: row;
-//   align-items: center;
-//   border: 1px solid red;
-// `;
 
 //container de tout le résultat sauf les boutons
 const ResultContainer = styled.View`
   width: ${(screenWidth * 3) / 4}px;
-  height: ${(screenHeight * 2) / 4}px;
+  height: ${(screenHeight * 7) / 12}px;
   padding: 5%;
   background: ${(props) => props.theme.colors.bg.primary};
   justify-content: center;
@@ -58,11 +50,11 @@ const ResultScoreContainer = styled.View`
   /* IOS */
   background: ${(props) => props.theme.colors.bg.tertiary};
   width: 60%;
-  height: 35%;
+  height: 30%;
   border-radius: 10px;
   justify-content: space-evenly;
   position: relative;
-  top: -20%;
+  top: -25%;
   margin-left: auto;
   margin-right: auto;
   /* Android */
@@ -70,23 +62,31 @@ const ResultScoreContainer = styled.View`
     ? "0"
     : (props) => props.theme.sizes[1]};
 `;
+
 const ScorePoint = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.h4};
   font-family: ${(props) => props.theme.fonts.heading};
-
   text-align: center;
   margin-top: ${Platform.OS === "ios"
     ? (props) => props.theme.sizes[1]
     : "0px"};
+  font-size: ${Platform.OS === "ios"
+    ? (props) => props.theme.fontSizes.h2
+    : (props) => props.theme.fontSizes.h3};
 `;
 
 //container dans lequel on met le nom de l'user
 const ScoreText = styled.Text`
   width: 90%;
   text-align: center;
-  font-size: ${(props) => props.theme.fontSizes.body};
+  font-size: ${Platform.OS === "ios"
+    ? (props) => props.theme.fontSizes.title
+    : (props) => props.theme.fontSizes.body};
   margin: auto;
   font-weight: ${(props) => props.theme.fontWeights.medium};
+  padding-bottom: ${Platform.OS === "ios"
+    ? (props) => props.theme.sizes[0]
+    : "0"};
 `;
 
 //container avec les deux view pour bonnes et mauvaises réponses
@@ -94,7 +94,7 @@ const ResultAnswerContainer = styled.View`
   background-color: white;
   width: ${(screenWidth * 3) / 4}px;
   position: absolute;
-  top: 50%;
+  top: 43%;
   margin-top: 20px;
   align-items: center;
 `;
@@ -103,24 +103,12 @@ const ResultAnswerContainer1 = styled.View`
   background-color: white;
   width: ${(screenWidth * 3) / 4}px;
   position: absolute;
-  top: 70%;
+  top: 57%;
   margin-top: 20px;
   align-items: center;
 `;
 
-// const ResultAnswer = styled.View`
-//   background: white;
-//   width: 100%;
-//   height: 100%;
-//   position: relative;
-// `;
-
 const AnswerBorder = styled.View`
-  /* margin-top: 1%;
-  margin-bottom: 1%;
-  height: 5%;
-  background: black;
-  width: 100%; */
   width: 100%;
   height: 3px;
   background: black;
@@ -130,11 +118,25 @@ const AnswerBorder = styled.View`
   font-weight: 400;
 `;
 
+const BlockResult = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* width: ${(screenWidth * 2) / 4}px; */
+  height: ${Platform.OS === "ios"
+    ? "40px"
+    : // (props) => props.theme.sizes[0]
+      "auto"};
+`;
+
 const AnswerTextContainer = styled.View`
+  height: 60%;
   /* background: red; */
   justify-content: center;
   flex-direction: row;
   flex: 1;
+  height: ${Platform.OS === "ios" ? "40px" : "auto"};
 `;
 
 const AnswerTextNumber = styled.View`
@@ -152,37 +154,24 @@ const AnswerText = styled.View`
 const TextForAnswerNumber = styled.Text`
   font-size: ${(props) => props.theme.fontSizes.h5};
   text-transform: uppercase;
-  font-family: ${(props) => props.theme.fonts.heading};
+  font-family: ${(props) => props.theme.fonts.headingBold};
   text-align: right;
+  font-size: ${Platform.OS === "ios" ? "30px" : "20px"};
 `;
 
 const TextForAnswerText = styled.Text`
   text-transform: uppercase;
-  font-size: ${(props) => props.theme.fontSizes.body};
+  /* font-size: ${(props) => props.theme.fontSizes.body}; */
   font-family: ${(props) => props.theme.fonts.body};
   text-align: center;
   justify-content: center;
   margin: auto;
-`;
-
-const BlockResult = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: ${(screenWidth * 2) / 4}px;
-`;
-
-const Score = styled.Text`
-  font-size: 24px;
-  padding-right: 20px;
-`;
-
-const Result = styled.Text`
-  text-align: center;
+  font-size: ${Platform.OS === "ios" ? "20px" : "15px"};
 `;
 
 const ButtonsContainer = styled.View`
-  width: 90%;
+  width: 100%;
+  height: 10%;
   position: absolute;
   bottom: ${(props) => props.theme.space[3]};
   flex-direction: row;
@@ -198,7 +187,7 @@ export const ResultScreen = () => {
         <ResultContainer>
           <CornerContainer>
             <CornerBlock
-              size="100px"
+              size="75px"
               color="white"
               borderHorizontal="4px"
               borderVertical="4px"
@@ -217,67 +206,40 @@ export const ResultScreen = () => {
         </ResultContainer>
         <ResultAnswerContainer>
           <AnswerBorder></AnswerBorder>
-          <BlockResult>
-            <Score>6</Score>
-            <Result>BONNES REPONSES</Result>
-          </BlockResult>
+
+          <AnswerTextContainer>
+            <AnswerTextNumber>
+              <TextForAnswerNumber>6</TextForAnswerNumber>
+            </AnswerTextNumber>
+            <AnswerText>
+              <TextForAnswerText>Bonnes réponses</TextForAnswerText>
+            </AnswerText>
+          </AnswerTextContainer>
           <AnswerBorder></AnswerBorder>
-          {/* <ResultAnswer>
-            <AnswerBorder></AnswerBorder>
-            <Text>Réponses</Text>
-            <AnswerBorder></AnswerBorder>
-          </ResultAnswer> */}
         </ResultAnswerContainer>
         <ResultAnswerContainer1>
           <AnswerBorder></AnswerBorder>
-          <BlockResult>
-            <Score>4</Score>
-            <Result>MAUVAISES REPONSES</Result>
-          </BlockResult>
-          <AnswerBorder></AnswerBorder>
-          {/* <ResultAnswer>
-            <AnswerBorder></AnswerBorder>
-            <Text>Réponses</Text>
-            <AnswerBorder></AnswerBorder>
-          </ResultAnswer> */}
-        </ResultAnswerContainer1>
-        {/* <ResultAnswerContainer>
-          <ResultAnswer>
-            <AnswerBorder></AnswerBorder>
-            <AnswerTextContainer>
-              <AnswerTextNumber>
-                <TextForAnswerNumber>6</TextForAnswerNumber>
-              </AnswerTextNumber>
-              <AnswerText>
-                <TextForAnswerText>Bonnes réponses</TextForAnswerText>
-              </AnswerText>
-            </AnswerTextContainer>
-            <AnswerBorder></AnswerBorder>
-          </ResultAnswer>
-          <ResultAnswer>
-            <AnswerBorder></AnswerBorder>
-            <AnswerTextContainer>
-              <AnswerTextNumber>
-                <TextForAnswerNumber>4</TextForAnswerNumber>
-              </AnswerTextNumber>
-              <AnswerText>
-                <TextForAnswerText>Mauvaises réponses</TextForAnswerText>
-              </AnswerText>
-            </AnswerTextContainer>
-            <AnswerBorder></AnswerBorder>
-          </ResultAnswer>
-        </ResultAnswerContainer> */}
-      </RubanCard>
-      {/* <ResultContainer></ResultContainer> */}
+          <AnswerTextContainer>
+            <AnswerTextNumber>
+              <TextForAnswerNumber>4</TextForAnswerNumber>
+            </AnswerTextNumber>
+            <AnswerText>
+              <TextForAnswerText>Mauvaises réponses</TextForAnswerText>
+            </AnswerText>
+          </AnswerTextContainer>
 
-      {/* <ButtonsContainer>
-        <View style={{ width: "45%", backgroundColor: "green" }}>
-          <ButtonResponse>Menu Défis</ButtonResponse>
+          <AnswerBorder></AnswerBorder>
+        </ResultAnswerContainer1>
+      </RubanCard>
+
+      <ButtonsContainer>
+        {/* <View style={{ width: "45%", backgroundColor: "green" }}>
+          <ButtonResponse>Niveau suivant</ButtonResponse>
         </View>
         <View style={{ width: "45%", backgroundColor: "yellow" }}>
           <ButtonResponse>Niveau suivant</ButtonResponse>
-        </View>
-      </ButtonsContainer> */}
+        </View>*/}
+      </ButtonsContainer>
     </SafeArea>
   );
 };

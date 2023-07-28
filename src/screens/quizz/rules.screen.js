@@ -1,15 +1,19 @@
 import { StatusBar } from "expo-status-bar";
-import { Dimensions, FlatList, StyleSheet, Text } from "react-native";
+import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
 import { styled } from "styled-components/native";
 import RubanCard from "../../components/RubanCard";
-import ButtonGradient from "../../components/ButtonGradient";
-import ButtonResponse from "../../components/ButtonResponse";
+import ButtonGradient from "../../components/button/ButtonGradient";
+import ButtonResponse from "../../components/button/ButtonResponse";
 
 const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const Container = styled.SafeAreaView`
-  height: 100%;
-  margin-top: 20px;
+  position: absolute;
+  z-index: 100;
+  height: ${screenHeight}px;
+  width: 100%;
+  background-color: white;
 `;
 
 const bg = require("../../img/background.png");
@@ -17,6 +21,7 @@ const bg = require("../../img/background.png");
 const BgContainer = styled.View`
   position: absolute;
   top: 25%;
+  z-index: 50;
   flex: 1;
   margin: auto;
   height: 50%;
@@ -31,7 +36,9 @@ const Background = styled.Image`
 `;
 
 const Scrollable = styled.ScrollView`
+  margin-top: 20px;
   flex: 1;
+  z-index: 200;
   width: 100%;
   height: 100%;
   ${StatusBar.currentHeight && `padding-top: ${StatusBar.currentHeight}px`};
@@ -70,7 +77,33 @@ const Btn = styled.View`
   margin-top: 20px;
 `;
 
-export const RulesScreen = ({ navigation }) => {
+export const RulesScreen = ({
+  navigation,
+  setShowPopup,
+  showPopup,
+  difficulty,
+}) => {
+  const handlePress = () => {
+    setShowPopup(!showPopup);
+    //console.log("close modal");
+  };
+
+  const text = {
+    question: difficulty ? (difficulty > 1 ? "10" : "5") : "10",
+    time: difficulty
+      ? difficulty > 1
+        ? difficulty > 2
+          ? "30"
+          : "15"
+        : "20"
+      : "20",
+    type: difficulty
+      ? difficulty > 2
+        ? " ou vous devez remplir l'input"
+        : " en QCM"
+      : "",
+  };
+
   return (
     <Container>
       <BgContainer>
@@ -82,8 +115,10 @@ export const RulesScreen = ({ navigation }) => {
             <Line></Line>
             <Ul
               data={[
-                { key: "Une série de 20 questions" },
-                { key: "20 secondes pour répondre à chaque question" },
+                { key: `Une série de ${text.question} questions ${text.type}` },
+                {
+                  key: `${text.time} secondes pour répondre à chaque question`,
+                },
                 { key: "Tentez d'améliorer votre score" },
               ]}
               renderItem={({ item }) => (
@@ -95,7 +130,7 @@ export const RulesScreen = ({ navigation }) => {
         </RubanCard>
 
         <Btn>
-          <ButtonGradient>Continuer</ButtonGradient>
+          <ButtonGradient OnPress={handlePress}>Continuer</ButtonGradient>
         </Btn>
       </Scrollable>
     </Container>
