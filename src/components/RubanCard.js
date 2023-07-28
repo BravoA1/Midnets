@@ -8,16 +8,16 @@ const RubanContainer = styled.View`
 `;
 
 const BorderTop = styled.View`
-  background-color: gray;
-  height: 40px;
+  background-color: ${(props) => props.theme.colors.bg.primary};
+  height: 30px;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   width: ${(screenWidth * 3) / 4}px;
 `;
 
 const BorderBottom = styled.View`
-  height: 25px;
-  background-color: gray;
+  height: 10px;
+  background-color: ${(props) => props.theme.colors.bg.primary};
   width: ${(screenWidth * 3) / 4}px;
 `;
 
@@ -34,7 +34,10 @@ const Title = styled.Text`
   font-size: 32px;
   font-weight: 400;
   text-align: center;
-  background-color: lightgray;
+  background-color: ${(props) => props.theme.colors.bg.tertiary};
+  font-family: ${(props) => props.theme.fonts.headingBold};
+
+  padding-top: ${Platform.OS === "ios" ? "1%" : "0"};
 `;
 
 const Triangle = styled.View`
@@ -42,7 +45,7 @@ const Triangle = styled.View`
   width: 0;
   border-top-width: 50px;
   border-left-width: 50px;
-  border-top-color: #999999;
+  border-top-color: ${(props) => props.theme.colors.bg.secondary};
   border-left-color: transparent;
   position: absolute;
   top: 48px;
@@ -53,8 +56,8 @@ const Triangle = styled.View`
 const Container = styled.View``;
 
 const Bottom = styled.View`
-  height: 20px;
-  background-color: gray;
+  height: 10px;
+  background-color: ${(props) => props.theme.colors.bg.primary};
   width: ${(screenWidth * 3) / 4}px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;

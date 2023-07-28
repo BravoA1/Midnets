@@ -8,12 +8,19 @@ import { firebase } from "../../../config";
 
 let screenWidth = Dimensions.get("window").width;
 
+const Scrollable = styled.ScrollView`
+  flex: 1;
+  width: 100%;
+  ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
+`;
+
 const SafeArea = styled(SafeAreaView)`
   flex: 1;
   align-items: center;
   margin: auto;
   width: ${(screenWidth * 3) / 4}px;
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
+  padding-bottom: 30px;
 `;
 
 const InputBlock = styled.View`
@@ -210,85 +217,82 @@ export const RegisterScreen = ({ navigation }) => {
   }
 
   return (
-    <SafeArea>
-      <Logo height={75} />
-      <InputBlock style={{ marginTop: 50 }}>
-        <InputForm
-          type="text"
-          placeholder="pseudo"
-          setInfo={setInfo}
-          info={info}
-          error={errorName}
-          errorTime={errorTimeName}
-        >
-          pseudo
-        </InputForm>
-      </InputBlock>
-      <InputBlock>
-        <InputForm
-          type="email"
-          placeholder="email"
-          setInfo={setInfo}
-          info={info}
-          error={errorEmail}
-          errorTime={errorTimeEmail}
-        >
-          adresse mail
-        </InputForm>
-      </InputBlock>
-      <InputBlock>
-        <InputForm
-          type="password"
-          placeholder="mot de passe"
-          setInfo={setInfo}
-          info={info}
-          error={errorPassword}
-          errorTime={errorTimePassword}
-        >
-          mot de passe
-        </InputForm>
-      </InputBlock>
-      <InputBlock>
-        <InputForm
-          type="password"
-          placeholder="confirmer le mot de passe"
-          setInfo={setInfo}
-          info={info}
-          confirm={true}
-          error={errorConfirmPassword}
-          errorTime={errorTimeConfirmPassword}
-        >
-          confirmation mot de passe
-        </InputForm>
-      </InputBlock>
-      <ButtonRegister onPress={() => HandleRegister()}>
-        <TextButton>S'inscrire</TextButton>
-      </ButtonRegister>
-      <ButtonLog>
-        <GoogleIcon source={require("../../img/Google.png")} />
-        <TextButtonGoogle>S'inscrire avec google</TextButtonGoogle>
-      </ButtonLog>
-      <Snackbar
-        visible={visible}
-        onDismiss={() => setVisible(false)}
-        style={{
-          backgroundColor: "#9275B2",
-        }}
-        theme={{
-          colors: {
-            inverseOnSurface: "white",
-            inversePrimary: "#D9D9D9",
-          },
-        }}
-        action={{
-          label: "close",
-          onPress: () => {
-            setVisible(false);
-          },
-        }}
-      >
-        {errorMessage}
-      </Snackbar>
-    </SafeArea>
+    <Scrollable>
+      <SafeArea>
+        <Logo height={75} />
+        <InputBlock style={{ marginTop: 50 }}>
+          <InputForm
+            type="text"
+            placeholder="pseudo"
+            setInfo={setInfo}
+            info={info}
+            error={errorName}
+            errorTime={errorTimeName}>
+            pseudo
+          </InputForm>
+        </InputBlock>
+        <InputBlock>
+          <InputForm
+            type="email"
+            placeholder="email"
+            setInfo={setInfo}
+            info={info}
+            error={errorEmail}
+            errorTime={errorTimeEmail}>
+            adresse mail
+          </InputForm>
+        </InputBlock>
+        <InputBlock>
+          <InputForm
+            type="password"
+            placeholder="mot de passe"
+            setInfo={setInfo}
+            info={info}
+            error={errorPassword}
+            errorTime={errorTimePassword}>
+            mot de passe
+          </InputForm>
+        </InputBlock>
+        <InputBlock>
+          <InputForm
+            type="password"
+            placeholder="confirmer le mot de passe"
+            setInfo={setInfo}
+            info={info}
+            confirm={true}
+            error={errorConfirmPassword}
+            errorTime={errorTimeConfirmPassword}>
+            confirmation mot de passe
+          </InputForm>
+        </InputBlock>
+        <ButtonRegister onPress={() => HandleRegister()}>
+          <TextButton>S'inscrire</TextButton>
+        </ButtonRegister>
+        <ButtonLog>
+          <GoogleIcon source={require("../../img/Google.png")} />
+          <TextButtonGoogle>S'inscrire avec google</TextButtonGoogle>
+        </ButtonLog>
+        <Snackbar
+          visible={visible}
+          onDismiss={() => setVisible(false)}
+          style={{
+            backgroundColor: "#9275B2",
+          }}
+          theme={{
+            colors: {
+              inverseOnSurface: "white",
+              inversePrimary: "#D9D9D9",
+            },
+          }}
+          action={{
+            label: "close",
+            onPress: () => {
+              setVisible(false);
+            },
+          }}>
+          {errorMessage}
+        </Snackbar>
+      </SafeArea>
+    </Scrollable>
   );
 };

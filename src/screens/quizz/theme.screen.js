@@ -2,11 +2,11 @@ import Slider from "@react-native-community/slider";
 import { StatusBar } from "expo-status-bar";
 import { Dimensions, StyleSheet, Image } from "react-native";
 import { styled } from "styled-components/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TitleBlock } from "../../components/TitleBlock";
+// import ButtonRules from "../../components/ButtonRules";
 
-let screenWidth = Dimensions.get("window").width;
+const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const Scrollable = styled.ScrollView`
@@ -123,8 +123,6 @@ const img5 = require("../../img/quiz/img5.jpg");
 const img6 = require("../../img/quiz/img6.jpg");
 const bg = require("../../img/background2.png");
 
-const Tab = createBottomTabNavigator();
-
 export const ThemeScreen = ({ navigation }) => {
   const [value, setValue] = useState(1);
 
@@ -206,6 +204,7 @@ export const ThemeScreen = ({ navigation }) => {
             <Image source={img6} style={styles.image} />
           </Touche>
         </Select>
+        {/* <ButtonRules /> */}
       </Container>
     </Scrollable>
   );
