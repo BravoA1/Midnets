@@ -89,7 +89,7 @@ export const RulesScreen = ({
   };
 
   const text = {
-    question: difficulty ? (difficulty > 1 ? "10" : "5") : "10",
+    question: difficulty && (difficulty > 1 ? "5" : "10"),
     time: difficulty
       ? difficulty > 1
         ? difficulty > 2
