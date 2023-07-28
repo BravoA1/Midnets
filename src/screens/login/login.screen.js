@@ -2,11 +2,11 @@ import { SafeAreaView, StatusBar, Dimensions, Vibration } from "react-native";
 import InputForm from "../../components/InputForm.js";
 import { styled } from "styled-components/native";
 import Logo from "../../components/Logo.js";
-import ButtonGradient from "../../components/ButtonGradient.js";
-import ButtonGoogle from "../../components/ButtonGoogle.js";
+import ButtonGoogle from "../../components/button/ButtonGoogle.js";
 import { useState } from "react";
 import { Snackbar } from "react-native-paper";
 import { firebase } from "../../../config";
+import ButtonResponse from "../../components/button/ButtonResponse.js";
 
 let screenWidth = Dimensions.get("window").width;
 
@@ -156,7 +156,7 @@ export const Login = ({ navigation }) => {
       <ForgotPassword onPress={() => navigation.navigate("ForgotPswd")}>
         mot de passe oublié ?
       </ForgotPassword>
-      <ButtonGradient OnPress={() => HandleLogin()}>Connexion</ButtonGradient>
+      <ButtonResponse OnPress={() => HandleLogin()}>Connexion</ButtonResponse>
       <ButtonRegister onPress={() => navigation.navigate("Register")}>
         <TextButton>Inscription</TextButton>
       </ButtonRegister>

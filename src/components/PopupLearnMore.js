@@ -1,14 +1,18 @@
 import { useState } from "react";
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { Image, ScrollView, Text, View } from "react-native";
 import InsetShadow from "react-native-inset-shadow";
 import { styled } from "styled-components/native";
 import { CornerBlock } from "./CornerBlock";
 
+const screenHeight = Dimensions.get("window").height;
+
+const screen80 = screenHeight * 0.8;
+
 const Container = styled.View`
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: ${screenHeight}px;
   padding: 30px 35px;
   z-index: 300;
   background-color: rgba(213, 128, 255, 0.2);
@@ -16,7 +20,7 @@ const Container = styled.View`
 
 const PopUp = styled.View`
   width: 100%;
-  flex: 1;
+  height: ${screen80}px;
   padding: 15px;
   border-radius: 20px;
   margin-top: 30px;
