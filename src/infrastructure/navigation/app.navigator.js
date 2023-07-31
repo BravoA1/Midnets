@@ -75,10 +75,27 @@ export const AppNavigator = () => {
       <Tab.Screen name="Notifications" component={Notifications} />
     <Tab.Screen name="Menu" component={MenuScreen} /> */}
 
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Contact" component={ContactScreen} />
-        <Tab.Screen name="Error" component={ErrorScreen} />
-        {!user && <Tab.Screen name="Login" component={AuthNavigator} />}
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={() => ({
+            unmountOnBlur: true,
+          })}
+        />
+        <Tab.Screen
+          name="Contact"
+          component={ContactScreen}
+          options={() => ({
+            unmountOnBlur: true,
+          })}
+        />
+        <Tab.Screen
+          name="Error"
+          component={ErrorScreen}
+          options={() => ({
+            unmountOnBlur: true,
+          })}
+        />
         <Tab.Screen
           name="QuizTheme"
           component={QuizNavigator}
@@ -86,8 +103,30 @@ export const AppNavigator = () => {
             unmountOnBlur: true,
           })}
         />
-        {user && <Tab.Screen name="Signout" component={Signout} />}
-        <Tab.Screen name="ForumHome" component={Forum} />
+        {user ? (
+          <Tab.Screen
+            name="Signout"
+            component={Signout}
+            options={() => ({
+              unmountOnBlur: true,
+            })}
+          />
+        ) : (
+          <Tab.Screen
+            name="Login"
+            component={AuthNavigator}
+            options={() => ({
+              unmountOnBlur: true,
+            })}
+          />
+        )}
+        <Tab.Screen
+          name="ForumHome"
+          component={Forum}
+          options={() => ({
+            unmountOnBlur: true,
+          })}
+        />
       </Tab.Navigator>
       <StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />
     </NavigationContainer>
