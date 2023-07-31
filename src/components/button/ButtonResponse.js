@@ -29,7 +29,9 @@ export default ButtonResponse = ({
     box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
     background-color: #fff;
     border-radius: 100px;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
+    margin-bottom: ${Platform.OS === "ios" ? "30px" : "0px"};
+
     text-align: center;
   `;
 

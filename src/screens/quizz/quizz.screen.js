@@ -20,6 +20,7 @@ import { PopUpLearnMore } from "../../components/PopupLearnMore.js";
 import { CountDown } from "../../components/CountDown.jsx";
 import { Snackbar } from "react-native-paper";
 import { RulesScreen } from "./rules.screen.js";
+import { Vibration } from "react-native";
 
 const Container = styled.View`
   display: flex;
@@ -125,7 +126,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   const [alreadyAsk, setAlreadyAsk] = useState([]);
 
   // For result UseState
-  const QuestionNumber = difficulty > 2 ? (difficulty === 3 ? 30 : 5) : 10;
+  const QuestionNumber = difficulty > 1 ? 5 : 10;
   const [numberQuestion, setNumberQuestion] = useState(QuestionNumber);
   const [score, setScore] = useState(0);
 
@@ -141,6 +142,8 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   );
   const [pause, setPause] = useState(false);
   const [reset, setReset] = useState(true);
+  const [error, setError] = useState(false);
+  const [errorTime, setErrorTime] = useState(false);
 
   // PopUp for showMore
   useEffect(() => {
@@ -163,18 +166,35 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   }, []);
 
   useEffect(() => {
+    setIndex(Random());
+  }, [difficulty]);
+
+  useEffect(() => {
     // Quand l'index change
     if (!loading) {
       console.log("Loading Finish");
       // Timeout reactivate button and set new Question with timer
+      setErrorTime(true);
       setTimeout(() => {
         setButtonDisable(false);
-        if (difficulty === 2) {
-          setTime(15);
-          NewQuestion(quizDataMedium[index]);
-        } else {
-          setTime(20);
-          NewQuestion(quizDataEasy[index]);
+        setErrorTime(false);
+        setError(false);
+        switch (difficulty) {
+          case 1:
+            setTime(10);
+            NewQuestion(quizDataEasy[index]);
+            break;
+          case 2:
+            setTime(5);
+            NewQuestion(quizDataMedium[index]);
+            break;
+          case 3:
+            setTime(30);
+            NewQuestion(quizDataMedium[index]);
+            break;
+          default:
+            setTime(20);
+            NewQuestion(quizDataEasy[index]);
         }
       }, 2000);
     }
@@ -344,10 +364,16 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   }
 
   function AnswersSpecific(answersUser) {
-    console.log(answers[correct].toLowerCase());
-    console.log(answersUser.toLowerCase());
+    console.log(answers[correct].toLowerCase(), "Answers DB");
+    console.log(answersUser.toLowerCase(), "Answers User");
     if (answers[correct].toLowerCase() === answersUser.toLowerCase()) {
+      setScore(score + 1);
+    } else {
+      setError(true);
+      Vibration.vibrate([200, 200, 200, 200]);
     }
+    setIndex(Random());
+    setNumberQuestion(numberQuestion - 1);
   }
 
   return (
@@ -439,7 +465,13 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
                     </ButtonResponse>
                   </>
                 ) : (
-                  <InputFrom placeholder={"Answers"} type={"textBasic"} setInfo={AnswersSpecific} />
+                  <InputFrom
+                    placeholder={"Answers"}
+                    type={"textBasic"}
+                    setInfo={AnswersSpecific}
+                    error={error}
+                    errorTime={errorTime}
+                  />
                 )}
               </ResponseContainer1>
               {difficulty === 2 ? (

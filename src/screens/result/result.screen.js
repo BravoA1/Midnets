@@ -9,7 +9,7 @@ import {
   Platform,
 } from "react-native";
 import styled from "styled-components/native";
-import { ButtonResponse } from "../../components/button/ButtonResponse";
+import ButtonResponse from "../../components/button/ButtonResponse";
 import RubanCard from "../../components/RubanCard";
 import { CornerBlock } from "../../components/CornerBlock";
 
@@ -169,18 +169,26 @@ const TextForAnswerText = styled.Text`
   font-size: ${Platform.OS === "ios" ? "20px" : "15px"};
 `;
 
+const ButtonView = styled.View`
+  width: 50%;
+  flex: 1;
+  flex-direction: row;
+  padding: 0px;
+`;
+
 const ButtonsContainer = styled.View`
   width: 100%;
   height: 10%;
   position: absolute;
   bottom: ${(props) => props.theme.space[3]};
   flex-direction: row;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   align-items: center;
-  border: 1px solid red;
 `;
 
-export const ResultScreen = () => {
+export const ResultScreen = ({ navigation, route }) => {
+  const { score, numberQuestion, difficulty } = route.params;
+
   return (
     <SafeArea>
       <RubanCard title="Résultat">
@@ -200,7 +208,7 @@ export const ResultScreen = () => {
             </CornerBlock>
           </CornerContainer>
           <ResultScoreContainer>
-            <ScorePoint>110</ScorePoint>
+            <ScorePoint>{score}</ScorePoint>
             <ScoreText>score de Lorembidule</ScoreText>
           </ResultScoreContainer>
         </ResultContainer>
@@ -209,7 +217,7 @@ export const ResultScreen = () => {
 
           <AnswerTextContainer>
             <AnswerTextNumber>
-              <TextForAnswerNumber>6</TextForAnswerNumber>
+              <TextForAnswerNumber>{score}</TextForAnswerNumber>
             </AnswerTextNumber>
             <AnswerText>
               <TextForAnswerText>Bonnes réponses</TextForAnswerText>
@@ -221,7 +229,9 @@ export const ResultScreen = () => {
           <AnswerBorder></AnswerBorder>
           <AnswerTextContainer>
             <AnswerTextNumber>
-              <TextForAnswerNumber>4</TextForAnswerNumber>
+              <TextForAnswerNumber>
+                {numberQuestion - score}
+              </TextForAnswerNumber>
             </AnswerTextNumber>
             <AnswerText>
               <TextForAnswerText>Mauvaises réponses</TextForAnswerText>
@@ -233,12 +243,28 @@ export const ResultScreen = () => {
       </RubanCard>
 
       <ButtonsContainer>
-        {/* <View style={{ width: "45%", backgroundColor: "green" }}>
-          <ButtonResponse>Niveau suivant</ButtonResponse>
-        </View>
-        <View style={{ width: "45%", backgroundColor: "yellow" }}>
-          <ButtonResponse>Niveau suivant</ButtonResponse>
-        </View>*/}
+        <ButtonView style={{ justifyContent: "flex-start" }}>
+          <ButtonResponse
+            OnPress={() => navigation.navigate("Theme")}
+            width={0.35}
+          >
+            Menus Défis
+          </ButtonResponse>
+        </ButtonView>
+        {difficulty < 3 ? (
+          <ButtonView style={{ justifyContent: "flex-end" }}>
+            <ButtonResponse
+              OnPress={() =>
+                navigation.navigate("Quiz", { difficulty: difficulty + 1 })
+              }
+              width={0.35}
+            >
+              Niveau suivant
+            </ButtonResponse>
+          </ButtonView>
+        ) : (
+          <></>
+        )}
       </ButtonsContainer>
     </SafeArea>
   );

@@ -52,6 +52,8 @@ export default function InputForm({
   error,
   errorTime,
 }) {
+  const [value, setValue] = useState("");
+
   const renderInput = (type) => {
     switch (type) {
       case "email":
@@ -191,13 +193,21 @@ export default function InputForm({
                 placeholder={placeholder}
                 placeholderTextColor="rgba(0,0,0,.3)"
                 inputMode="text"
+                editable={error ? false : true}
               />
             ) : (
               <InputContent
-                onSubmitEditing={(text) => setInfo(text)}
+                onSubmitEditing={() => {
+                  setInfo(value);
+                  console.log("inSubmit");
+                }}
+                onChangeText={(text) => {
+                  setValue(text);
+                }}
                 placeholder={placeholder}
                 placeholderTextColor="rgba(0,0,0,.3)"
                 inputMode="text"
+                editable={error ? false : true}
               />
             )}
           </Input>
