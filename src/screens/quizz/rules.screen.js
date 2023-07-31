@@ -1,5 +1,12 @@
-import { StatusBar } from "expo-status-bar";
-import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
+// import { StatusBar } from "expo-status-bar";
+import {
+  Dimensions,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+} from "react-native";
 import { styled } from "styled-components/native";
 import RubanCard from "../../components/RubanCard";
 import ButtonGradient from "../../components/button/ButtonGradient";
@@ -35,13 +42,17 @@ const Background = styled.Image`
   opacity: 0.4;
 `;
 
-const Scrollable = styled.ScrollView`
-  margin-top: 20px;
+// const Scrollable = styled.ScrollView`
+//   flex: 1;
+//   z-index: 200;
+//   width: 100%;
+
+// `;
+
+const ContainerView = styled.View`
   flex: 1;
+  justify-content: center;
   z-index: 200;
-  width: 100%;
-  height: 100%;
-  ${StatusBar.currentHeight && `padding-top: ${StatusBar.currentHeight}px`};
 `;
 
 const Content = styled.View`
@@ -70,6 +81,7 @@ const Rule = styled.Text`
   flex-wrap: wrap;
   overflow: hidden;
   width: 100%;
+  font-family: ${(props) => props.theme.fonts.headingBold};
 `;
 
 const Btn = styled.View`
@@ -99,8 +111,8 @@ export const RulesScreen = ({
       : "20",
     type: difficulty
       ? difficulty > 2
-        ? " ou vous devez remplir l'input"
-        : " en QCM"
+        ? "ou vous devez remplir l'input"
+        : "en QCM"
       : "",
   };
 
@@ -109,7 +121,8 @@ export const RulesScreen = ({
       <BgContainer>
         <Background source={bg} />
       </BgContainer>
-      <Scrollable>
+      {/* <Scrollable> */}
+      <ContainerView>
         <RubanCard title={"Règles du Jeu"}>
           <List>
             <Line></Line>
@@ -132,7 +145,8 @@ export const RulesScreen = ({
         <Btn>
           <ButtonGradient OnPress={handlePress}>Continuer</ButtonGradient>
         </Btn>
-      </Scrollable>
+        {/* </Scrollable> */}
+      </ContainerView>
     </Container>
   );
 };
