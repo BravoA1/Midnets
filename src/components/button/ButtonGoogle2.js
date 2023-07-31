@@ -1,16 +1,12 @@
 import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Dimensions, StyleSheet } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { colors } from "../../infrastructure/theme/colors";
 
-export default ButtonGoogle = ({
-	children,
-	onPress,
-	result,
-	Disabled,
-	width = 0.4,
-}) => {
-	const windowWidth = Dimensions.get("window").width;
+const screenWitdh = Dimensions.get("window").width;
+
+export default ButtonGoogle2 = ({ children, OnPress, result, Disabled }) => {
 	const ButtonElement = styled.View`
 		flex-direction: row;
 		justify-content: center;
@@ -21,25 +17,28 @@ export default ButtonGoogle = ({
 		/* height: 100%; */
 		border-radius: 100px;
 	`;
-	const BoxGradient = styled.View`
-		width: ${windowWidth * width}px;
+	const BoxGradient = styled.TouchableOpacity`
+		z-index: 1;
+		width: ${screenWitdh * 0.4}px;
+		height: ${screenWitdh * 0.2}px;
 		box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
 		background-color: #fff;
 		border-radius: 100px;
 		margin-bottom: 30px;
+		text-align: center;
 	`;
 
 	const TextButtonGoogle = styled.Text`
-		width: 80%;
+		width: ${screenWitdh * 0.6}px;
 		border-radius: 100px;
-		font-size: ${windowWidth < "390" ? 11 : (props) => props.theme.sizes[1]};
+		font-size: 14px;
 	`;
 
 	const GoogleIcon = styled.Image`
-		width: ${windowWidth * 0.05};
-		height: ${windowWidth * 0.05};
-		margin-left: ${windowWidth * 0.04};
-		margin-right: ${windowWidth * 0.04};
+		width: 30px;
+		height: 30px;
+		margin-left: 5px;
+		margin-right: 15px;
 	`;
 
 	const LinearButton = styled(LinearGradient)`
@@ -50,15 +49,28 @@ export default ButtonGoogle = ({
 
 	const [color, setColor] = useState("#D8C2EF");
 
+	useEffect(() => {
+		switch (result) {
+			case "wrong":
+				setColor(colors.ui.error);
+				break;
+			case "correct":
+				setColor(colors.ui.success);
+				break;
+			default:
+				setColor("#D8C2EF");
+		}
+	}, [result]);
+
 	return (
-		<BoxGradient style={styles.container} onPress={onPress} disabled={Disabled}>
+		<BoxGradient style={styles.container} onPress={OnPress} disabled={Disabled}>
 			<LinearButton
 				colors={[`${color}`, "rgba(255,255,255,0)"]}
 				locations={[0, 1]}
 				start={{ x: 1, y: 0 }}
 				end={{ x: 0, y: 1 }}
 			>
-				<ButtonElement onPress={onPress}>
+				<ButtonElement>
 					<GoogleIcon source={require("../../img/Google.png")} />
 					<TextButtonGoogle>{children}</TextButtonGoogle>
 				</ButtonElement>
@@ -66,6 +78,7 @@ export default ButtonGoogle = ({
 		</BoxGradient>
 	);
 };
+
 const styles = StyleSheet.create({
 	container: {
 		elevation: 10,
