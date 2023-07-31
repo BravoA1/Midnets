@@ -1,13 +1,28 @@
 import Slider from "@react-native-community/slider";
 import { StatusBar } from "expo-status-bar";
-import { Dimensions, StyleSheet, Image } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  Image,
+  SafeAreaView,
+  Platform,
+} from "react-native";
 import { styled } from "styled-components/native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TitleBlock } from "../../components/TitleBlock";
+import { RulesScreen } from "./rules.screen";
 // import ButtonRules from "../../components/ButtonRules";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
+
+const SafeArea = styled(SafeAreaView)`
+  flex: 1;
+  align-items: center;
+  margin-top: ${Platform.OS === "ios"
+    ? (props) => props.theme.space[5]
+    : (props) => props.theme.space[0]};
+`;
 
 const Scrollable = styled.ScrollView`
   flex: 1;
@@ -101,7 +116,8 @@ const OptionTitle = styled.Text`
   left: -10px;
   padding-horizontal: 10px;
   z-index: 1;
-  height: 21px;
+  /* height: 21px; */
+  font-family: ${(props) => props.theme.fonts.body};
 `;
 
 const Triangle = styled.View`
@@ -125,6 +141,7 @@ const bg = require("../../img/background2.png");
 
 export const ThemeScreen = ({ navigation }) => {
   const [value, setValue] = useState(1);
+  const [showRuleModale, setShowRuleModale] = useState(false);
 
   function handleChange(value) {
     setValue(value);
@@ -134,79 +151,97 @@ export const ThemeScreen = ({ navigation }) => {
     navigation.navigate("Quiz", { difficulty: value });
   };
 
+  useEffect(() => {
+    console.log(showRuleModale, " rule modale");
+  }, [showRuleModale]);
+
   return (
-    <Scrollable contentContainerStyle={{ paddingBottom: 30 }}>
-      <Container>
-        <Background source={bg} />
-        <TitleBlock title="Défis" />
+    <>
+      <Background source={bg} />
+      <Scrollable contentContainerStyle={{ paddingBottom: 30 }}>
+        <SafeArea>
+          <Container>
+            <TitleBlock title="Défis" />
 
-        <Border>
-          <ParameterBlock>
-            <Parameter>Choisissez la difficulté :</Parameter>
-          </ParameterBlock>
-        </Border>
+            <Border>
+              <ParameterBlock>
+                <Parameter>Choisissez la difficulté :</Parameter>
+              </ParameterBlock>
+            </Border>
 
-        <SliderBlock>
-          <Modes>
-            <Mode>easy</Mode>
-            <Mode>medium</Mode>
-            <Mode>hard</Mode>
-          </Modes>
-          <SliderBox>
-            <Slider
-              minimumValue={1}
-              maximumValue={3}
-              step={1}
-              onValueChange={handleChange}
-              value={value}
-              thumbTintColor={"white"}
-              minimumTrackTintColor={"gray"}
-              maximumTrackTintColor={"gray"}
-              style={{ height: 20 }}
+            <SliderBlock>
+              <Modes>
+                <Mode>easy</Mode>
+                <Mode>medium</Mode>
+                <Mode>hard</Mode>
+              </Modes>
+              <SliderBox>
+                <Slider
+                  minimumValue={1}
+                  maximumValue={3}
+                  step={1}
+                  onValueChange={handleChange}
+                  value={value}
+                  thumbTintColor={"white"}
+                  minimumTrackTintColor={"gray"}
+                  maximumTrackTintColor={"gray"}
+                  style={{ height: 20 }}
+                />
+              </SliderBox>
+            </SliderBlock>
+            <Border>
+              <ParameterBlock>
+                <Parameter>Choisissez une thématique :</Parameter>
+              </ParameterBlock>
+            </Border>
+
+            <Select>
+              <Touche onPress={navigateToQuizz}>
+                <OptionTitle>Art</OptionTitle>
+                <Triangle></Triangle>
+                <Image source={img1} style={styles.image} />
+              </Touche>
+              <Touche onPress={navigateToQuizz}>
+                <OptionTitle>Littérature</OptionTitle>
+                <Triangle></Triangle>
+                <Image source={img2} style={styles.image} />
+              </Touche>
+              <Touche onPress={navigateToQuizz}>
+                <OptionTitle>Musique</OptionTitle>
+                <Triangle></Triangle>
+                <Image source={img3} style={styles.image} />
+              </Touche>
+              <Touche onPress={navigateToQuizz}>
+                <OptionTitle>Ingéniérie</OptionTitle>
+                <Triangle></Triangle>
+                <Image source={img4} style={styles.image} />
+              </Touche>
+              <Touche onPress={navigateToQuizz}>
+                <OptionTitle>Sciences</OptionTitle>
+                <Triangle></Triangle>
+                <Image source={img5} style={styles.image} />
+              </Touche>
+              <Touche onPress={navigateToQuizz}>
+                <OptionTitle>Photographie</OptionTitle>
+                <Triangle></Triangle>
+                <Image source={img6} style={styles.image} />
+              </Touche>
+            </Select>
+            <ButtonRules
+              OnPress={() => {
+                setShowRuleModale(true);
+              }}></ButtonRules>
+          </Container>
+
+          {showRuleModale && (
+            <RulesScreen
+              showPopup={showRuleModale}
+              setShowPopup={setShowRuleModale}
             />
-          </SliderBox>
-        </SliderBlock>
-        <Border>
-          <ParameterBlock>
-            <Parameter>Choisissez une thématique :</Parameter>
-          </ParameterBlock>
-        </Border>
-
-        <Select>
-          <Touche onPress={navigateToQuizz}>
-            <OptionTitle>Art</OptionTitle>
-            <Triangle></Triangle>
-            <Image source={img1} style={styles.image} />
-          </Touche>
-          <Touche onPress={navigateToQuizz}>
-            <OptionTitle>Littérature</OptionTitle>
-            <Triangle></Triangle>
-            <Image source={img2} style={styles.image} />
-          </Touche>
-          <Touche onPress={navigateToQuizz}>
-            <OptionTitle>Musique</OptionTitle>
-            <Triangle></Triangle>
-            <Image source={img3} style={styles.image} />
-          </Touche>
-          <Touche onPress={navigateToQuizz}>
-            <OptionTitle>Ingéniérie</OptionTitle>
-            <Triangle></Triangle>
-            <Image source={img4} style={styles.image} />
-          </Touche>
-          <Touche onPress={navigateToQuizz}>
-            <OptionTitle>Sciences</OptionTitle>
-            <Triangle></Triangle>
-            <Image source={img5} style={styles.image} />
-          </Touche>
-          <Touche onPress={navigateToQuizz}>
-            <OptionTitle>Photographie</OptionTitle>
-            <Triangle></Triangle>
-            <Image source={img6} style={styles.image} />
-          </Touche>
-        </Select>
-        {/* <ButtonRules /> */}
-      </Container>
-    </Scrollable>
+          )}
+        </SafeArea>
+      </Scrollable>
+    </>
   );
 };
 
