@@ -4,7 +4,6 @@ import { StatusBar, SafeAreaView, Dimensions, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { ForumHeader } from "../../components/forum/forumHeader";
 import { ForumMessage } from "../../components/forum/forumMessage";
-import { View } from "react-native";
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
@@ -36,18 +35,22 @@ const MessageView = styled.View`
 
 const bg = require("../../img/background2.png");
 
-export const ForumConversationHelp = () => {
+export const ForumConversation = () => {
 	return (
 		<>
 			<Background source={bg} />
 			<ScrollView>
 				<BackgroundWhite>
+					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
+					impedit, perspiciatis aliquid dolorem ipsum officiis.
 					<SafeArea>
 						<ForumHeader
-							headerTitle={"L'équipe MIDNETS"}
-							headerText={"Les espaces dédiés à vous aider"}
+							headerTitle={"Nom d'utilisateur"}
+							headerText={
+								"Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+							}
 							bodyText={
-								"Vous trouverez dans cette catégorie les numéros d'aide pour les femmes ainsi que les plateformes dédiées à cet usage"
+								"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque impedit, perspiciatis aliquid dolorem ipsum officiis."
 							}
 							datePost={"Il y a XX jours"}
 							numberCom={"XX commentaires"}

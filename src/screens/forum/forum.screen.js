@@ -11,7 +11,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFocusEffect } from "@react-navigation/native";
-import { Animated } from "react-native";
+import { Animated, TouchableOpacity } from "react-native";
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
@@ -173,7 +173,7 @@ const Data = [
 	},
 ];
 
-export const Forum = () => {
+export const Forum = ({ navigation }) => {
 	const [expandedMenu, setExpandedMenu] = useState({ 0: true });
 
 	// Utilisez useFocusEffect pour réinitialiser l'état lorsque le composant obtient le focus
@@ -225,6 +225,7 @@ export const Forum = () => {
 								</IconView>
 							</SearchContainer>
 							<InteractionButton
+								onPress={() => navigation.navigate("ForumInteraction")}
 								style={{
 									shadowColor: "#000",
 									shadowOffset: { width: 0, height: 4 },
@@ -252,24 +253,30 @@ export const Forum = () => {
 								{expandedMenu[i] && (
 									<View>
 										{section.options.map((option, optionI) => (
-											<Option
+											<TouchableOpacity
 												key={optionI}
-												style={{
-													shadowColor: "#000",
-													shadowOffset: { width: 0, height: 4 },
-													shadowOpacity: 0.25,
-													shadowRadius: 4,
-												}}
+												onPress={() =>
+													navigation.navigate("ForumConversationHelp")
+												}
 											>
-												<LinearGradient
-													style={{ borderRadius: 10 }}
-													colors={["white", "#D8C2EF"]}
-													start={{ x: 0, y: 0 }}
-													end={{ x: 1, y: 0 }}
+												<Option
+													style={{
+														shadowColor: "#000",
+														shadowOffset: { width: 0, height: 4 },
+														shadowOpacity: 0.25,
+														shadowRadius: 4,
+													}}
 												>
-													<OptionText>{option}</OptionText>
-												</LinearGradient>
-											</Option>
+													<LinearGradient
+														style={{ borderRadius: 10 }}
+														colors={["white", "#D8C2EF"]}
+														start={{ x: 0, y: 0 }}
+														end={{ x: 1, y: 0 }}
+													>
+														<OptionText>{option}</OptionText>
+													</LinearGradient>
+												</Option>
+											</TouchableOpacity>
 										))}
 									</View>
 								)}

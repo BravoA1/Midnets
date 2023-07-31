@@ -40,18 +40,18 @@ export const HomeScreen = ({ navigation }) => {
 	const [forum, setForum] = useState(false);
 
 	const NavBar = styled.View`
-		left: ${windowWidth * 0.03};
-		top: ${windowWidth * 0.07};
+		left: ${windowWidth * 0.03}px;
+		top: ${windowWidth * 0.07}px;
 		position: absolute;
-		width: ${windowWidth * 0.15};
+		width: ${windowWidth * 0.15}px;
 		height: 60%;
 
 		align-items: center;
 	`;
 
 	const VerticalLine = styled.View`
-		height: ${windowWidth * 0.009};
-		width: ${windowWidth * 0.05};
+		height: ${windowWidth * 0.009}px;
+		width: ${windowWidth * 0.05}px;
 		background-color: black;
 	`;
 
@@ -62,9 +62,9 @@ export const HomeScreen = ({ navigation }) => {
 	`;
 
 	const HorizontalLine = styled.View`
-		margin-top: ${windowWidth * -0.001};
-		width: ${windowWidth * 0.009};
-		height: ${windowWidth * 0.55};
+		margin-top: ${windowWidth * -0.001}px;
+		width: ${windowWidth * 0.009}px;
+		height: ${windowWidth * 0.55}px;
 		background-color: black;
 	`;
 
@@ -82,7 +82,7 @@ export const HomeScreen = ({ navigation }) => {
 
 	const TitleContainer = styled.View`
 		flex-direction: row;
-		width: ${windowWidth * 0.833};
+		width: ${windowWidth * 0.833}px;
 		align-items: center;
 		margin-top: ${(props) => props.theme.space[3]};
 	`;
@@ -162,16 +162,16 @@ export const HomeScreen = ({ navigation }) => {
 	const bg2 = require("../../img/uyfgFichier_44x.png");
 	const BackgroundSquare = styled.Image`
 		transform: rotate(180deg);
-		width: ${windowWidth * 0.8};
-		height: ${windowWidth * 0.8};
+		width: ${windowWidth * 0.8}px;
+		height: ${windowWidth * 0.8}px;
 	`;
 
 	const bg3 = require("../../img/pexels-shvets-production-7176325.jpg");
 	const BackgroundImage = styled.Image`
-		top: ${windowWidth * -1.1};
-		left: ${windowWidth * 0.09};
-		width: ${windowWidth * 0.8};
-		height: ${windowWidth * 0.7};
+		top: ${windowWidth * -1.1}px;
+		left: ${windowWidth * 0.09}px;
+		width: ${windowWidth * 0.8}px;
+		height: ${windowWidth * 0.7}px;
 	`;
 
 	return (
