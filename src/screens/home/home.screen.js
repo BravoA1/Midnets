@@ -510,6 +510,7 @@ export const HomeScreen = ({ navigation }) => {
 						</ButtonGradient2>
 					</View>
 				</ScrollView>
+				<NavBar />
 			</Container>
 		</>
 	);
