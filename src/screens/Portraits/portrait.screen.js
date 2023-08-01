@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { createNavigationContainerRef } from "@react-navigation/native";
 
 let screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get('window').height;
 
 const SafeArea = styled.SafeAreaView`
   flex: 1;
@@ -12,6 +13,14 @@ const SafeArea = styled.SafeAreaView`
   margin: auto;
   width: ${(screenWidth * 3) / 4}px;
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
+`;
+
+const Background = styled.Image`
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	min-height: ${screenHeight}px;
 `;
 
 const TitleBlock = styled.View`
@@ -70,7 +79,12 @@ export const PortraitsScreen = ({ navigation }) => {
     navigation.navigate("PortraitArticle", { name: name });
   };
 
+  // ! pas la bonne image
+  const bg = require("../../img/background2.png"); 
+
   return (
+    <>
+    <Background source={bg} />
     <SafeArea>
       <ScrollView>
         <TitleBlock>
@@ -114,5 +128,6 @@ export const PortraitsScreen = ({ navigation }) => {
         </BlockCard>
       </ScrollView>
     </SafeArea>
+    </>
   );
 };

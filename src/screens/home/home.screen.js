@@ -195,28 +195,31 @@ export const HomeScreen = ({ navigation }) => {
       width: windowWidth * 0.8,
       height: windowHeight * 0.35,
       alignItems: "center",
-      padding: 15,
+      justifyContent: 'center',
+      paddingTop: 30,
+      paddingHorizontal: 15,
     },
     containerUsefulLink: {
       justifyContent: "center",
       alignItems: "center",
       width: "100%",
       height: "100%",
+      marginVertical: 'auto'
     },
     cover: {
       width: "100%",
-      backgroundColor: "#ffffffc0",
+      opacity: 0.8,
+      backgroundColor: 'rgba(255,255,255,.78)',
       alignItems: "center",
-      marginBottom: windowWidth * 0.03,
+      marginBottom: windowWidth * 0.05,
       borderRadius: 25,
-
       gap: 10,
     },
     contentImage: {
       width: "100%",
-      justifyItems: "center",
+      height: '100%',
+      justifyContent: "center",
       alignItems: "center",
-      backgroundColor: "red",
     },
     text: {
       fontSize: windowHeight * 0.02,
@@ -509,7 +512,7 @@ export const HomeScreen = ({ navigation }) => {
                 style={styles3.image}
               >
                 <View style={styles3.contentImage}>
-                  <View style={styles3.cover}>
+                  <View style={styles3.cover} >
                     <Text style={styles3.text}>
                       Des liens utiles pour vous aider et vous protéger
                     </Text>
