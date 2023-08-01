@@ -6,7 +6,7 @@ import { colors } from "../../infrastructure/theme/colors";
 
 const screenWitdh = Dimensions.get("window").width;
 
-export default ButtonResponse = ({
+export default ButtonGradient2 = ({
 	children,
 	onPress,
 	result,
