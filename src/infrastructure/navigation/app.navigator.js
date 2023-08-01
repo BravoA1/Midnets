@@ -16,6 +16,7 @@ import { AccessibilityScreen } from "../../screens/options/accessibility.screen"
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native";
 import { Text } from "react-native-svg";
+import { NavigationTemp } from "../../screens/Navigation/NavigationTemp";
 
 export const AppNavigator = () => {
 	const { info, user } = useContext(UserContext);
@@ -84,7 +85,7 @@ export const AppNavigator = () => {
 						title: () => null,
 					})}
 					name="Back"
-					component={GoBackScreen}
+					component={NavigationTemp}
 				/>
 
 				<Tab.Screen
