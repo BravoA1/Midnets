@@ -151,7 +151,7 @@ export const PasswordForgot = ({ navigation }) => {
   return (
     <SafeArea>
       <TitleBlock>
-        <Title>Mots de passe oublié</Title>
+        <Title>Réinitialisation</Title>
       </TitleBlock>
       <InputForm
         type="email"
