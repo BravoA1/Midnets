@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import SVG, { Circle, Path } from "react-native-svg";
+import { theme } from "../infrastructure/theme";
 
 export const CountDown = ({
   time,
@@ -82,23 +83,23 @@ export const CountDown = ({
     >
       <Path
         d="M215 85A10 10 0 1 1 215 0H435A 10 10 0 1 1 435 85Z"
-        fill="black"
+        fill="#555"
       />
       <Circle
         cx={cx}
         cy={cy}
         r={r}
-        stroke="black"
+        stroke="#555"
         strokeWidth={strokeWidth}
-        fill="white"
+        fill={theme.colors.bg.secondary}
       />
       <Path
         d="M520 105A 10 10 0 1 1 553.1615029022016 82.63228386117012L631.4485093881062 198.69754401887596A10 10 0 1 1 598.2870064859046 221.06526015770584Z"
-        fill="black"
+        fill="#555"
       />
       <Path
         d={path}
-        fill={pointsToRender < pointsCount / 4 ? "red" : "black"}
+        fill={pointsToRender < pointsCount / 4 ? theme.colors.ui.error : "#555"}
       />
     </SVG>
   );

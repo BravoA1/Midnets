@@ -113,8 +113,8 @@ const ProgresPoint = styled.View`
 
 const TimerContainer = styled.View`
   position: absolute;
-  top: 35%;
-  left: 80%;
+  top: 3px;
+  right: 2px;
   z-index: 1;
 `;
 
@@ -409,16 +409,6 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
             </View>
           ) : (
             <>
-              <TimerContainer>
-                <CountDown
-                  time={time}
-                  setTime={setTime}
-                  onTimeUp={() => Answers(-1)}
-                  pause={pause}
-                  reset={reset}
-                  setReset={setReset}
-                />
-              </TimerContainer>
               <InsetShadow
                 containerStyle={styles.shadow}
                 shadowRadius={10}
@@ -447,6 +437,16 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               </View>
               {/* View qui contient la question */}
               <QuestionContainer>
+                <TimerContainer>
+                  <CountDown
+                      time={time}
+                      setTime={setTime}
+                      onTimeUp={() => Answers(-1)}
+                      pause={pause}
+                      reset={reset}
+                      setReset={setReset}
+                    />
+                </TimerContainer>
                 <ScrollQuestion>
                   <CornerBlock
                     size="50px"
