@@ -1,9 +1,9 @@
-import { StatusBar } from "expo-status-bar";
-import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
+// import { StatusBar } from "expo-status-bar";
+import { Dimensions } from "react-native";
 import { styled } from "styled-components/native";
 import RubanCard from "../../components/RubanCard";
-import ButtonGradient from "../../components/button/ButtonGradient";
-import ButtonResponse from "../../components/button/ButtonResponse";
+
+import ButtonDefault from "../../components/button/ButtonDefault";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -35,13 +35,17 @@ const Background = styled.Image`
   opacity: 0.4;
 `;
 
-const Scrollable = styled.ScrollView`
-  margin-top: 20px;
+// const Scrollable = styled.ScrollView`
+//   flex: 1;
+//   z-index: 200;
+//   width: 100%;
+
+// `;
+
+const ContainerView = styled.View`
   flex: 1;
+  justify-content: center;
   z-index: 200;
-  width: 100%;
-  height: 100%;
-  ${StatusBar.currentHeight && `padding-top: ${StatusBar.currentHeight}px`};
 `;
 
 const Content = styled.View`
@@ -62,19 +66,27 @@ const Line = styled.View`
 `;
 
 const Ul = styled.FlatList`
-  padding-horizontal: 20px;
+  padding-horizontal: 10%;
+  padding-bottom: 20%;
 `;
 
 const Rule = styled.Text`
-  padding: 20px;
-  flex-wrap: wrap;
-  overflow: hidden;
-  width: 100%;
+  padding: 10%;
+  flex: 1;
+
+  font-family: ${(props) => props.theme.fonts.headingBold};
+  font-size: ${(props) => props.theme.fontSizes.title};
 `;
 
 const Btn = styled.View`
   align-items: center;
   margin-top: 20px;
+`;
+
+const BorderBottom = styled.View`
+  height: 10px;
+  background-color: ${(props) => props.theme.colors.bg.primary};
+  width: ${(screenWidth * 3) / 4}px;
 `;
 
 export const RulesScreen = ({
@@ -99,8 +111,8 @@ export const RulesScreen = ({
       : "20",
     type: difficulty
       ? difficulty > 2
-        ? " ou vous devez remplir l'input"
-        : " en QCM"
+        ? "ou vous devez remplir l'input"
+        : "en QCM"
       : "",
   };
 
@@ -109,8 +121,11 @@ export const RulesScreen = ({
       <BgContainer>
         <Background source={bg} />
       </BgContainer>
-      <Scrollable>
+      {/* <Scrollable> */}
+      <ContainerView>
         <RubanCard title={"Règles du Jeu"}>
+          <BorderBottom></BorderBottom>
+
           <List>
             <Line></Line>
             <Ul
@@ -127,12 +142,14 @@ export const RulesScreen = ({
             />
             <Line></Line>
           </List>
+          <BorderBottom></BorderBottom>
         </RubanCard>
 
         <Btn>
-          <ButtonGradient OnPress={handlePress}>Continuer</ButtonGradient>
+          <ButtonDefault OnPress={handlePress}>Continuer</ButtonDefault>
         </Btn>
-      </Scrollable>
+        {/* </Scrollable> */}
+      </ContainerView>
     </Container>
   );
 };
