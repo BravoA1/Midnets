@@ -5,9 +5,11 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import { theme } from "../../infrastructure/theme";
 import { useState, useEffect } from "react";
+import { styled } from "styled-components/native";
 
 const ScreenWitdh = Dimensions.get("window").width;
 
@@ -18,40 +20,45 @@ export const ButtonGradientQuiz = ({
   disabled,
   width = 0.4,
 }) => {
+  const BoxGradient = styled.TouchableOpacity`
+    text-align: center;
+    z-index: 1;
+    width: 48%;
+    background-color: #fff;
+    height: 60px;
+    border-radius: 100px;
+    margin-bottom: ${Platform.OS === `ios` ? 30 : 0};
+    margin-bottom: 20px;
+  `;
+
+  const LinearButton = styled(LinearGradient)`
+    width: 100%;
+    border-radius: 100px;
+    padding: 0px;
+  `;
+
+  const ButtonElement = styled.View`
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    color: #000;
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+  `;
+
   const styles = StyleSheet.create({
     text: {
       fontFamily: theme.fonts.body,
-    },
-    containerText: {
-      flexDirection: "row",
-      justifyContent: "center",
-      alignItems: "center",
-      padding: 10,
-      color: "#000",
-      width: "100%",
-      /* height: 100%; */
-      borderRadius: 100,
-    },
-    touchableOpacity: {
-      elevation: 10,
-      zIndex: 1,
-      width: ScreenWitdh * width,
-      //box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
-      backgroundColor: "#fff",
-      borderRadius: 100,
-      /* margin-bottom: 30px; */
-      marginBottom: Platform.OS === "ios" ? 30 : 0,
-      textAlign: "center",
     },
     text: {
       fontSize: 16,
       textAlign: "center",
     },
-    linearGradient: {
-      width: "100%",
-      borderRadius: 100,
-      padding: 0,
-    },
+    container: {
+      elevation: 10,
+    }
   });
 
   const [color, setColor] = useState("#D8C2EF");
@@ -70,22 +77,19 @@ export const ButtonGradientQuiz = ({
   }, [result]);
 
   return (
-    <TouchableOpacity
-      style={styles.touchableOpacity}
+    <BoxGradient
+      style={styles.container}
       onPress={onPress}
-      disabled={disabled}
-    >
-      <LinearGradient
-        style={styles.linearGradient}
+      disabled={disabled}>
+      <LinearButton
         colors={[`${color}`, "rgba(255,255,255,0)"]}
         locations={[0, 1]}
         start={{ x: 1, y: 0 }}
-        end={{ x: 0, y: 1 }}
-      >
-        <View style={styles.containerText}>
+        end={{ x: 0, y: 1 }}>
+        <ButtonElement>
           <Text style={styles.text}>{title}</Text>
-        </View>
-      </LinearGradient>
-    </TouchableOpacity>
+        </ButtonElement>
+      </LinearButton>
+    </BoxGradient>
   );
 };

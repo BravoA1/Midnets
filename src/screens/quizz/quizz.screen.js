@@ -22,6 +22,7 @@ import { Snackbar } from "react-native-paper";
 import { RulesScreen } from "./rules.screen.js";
 import { Vibration } from "react-native";
 import { ButtonGradientQuiz } from "../../components/button/ButtonGradientQuiz.js";
+import { CornerBlock } from "../../components/CornerBlock.js";
 
 const Container = styled.View`
   display: flex;
@@ -42,33 +43,40 @@ const TitleContainer = styled.View`
   justify-content: center;
 `;
 const Title = styled.Text``;
-const QuestionContainer = styled.ScrollView`
+
+const QuestionContainer = styled.View`
   margin-top: ${(props) => props.theme.space[3]};
-  background-color: darkgray;
+  background-color: ${(props) => props.theme.colors.bg.secondary};
   width: 85%;
   height: 25%;
-  padding: ${(props) => props.theme.space[4]};
   border-radius: 8px;
+  padding: ${(props) => props.theme.space[3]};
 `;
+
+const ScrollQuestion = styled.ScrollView`
+  height: 100%;
+  width: 100%;
+`;
+
 const Question = styled.Text`
   color: white;
   font-family: ${(props) => props.theme.fonts.headingBold};
   font-size: 23.9px;
   text-align: left;
-  padding-bottom: ${(props) => props.theme.space[4]};
+  padding: ${(props) => props.theme.space[3]};
 `;
 const ResponseContainer1 = styled.View`
-  margin-top: ${(props) => props.theme.space[4]};
+  margin-top: ${(props) => props.theme.space[3]};
   width: 85%;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   flex-flow: row nowrap;
 `;
 const ResponseContainer2 = styled.View`
   width: 85%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   flex-flow: row nowrap;
   margin-bottom: ${(props) => props.theme.space[2]};
 `;
@@ -416,14 +424,12 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
                 shadowRadius={10}
                 shadowOpacity={20}
                 bottom={false}
-                left={false}
-              >
+                left={false}>
                 <Linear
                   colors={["#D8C2EF", "rgba(255,255,255,0)"]}
                   locations={[0, 1]}
                   start={{ x: 1, y: 0 }}
-                  end={{ x: 0, y: 1 }}
-                >
+                  end={{ x: 0, y: 1 }}>
                   <TitleContainer style={styles.container}>
                     <Title>
                       {difficulty === 2
@@ -440,8 +446,16 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
                 />
               </View>
               {/* View qui contient la question */}
-              <QuestionContainer contentContainerStyle={{ paddingBottom: 30 }}>
-                <Question>{question}</Question>
+              <QuestionContainer>
+                <ScrollQuestion>
+                  <CornerBlock
+                    size="50px"
+                    color="white"
+                    borderHorizontal="4px"
+                    borderVertical="4px">
+                    <Question>{question}</Question>
+                  </CornerBlock>
+                </ScrollQuestion>
               </QuestionContainer>
               {/* button reponse */}
               <ResponseContainer1>
@@ -495,48 +509,42 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               {/* barre de progression avec les petits */}
               <ProgresBar>
                 <ProgresPoint
-                  style={{ backgroundColor: "black" }}
-                ></ProgresPoint>
+                  style={{ backgroundColor: "black" }}></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
                       numberQuestion < (QuestionNumber * 75) / 100
                         ? "black"
                         : "gray",
-                  }}
-                ></ProgresPoint>
+                  }}></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
                       numberQuestion < (QuestionNumber * 50) / 100
                         ? "black"
                         : "gray",
-                  }}
-                ></ProgresPoint>
+                  }}></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
                       numberQuestion < (QuestionNumber * 25) / 100
                         ? "black"
                         : "gray",
-                  }}
-                ></ProgresPoint>
+                  }}></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
                       numberQuestion < (QuestionNumber * 10) / 100
                         ? "black"
                         : "gray",
-                  }}
-                ></ProgresPoint>
+                  }}></ProgresPoint>
               </ProgresBar>
               {/* button poour accèder aux règles */}
               <ButtonRules
                 OnPress={() => {
                   setShowRuleModale(true);
                   setPause(true);
-                }}
-              ></ButtonRules>
+                }}></ButtonRules>
               {/* en savoir plus container */}
               <MoreContainer>
                 <ButtonResponse
@@ -544,8 +552,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
                   OnPress={() => {
                     setShowLearnMoreModale(true);
                     setPause(true);
-                  }}
-                >
+                  }}>
                   <MoreText>En savoir plus</MoreText>
                 </ButtonResponse>
               </MoreContainer>
@@ -555,8 +562,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
             style={{ zIndex: 10 }}
             visible={visible}
             onDismiss={() => setVisible(false)}
-            duration={1500}
-          >
+            duration={1500}>
             Time up !
           </Snackbar>
         </Container>

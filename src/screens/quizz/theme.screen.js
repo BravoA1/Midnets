@@ -8,7 +8,7 @@ import {
   Platform,
 } from "react-native";
 import { styled } from "styled-components/native";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TitleBlock } from "../../components/TitleBlock";
 import { RulesScreen } from "./rules.screen";
 // import ButtonRules from "../../components/ButtonRules";
@@ -151,9 +151,10 @@ export const ThemeScreen = ({ navigation }) => {
     navigation.navigate("Quiz", { difficulty: value });
   };
 
-  useEffect(() => {
-    console.log(showRuleModale, " rule modale");
-  }, [showRuleModale]);
+  const navigateToRule = () => {
+    navigation.navigate("Rule");
+  };
+
 
   return (
     <>
@@ -228,9 +229,7 @@ export const ThemeScreen = ({ navigation }) => {
               </Touche>
             </Select>
             <ButtonRules
-              OnPress={() => {
-                setShowRuleModale(true);
-              }}></ButtonRules>
+              OnPress={navigateToRule}></ButtonRules>
           </Container>
 
           {showRuleModale && (
