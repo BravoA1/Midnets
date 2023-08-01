@@ -11,7 +11,6 @@ import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import InsetShadow from "react-native-inset-shadow";
 
-//import ButtonResponse from "../../components/button/ButtonResponse.js";
 import ButtonRules from "../../components/button/ButtonRules.js";
 import InputFrom from "../../components/InputForm.js";
 
@@ -23,6 +22,7 @@ import { RulesScreen } from "./rules.screen.js";
 import { Vibration } from "react-native";
 import { ButtonGradientQuiz } from "../../components/button/ButtonGradientQuiz.js";
 import { CornerBlock } from "../../components/CornerBlock.js";
+import { ButtonGradient } from "../../components/button/ButtonGradient.js";
 
 const Container = styled.View`
   display: flex;
@@ -414,12 +414,14 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
                 shadowRadius={10}
                 shadowOpacity={20}
                 bottom={false}
-                left={false}>
+                left={false}
+              >
                 <Linear
                   colors={["#D8C2EF", "rgba(255,255,255,0)"]}
                   locations={[0, 1]}
                   start={{ x: 1, y: 0 }}
-                  end={{ x: 0, y: 1 }}>
+                  end={{ x: 0, y: 1 }}
+                >
                   <TitleContainer style={styles.container}>
                     <Title>
                       {difficulty === 2
@@ -439,20 +441,21 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               <QuestionContainer>
                 <TimerContainer>
                   <CountDown
-                      time={time}
-                      setTime={setTime}
-                      onTimeUp={() => Answers(-1)}
-                      pause={pause}
-                      reset={reset}
-                      setReset={setReset}
-                    />
+                    time={time}
+                    setTime={setTime}
+                    onTimeUp={() => Answers(-1)}
+                    pause={pause}
+                    reset={reset}
+                    setReset={setReset}
+                  />
                 </TimerContainer>
                 <ScrollQuestion>
                   <CornerBlock
                     size="50px"
                     color="white"
                     borderHorizontal="4px"
-                    borderVertical="4px">
+                    borderVertical="4px"
+                  >
                     <Question>{question}</Question>
                   </CornerBlock>
                 </ScrollQuestion>
@@ -509,52 +512,58 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               {/* barre de progression avec les petits */}
               <ProgresBar>
                 <ProgresPoint
-                  style={{ backgroundColor: "black" }}></ProgresPoint>
+                  style={{ backgroundColor: "black" }}
+                ></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
                       numberQuestion < (QuestionNumber * 75) / 100
                         ? "black"
                         : "gray",
-                  }}></ProgresPoint>
+                  }}
+                ></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
                       numberQuestion < (QuestionNumber * 50) / 100
                         ? "black"
                         : "gray",
-                  }}></ProgresPoint>
+                  }}
+                ></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
                       numberQuestion < (QuestionNumber * 25) / 100
                         ? "black"
                         : "gray",
-                  }}></ProgresPoint>
+                  }}
+                ></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
                       numberQuestion < (QuestionNumber * 10) / 100
                         ? "black"
                         : "gray",
-                  }}></ProgresPoint>
+                  }}
+                ></ProgresPoint>
               </ProgresBar>
               {/* button poour accèder aux règles */}
               <ButtonRules
                 OnPress={() => {
                   setShowRuleModale(true);
                   setPause(true);
-                }}></ButtonRules>
+                }}
+              ></ButtonRules>
               {/* en savoir plus container */}
               <MoreContainer>
-                <ButtonResponse
+                <ButtonGradient
                   width={0.5}
                   OnPress={() => {
                     setShowLearnMoreModale(true);
                     setPause(true);
-                  }}>
-                  <MoreText>En savoir plus</MoreText>
-                </ButtonResponse>
+                  }}
+                  title="En savoir plus"
+                />
               </MoreContainer>
             </>
           )}
@@ -562,7 +571,8 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
             style={{ zIndex: 10 }}
             visible={visible}
             onDismiss={() => setVisible(false)}
-            duration={1500}>
+            duration={1500}
+          >
             Time up !
           </Snackbar>
         </Container>

@@ -9,12 +9,12 @@ import {
   Platform,
 } from "react-native";
 import styled from "styled-components/native";
-import ButtonResponse from "../../components/button/ButtonResponse";
 import RubanCard from "../../components/RubanCard";
 import { CornerBlock } from "../../components/CornerBlock";
+import { ButtonGradient } from "../../components/button/ButtonGradient";
 
-let screenWidth = Dimensions.get("window").width;
-let screenHeight = Dimensions.get("window").height;
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const image_background = require("../../img/background.png");
 
@@ -244,23 +244,21 @@ export const ResultScreen = ({ navigation, route }) => {
 
       <ButtonsContainer>
         <ButtonView style={{ justifyContent: "flex-start" }}>
-          <ButtonResponse
-            OnPress={() => navigation.navigate("Theme")}
-            width={0.35}
-          >
-            Menus Défis
-          </ButtonResponse>
+          <ButtonGradient
+            onPress={() => navigation.navigate("Theme")}
+            widthRatio={0.35}
+            title="Menus Défis"
+          />
         </ButtonView>
         {difficulty < 3 ? (
           <ButtonView style={{ justifyContent: "flex-end" }}>
-            <ButtonResponse
-              OnPress={() =>
+            <ButtonGradient
+              onPress={() =>
                 navigation.navigate("Quiz", { difficulty: difficulty + 1 })
               }
-              width={0.35}
-            >
-              Niveau suivant
-            </ButtonResponse>
+              widthRatio={0.35}
+              title="Niveau suivant"
+            />
           </ButtonView>
         ) : (
           <></>
