@@ -11,7 +11,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFocusEffect } from "@react-navigation/native";
-import { Animated, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
@@ -128,8 +128,7 @@ const TitleText = styled.Text`
 const Option = styled.View`
 	margin-bottom: 10px;
 	border-radius: 10px;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	elevation: 10;
+	elevation: 15;
 `;
 
 const OptionText = styled.Text`
@@ -153,23 +152,44 @@ const Data = [
 	{
 		title: "Vous protéger",
 		options: [
-			"Les espaces dédués à vous aider",
-			"Les textes de lois à connaître",
-			"Les lieux où se réfugier",
-			"Lorem ipsum",
+			{
+				title: "Les espaces dédués à vous aider",
+				navigate: "ForumConversationHelp",
+			},
+			{
+				title: "Les textes de lois à connaître",
+				navigate: "ForumConversationHelp",
+			},
+			{ title: "Les lieux où se réfugier", navigate: "ForumConversationHelp" },
+			{ title: "Lorem ipsum", navigate: "ForumConversationHelp" },
 		],
 	},
 	{
 		title: "Catégorie lorem",
-		options: ["Lorem ipsum", "Lorem ipsum", "Lorem ipsum", "Lorem ipsum"],
+		options: [
+			{ title: "Lorem ipsum", navigate: "ForumConversation" },
+			{ title: "Lorem ipsum", navigate: "ForumConversation" },
+			{ title: "Lorem ipsum", navigate: "ForumConversation" },
+			{ title: "Lorem ipsum", navigate: "ForumConversation" },
+		],
 	},
 	{
 		title: "Catégorie lorem",
-		options: ["Lorem ipsum", "Lorem ipsum", "Lorem ipsum", "Lorem ipsum"],
+		options: [
+			{ title: "Lorem ipsum", navigate: "ForumResponse" },
+			{ title: "Lorem ipsum", navigate: "ForumResponse" },
+			{ title: "Lorem ipsum", navigate: "ForumResponse" },
+			{ title: "Lorem ipsum", navigate: "ForumResponse" },
+		],
 	},
 	{
 		title: "Catégorie lorem",
-		options: ["Lorem ipsum", "Lorem ipsum", "Lorem ipsum", "Lorem ipsum"],
+		options: [
+			{ title: "Lorem ipsum", navigate: "ForumAddQuestion" },
+			{ title: "Lorem ipsum", navigate: "ForumAddQuestion" },
+			{ title: "Lorem ipsum", navigate: "ForumAddQuestion" },
+			{ title: "Lorem ipsum", navigate: "ForumAddQuestion" },
+		],
 	},
 ];
 
@@ -255,9 +275,7 @@ export const Forum = ({ navigation }) => {
 										{section.options.map((option, optionI) => (
 											<TouchableOpacity
 												key={optionI}
-												onPress={() =>
-													navigation.navigate("ForumConversationHelp")
-												}
+												onPress={() => navigation.navigate(option.navigate)}
 											>
 												<Option
 													style={{
@@ -273,7 +291,7 @@ export const Forum = ({ navigation }) => {
 														start={{ x: 0, y: 0 }}
 														end={{ x: 1, y: 0 }}
 													>
-														<OptionText>{option}</OptionText>
+														<OptionText>{option.title}</OptionText>
 													</LinearGradient>
 												</Option>
 											</TouchableOpacity>

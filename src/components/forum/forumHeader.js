@@ -73,7 +73,8 @@ const TextCommentaire = styled.Text`
 
 const BorderBottom = styled.View`
 	width: ${screenWidth * 0.75}px;
-	border: 1px solid ${(props) => props.theme.colors.text.primary};
+	border-bottom-width: 2px;
+	border-bottom-color: ${(props) => props.theme.colors.text.primary};
 `;
 
 export const ForumHeader = ({

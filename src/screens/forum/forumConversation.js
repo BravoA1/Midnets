@@ -41,8 +41,6 @@ export const ForumConversation = () => {
 			<Background source={bg} />
 			<ScrollView>
 				<BackgroundWhite>
-					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque
-					impedit, perspiciatis aliquid dolorem ipsum officiis.
 					<SafeArea>
 						<ForumHeader
 							headerTitle={"Nom d'utilisateur"}

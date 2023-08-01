@@ -7,6 +7,7 @@ import { ForumMessage } from "../../components/forum/forumMessage";
 import { View } from "react-native";
 
 const windowHeight = Dimensions.get("window").height;
+
 const windowWidth = Dimensions.get("window").width;
 
 const BackgroundWhite = styled.View`
