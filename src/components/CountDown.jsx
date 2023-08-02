@@ -37,8 +37,8 @@ export const CountDown = ({
 
   useEffect(() => {
     //setTimeMax(time);
-    setPointsToRender(time * 2);
-    setPointsCount(time * 2);
+    setPointsToRender(time / 100);
+    setPointsCount(time / 100);
     setReset(false);
   }, [reset]);
 
@@ -48,8 +48,8 @@ export const CountDown = ({
       setPointsToRender((prevCount) => prevCount - 1);
       // Function to update the timer every second
       const interval = setInterval(() => {
-        setTime((prevTime) => prevTime - 0.5);
-      }, 500);
+        setTime((prevTime) => prevTime - 100);
+      }, 100);
       // Clean up the interval on unmount or when seconds reach 0
       setPath(() => calculatePath());
       return () => {
@@ -69,7 +69,7 @@ export const CountDown = ({
     for (let i = 0; i <= pointsToRender; i++) {
       const x = cx - radius * Math.sin(i * theta);
       const y = cy - radius * Math.cos(i * theta);
-      path += `L ${x} ${y}`;
+      path += `L${x} ${y}`;
     }
     return path + "Z";
   };

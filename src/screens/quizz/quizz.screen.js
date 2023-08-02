@@ -188,19 +188,19 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
       setError(false);
       switch (difficulty) {
         case 1:
-          setTime(10);
+          setTime(10000);
           NewQuestion(quizDataEasy[index]);
           break;
         case 2:
-          setTime(5);
+          setTime(5000);
           NewQuestion(quizDataMedium[index]);
           break;
         case 3:
-          setTime(30);
+          setTime(30000);
           NewQuestion(quizDataMedium[index]);
           break;
         default:
-          setTime(20);
+          setTime(20000);
           NewQuestion(quizDataEasy[index]);
       }
       setPause(false);
@@ -240,7 +240,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   // Reset all the parameter
   function Reset() {
     setScore(0);
-    setTime(difficulty === 2 ? 15 : 20);
+    setTime(difficulty === 2 ? 15000 : 20000);
     setNumberQuestion(QuestionNumber);
     setAlreadyAsk([]);
     setButtonDisable(true);
