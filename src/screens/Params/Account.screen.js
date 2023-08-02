@@ -6,10 +6,14 @@ import {
   Dimensions,
   StyleSheet,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import { styled } from "styled-components/native";
 import InputForm from "../../components/InputForm";
-import ButtonResponse from "../../components/button/ButtonResponse";
+import ButtonDefault from "../../components/button/ButtonDefault";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import ButtonGradientGray from "../../components/button/ButtonGradientGray";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -41,7 +45,7 @@ const ViewTitleContainer = styled.View`
   justify-content: center;
 `;
 const TextTitle = styled.Text`
-  font-size: ${screenWidth < "390" ? "32px" : "26px"};
+  font-size: ${screenWidth < "390" ? "26px" : "32px"};
   font-family: ${(props) => props.theme.fonts.headingBold};
   text-align: center;
 `;
@@ -59,6 +63,7 @@ const ViewBanner = styled.View`
 const TextBanner = styled.Text`
   font-family: ${(props) => props.theme.fonts.headingBold};
   font-size: ${screenWidth < "390" ? "15px" : (props) => props.theme.sizes[1]};
+  margin-left: 3%;
 `;
 
 const ViewFieldContainer = styled.View`
@@ -119,6 +124,20 @@ const BgImg = styled.Image`
   opacity: 0.4;
 `;
 
+const ViewBannerByMike = styled.View`
+  width: ${(screenWidth * 3) / 4}px;
+  height: 50px;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const ViewFirstTitle = styled.View`
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const AccountScreen = () => {
   return (
     <>
@@ -129,9 +148,15 @@ export const AccountScreen = () => {
           </ViewTitleContainer>
         </SafeArea>
         <ViewBannerContainer style={styles.banner}>
-          <ViewBanner>
-            <TextBanner>Mon compte</TextBanner>
-          </ViewBanner>
+          <ViewBannerByMike>
+            <ViewFirstTitle>
+              <FontAwesome5 name="certificate" size={18} color="#9275B2" />
+              <TextBanner>Mon compte</TextBanner>
+            </ViewFirstTitle>
+            <TouchableOpacity>
+              <Entypo name="pencil" size={24} color="black" />
+            </TouchableOpacity>
+          </ViewBannerByMike>
         </ViewBannerContainer>
         <SafeAreaContainer>
           <ViewFieldContainer>
@@ -177,8 +202,8 @@ export const AccountScreen = () => {
             </InputBlock>
           </ViewConfirmPWContainer>
           <ViewButtonContainer>
-            <ButtonResponse>Confirmer</ButtonResponse>
-            <Text>Annuler</Text>
+            <ButtonDefault>Confirmer</ButtonDefault>
+            <ButtonGradientGray>Annuler</ButtonGradientGray>
           </ViewButtonContainer>
         </SafeAreaContainer>
       </Scrollable>

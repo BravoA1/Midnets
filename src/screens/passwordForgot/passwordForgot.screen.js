@@ -11,11 +11,11 @@ import {
 import { useState } from "react";
 import InputForm from "../../components/InputForm.js";
 import { styled } from "styled-components/native";
-import ButtonGradient from "../../components/button/ButtonGradient.js";
+import { ButtonGradient } from "../../components/button/ButtonGradient.js";
 import { firebase } from "../../../config";
 import { Snackbar } from "react-native-paper";
 
-let screenWidth = Dimensions.get("window").width;
+const screenWidth = Dimensions.get("window").width;
 
 const SafeArea = styled.SafeAreaView`
   flex: 1;
@@ -162,10 +162,11 @@ export const PasswordForgot = ({ navigation }) => {
         errorTime={errorTimeEmail}
       />
       <Spacing />
-      <ButtonGradient OnPress={() => HandleForgetPassword()}>
-        Valider
-      </ButtonGradient>
-      <Logo source={require("../../img/Midnets_icone.png")} />
+      <ButtonGradient onPress={() => HandleForgetPassword()} title="Valider" />
+      <Logo
+        source={require("../../img/Midnets_icone.png")}
+        style={{ marginTop: 30 }}
+      />
       <InfoForm>
         Un lien vous sera envoyé pour réinitialiser votre mot de passe à
         l’adresse mail utilisée pour l’inscription.

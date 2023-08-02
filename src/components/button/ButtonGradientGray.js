@@ -1,8 +1,7 @@
 import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Dimensions, StyleSheet } from "react-native";
-import { useEffect, useState } from "react";
-import { colors } from "../../infrastructure/theme/colors";
+import { useState } from "react";
 
 const screenWitdh = Dimensions.get("window").width;
 
@@ -38,6 +37,8 @@ export default ButtonResponse = ({
   const TextButton = styled.Text`
     font-size: 16px;
     text-align: center;
+    font-family: ${(props) => props.theme.fonts.headingBold};
+    font-size: ${(props) => props.theme.fontSizes.title};
   `;
 
   const LinearButton = styled(LinearGradient)`
@@ -46,28 +47,15 @@ export default ButtonResponse = ({
     padding: 0px;
   `;
 
-  const [color, setColor] = useState("#D8C2EF");
-
-  useEffect(() => {
-    switch (result) {
-      case "wrong":
-        setColor(colors.ui.error);
-        break;
-      case "correct":
-        setColor(colors.ui.success);
-        break;
-      default:
-        setColor("#D8C2EF");
-    }
-  }, [result]);
+  const [color, setColor] = useState("darkgray");
 
   return (
     <BoxGradient style={styles.container} onPress={OnPress} disabled={Disabled}>
       <LinearButton
-        colors={[`${color}`, "rgba(255,255,255,0)"]}
-        locations={[0, 1]}
+        colors={[`${color}`, "lightgray"]}
+        locations={[1, 0]}
         start={{ x: 1, y: 0 }}
-        end={{ x: 0, y: 1 }}
+        end={{ x: 1, y: 1 }}
       >
         <ButtonElement>
           <TextButton>{children}</TextButton>

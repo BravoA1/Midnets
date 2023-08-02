@@ -37,7 +37,7 @@ const ViewTextContainer = styled.View`
 `;
 const TextPresentation = styled.Text`
   font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${screenWidth < "390" ? "12px" : "10px"};
+  font-size: ${screenWidth < "390" ? "12px" : "14px"};
   padding: ${(props) => props.theme.space[3]};
   padding-bottom: ${(props) => props.theme.space[4]};
   padding-top: ${(props) => props.theme.space[2]};
@@ -46,7 +46,7 @@ const TextPresentation = styled.Text`
 `;
 const P = styled.Text`
   font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${screenWidth < "390" ? "12px" : "10px"};
+  font-size: ${screenWidth < "390" ? "12px" : "14px"};
   margin-bottom: ${(props) => props.theme.space[3]};
   margin-top: ${(props) => props.theme.space[3]};
   padding-bottom: ${(props) => props.theme.space[4]};
