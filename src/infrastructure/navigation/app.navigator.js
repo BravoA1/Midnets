@@ -27,10 +27,6 @@ import Params from "../../screens/Params/Params.screen";
 export const AppNavigator = () => {
   const { info, user } = useContext(UserContext);
 
-  const GoBackScreen = ({ navigation }) => {
-    navigation.goBack();
-  };
-
   const Tab = createBottomTabNavigator();
   return (
     <NavigationContainer
@@ -134,7 +130,14 @@ export const AppNavigator = () => {
             tabBarButton: () => null,
           })}
           name="Forum"
-          component={ForumNavigator}
+          component={Forum}
+        />
+        <Tab.Screen
+          options={() => ({
+            tabBarButton: () => null,
+          })}
+          name="Params"
+          component={Params}
         />
         {!user && (
           <Tab.Screen

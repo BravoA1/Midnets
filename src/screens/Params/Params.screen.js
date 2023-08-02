@@ -8,12 +8,12 @@ import {
   Image,
 } from "react-native";
 import { styled } from "styled-components/native";
-import ButtonResponse from "../../components/button/ButtonResponse.js";
 import ButtonGradientGray from "../../components/button/ButtonGradientGray.js";
 import { AccessibilityOption } from "../options/accessibilityOption.component.js";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import { ButtonGradientQuiz } from "../../components/button/ButtonGradientQuiz.js";
 
 let screenWidth = Dimensions.get("window").width;
 let screenHeight = Dimensions.get("window").height;
@@ -54,9 +54,7 @@ const Params = () => {
             </ViewPasswordContainer>
             <ViewButtonContainer>
               {/* button gradiant rose */}
-              <ButtonResponse>
-                <Text>Déconnecter</Text>
-              </ButtonResponse>
+              <ButtonGradientQuiz title="Déconnecter" />
               {/* button gradiant gris */}
               <ButtonGradientGray>
                 <Text>Supprimer compte</Text>
@@ -77,9 +75,7 @@ const Params = () => {
         <SafeArea>
           <ViewPrefContainer>
             {/* cette view contient un button */}
-            <ButtonResponse>
-              <Text>Accessibilité</Text>
-            </ButtonResponse>
+            <ButtonGradientQuiz title="Accecibilité" />
             {/* contient intitulé et checkbox */}
             <ViewOptionContainer>
               <TextPassword1>Notification</TextPassword1>
