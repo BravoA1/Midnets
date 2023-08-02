@@ -6,6 +6,7 @@ import { PopUpLearnMore } from "../../components/PopupLearnMore";
 import { styled } from "styled-components";
 
 const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const ContainerView = styled.View`
   margin: auto;
@@ -17,8 +18,16 @@ const SafeArea = styled.SafeAreaView`
   width: 100%;
 `;
 
+const Background = styled.Image`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  min-height: ${screenHeight}px;
+`;
+
 const NameText = styled.Text`
-  width: 75%;
+  width: 85%;
   background-color: #d9d9d9;
   font-size: ${(screenWidth * 6) / 100}px;
   font-family: ${(props) => props.theme.fonts.body};
@@ -44,7 +53,7 @@ const IconLearnMore = styled.TouchableOpacity`
   right: -25px;
   padding: 5px;
   background-color: white;
-  border-radius: 50%;
+  border-radius: 500px;
 `;
 
 const ArticleComponentView = styled.View`
@@ -73,16 +82,50 @@ const ViewIcons = styled.View`
   margin-top: 10px;
 `;
 
-export const PortraitArticleScreen = ({ navigation }) => {
+const Triangle = styled.View`
+  position: absolute;
+  height: 0;
+  width: 0;
+  border-top-width: ${screenWidth * 0.05}px;
+  border-top-color: #9e9e9e;
+  border-left-width: ${screenWidth * 0.05}px;
+  border-left-color: transparent;
+  top: 100%;
+  left: 0;
+`;
+
+const DecorationImageTop = styled.Image`
+  position: absolute;
+  width: 74px;
+  height: 43px;
+  bottom: 0;
+  left: 105%;
+  transform: rotate(-180deg);
+`;
+const DecorationImageBottom = styled.Image`
+  position: absolute;
+  width: 74px;
+  height: 43px;
+  top: 75%;
+  right: 110%;
+`;
+
+export const PortraitArticleScreen = ({ navigation, route }) => {
   const [showLearnMoreModale, setShowLearnMoreModale] = useState(false);
+  const { name } = route.params;
+
+  // ! pas la bonne image
+  const bg = require("../../img/background2.png");
 
   return (
     <>
+      <Background source={bg} />
       <SafeArea>
         <ScrollView>
           <ContainerView>
             <View>
-              <NameText>Marie CURIE</NameText>
+              <NameText>{name && name}</NameText>
+              <Triangle></Triangle>
             </View>
             <View>
               <PortraitImage
@@ -102,6 +145,9 @@ export const PortraitArticleScreen = ({ navigation }) => {
             <ArticleComponentView>
               <SubTitleView>
                 <SubTitleArticle>Histoire</SubTitleArticle>
+                <DecorationImageTop
+                  source={require("../../img/decorationBackground.png")}
+                />
               </SubTitleView>
               <TextArticle>
                 potenti lectus augue hac purus lectus gravida. Elementum nunc ac
@@ -114,6 +160,9 @@ export const PortraitArticleScreen = ({ navigation }) => {
             <ArticleComponentView>
               <SubTitleView>
                 <SubTitleArticle>Elle est connue pour</SubTitleArticle>
+                <DecorationImageBottom
+                  source={require("../../img/decorationBackground.png")}
+                />
               </SubTitleView>
               <TextArticle>
                 sapien amet phasellus nec velit. Aenean dictum velit accumsan

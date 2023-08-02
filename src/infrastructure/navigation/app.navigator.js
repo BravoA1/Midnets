@@ -12,10 +12,11 @@ import { Signout } from "../../screens/temp/Signout.js";
 import { UserContext } from "../../services/user/user.context";
 import { QuizNavigator } from "./quiz.navigator";
 import { AuthNavigator } from "./auth.navigator";
+import { PortraitsScreen } from "../../screens/Portraits/portrait.screen";
+import { PortraitNavigator } from "./portrait.navigator";
 import { AccessibilityScreen } from "../../screens/options/accessibility.screen";
 import { NavigationTemp } from "../../screens/Navigation/NavigationTemp";
 import { CardPortrait } from "../../components/CardPortrait";
-import { PortraitsScreen } from "../../screens/Portraits/portrait.screen";
 import { NotificationApp } from "../../screens/notification/notification.screen.js";
 import { TopNavigation } from "../../components/topNavigation";
 import { ForumNavigator } from "./forum.navigator";
@@ -125,7 +126,7 @@ export const AppNavigator = () => {
 						tabBarButton: () => null,
 					})}
 					name="Portrait"
-					component={PortraitsScreen}
+					component={PortraitNavigator}
 				/>
 				<Tab.Screen
 					options={() => ({

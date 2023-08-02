@@ -6,6 +6,7 @@ import { styled } from "styled-components/native";
 import { CornerBlock } from "./CornerBlock";
 
 const screenHeight = Dimensions.get("window").height;
+const screenWidth = Dimensions.get("window").width;
 
 const screen80 = screenHeight * 0.8;
 
@@ -56,6 +57,18 @@ const PopUpTitle = styled.Text`
   transform: translateX(-25px);
 `;
 
+const Triangle = styled.View`
+  position: absolute;
+  height: 0;
+  width: 0;
+  border-top-width: ${screenWidth * 0.08}px;
+  border-top-color: #9e9e9e;
+  border-left-width: ${screenWidth * 0.027}px;
+  border-left-color: transparent;
+  top: 85%;
+  left: -25px;
+`;
+
 const PopUpSection = styled.View`
   gap: 15px;
   padding: 10px;
@@ -92,7 +105,21 @@ export const PopUpLearnMore = ({ data, setShowPopup, showPopup }) => {
         >
           <View></View>
         </InsetShadow>
-        <PopUpTitle>Et Aujourd'hui ?</PopUpTitle>
+        <View>
+          <PopUpTitle
+            style={{
+              shadowColor: "black",
+              shadowOffset: { width: 0, height: 10 },
+              shadowOpacity: 0.25,
+              shadowRadius: 10,
+              elevation: 20,
+            }}
+          >
+            Et Aujourd'hui ?
+          </PopUpTitle>
+          <Triangle></Triangle>
+        </View>
+
         <PopUpClose onPress={handlePress}>
           <Image source={require("../img/Exclude.png")} />
         </PopUpClose>

@@ -1,16 +1,16 @@
 import {
-	Button,
-	Dimensions,
-	FlatList,
-	Image,
-	SafeAreaView,
-	StyleSheet,
-	Text,
-	TouchableOpacity,
-	View,
-	StatusBar,
-	ScrollView,
-	ImageBackground,
+  Button,
+  Dimensions,
+  FlatList,
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  StatusBar,
+  ScrollView,
+  ImageBackground,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Logo from "../../components/Logo";
@@ -28,196 +28,219 @@ const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
 
 const Container = styled.SafeAreaView`
-	flex: 1;
-	/* ${StatusBar.currentHeight &&
-	!isAndroid &&
-	`margin-top: ${StatusBar.currentHeight}px`}; */
+  flex: 1;
+  /* ${StatusBar.currentHeight &&
+  !isAndroid &&
+  `margin-top: ${StatusBar.currentHeight}px`}; */
 `;
 
 const LogoContainer = styled.View`
-	padding: 40px;
-	background-color: white;
-	box-shadow: 0 500px 500px rgba(0, 0, 0, 0.5);
-	elevation: 15;
+  padding: 40px;
+  background-color: white;
+  box-shadow: 0 500px 500px rgba(0, 0, 0, 0.5);
+  elevation: 15;
 `;
 
 export const HomeScreen = ({ navigation }) => {
-	const [portrait, setPortrait] = useState(false);
-	const [defi, setDefi] = useState(false);
-	const [forum, setForum] = useState(false);
+  const [portrait, setPortrait] = useState(false);
+  const [defi, setDefi] = useState(false);
+  const [forum, setForum] = useState(false);
 
-	const NavBar = styled.View`
-		left: ${windowWidth * 0.03}px;
-		top: ${windowWidth * 0.07}px;
-		position: absolute;
-		width: ${windowWidth * 0.15}px;
-		height: 60%;
+  const NavBar = styled.View`
+    left: ${windowWidth * 0.03}px;
+    top: ${windowWidth * 0.07}px;
+    position: absolute;
+    width: ${windowWidth * 0.15}px;
+    height: 60%;
 
-		align-items: center;
-	`;
+    align-items: center;
+  `;
 
-	const VerticalLine = styled.View`
-		height: ${windowWidth * 0.009}px;
-		width: ${windowWidth * 0.05}px;
-		background-color: black;
-	`;
+  const VerticalLine = styled.View`
+    height: ${windowWidth * 0.009}px;
+    width: ${windowWidth * 0.05}px;
+    background-color: black;
+  `;
 
-	const LongVerticalLine = styled.View`
-		height: 1%;
-		width: 50%;
-		background-color: black;
-	`;
+  const LongVerticalLine = styled.View`
+    height: 1%;
+    width: 50%;
+    background-color: black;
+  `;
 
-	const HorizontalLine = styled.View`
-		margin-top: ${windowWidth * -0.001}px;
-		width: ${windowWidth * 0.009}px;
-		height: ${windowWidth * 0.55}px;
-		background-color: black;
-	`;
+  const HorizontalLine = styled.View`
+    margin-top: ${windowWidth * -0.001}px;
+    width: ${windowWidth * 0.009}px;
+    height: ${windowWidth * 0.55}px;
+    background-color: black;
+  `;
 
-	//////////////////////////////////////////////////
+  //////////////////////////////////////////////////
 
-	const GroupContainer = styled.View`
-		flex: 1;
-		padding: 5%;
-		align-items: center;
-	`;
+  const GroupContainer = styled.View`
+    flex: 1;
+    padding: 5%;
+    align-items: center;
+  `;
 
-	const Collumn = styled.View`
-		flex-direction: column;
-	`;
+  const Collumn = styled.View`
+    flex-direction: column;
+  `;
 
-	const TitleContainer = styled.View`
-		flex-direction: row;
-		width: ${windowWidth * 0.833}px;
-		align-items: center;
-		margin-top: ${(props) => props.theme.space[3]};
-	`;
+  const TitleContainer = styled.View`
+    flex-direction: row;
+    width: ${windowWidth * 0.833}px;
+    align-items: center;
+    margin-top: ${(props) => props.theme.space[3]};
+  `;
 
-	const BlackDot = styled.View`
-		position: relative;
-		width: 5%;
-		aspect-ratio: 1 / 1;
-		background-color: black;
-		border-radius: 500px;
-	`;
+  const BlackDot = styled.View`
+    position: relative;
+    width: 5%;
+    aspect-ratio: 1 / 1;
+    background-color: black;
+    border-radius: 500px;
+  `;
 
-	const styles = StyleSheet.create({
-		blackdot: {
-			width: "10%",
-			right: windowWidth * 0.019,
-		},
-		horizontal: {
-			height: "150%",
-		},
-	});
+  const styles = StyleSheet.create({
+    blackdot: {
+      width: "10%",
+      right: windowWidth * 0.019,
+    },
+    horizontal: {
+      height: "150%",
+    },
+  });
 
-	const New = styled.View`
-		display: flex;
-		flex: 1;
-		align-items: center;
-		gap: 10px;
-	`;
+  const New = styled.View`
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 10px;
+  `;
 
-	const PortraitView = styled.View`
-		margin: 10px 0;
-		width: ${(windowWidth * 3) / 4}px;
-	`;
+  const PortraitView = styled.View`
+    margin: 10px 0;
+    width: ${(windowWidth * 3) / 4}px;
+  `;
 
-	const Title = styled.View`
-		width: 100%;
-	`;
+  const Title = styled.View`
+    width: 100%;
+  `;
 
-	const TitleGradiant = styled(LinearGradient)`
-		border-radius: 15px;
-		padding: 5px;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-	`;
+  const TitleGradiant = styled(LinearGradient)`
+    border-radius: 15px;
+    padding: 5px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  `;
 
-	const ImageContainer = styled.View`
-		margin: 5px;
-	`;
+  const ImageContainer = styled.View`
+    margin: 5px;
+  `;
 
-	const ParagraphGradiant = styled(LinearGradient)`
-		margin-right: ${(props) => props.theme.space[3]};
-		border-bottom-left-radius: 15px;
-		border-bottom-right-radius: 15px;
-		width: 78%;
-		position: relative;
-		left: 15%;
-	`;
+  const ParagraphGradiant = styled(LinearGradient)`
+    margin-right: ${(props) => props.theme.space[3]};
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 78%;
+    position: relative;
+    left: 15%;
+  `;
 
-	const Paragraph = styled.Text`
-		font-size: ${(props) => props.theme.fontSizes.button};
-	`;
+  const Paragraph = styled.Text`
+    font-size: ${(props) => props.theme.fontSizes.button};
+  `;
 
-	const ParagraphTitle = styled.Text`
-		font-size: 20px;
-	`;
+  const ParagraphTitle = styled.Text`
+    font-size: 20px;
+  `;
 
-	const bg = require("../../img/background2.png");
-	const Background = styled.Image`
-		position: absolute;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		min-height: ${windowHeight}px;
-	`;
+  const bg = require("../../img/background2.png");
+  const Background = styled.Image`
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    min-height: ${windowHeight}px;
+  `;
 
-	const bg2 = require("../../img/uyfgFichier_44x.png");
+  const bg2 = require("../../img/uyfgFichier_44x.png");
+  const BackgroundSquare = styled.Image`
+    transform: rotate(180deg);
+    width: ${windowWidth * 0.8};
+    height: ${windowWidth * 0.8};
+  `;
 
-	const bg3 = require("../../img/pexels-shvets-production-7176325.jpg");
+  const bg3 = require("../../img/pexels-shvets-production-7176325.jpg");
 
-	const image = { uri: "https://legacy.reactjs.org/logo-og.png" };
-	const styles2 = StyleSheet.create({
-		image: {
-			flex: 1,
-			marginTop: windowWidth * 0.02,
-		},
-		text: {
-			color: "white",
-			fontSize: 42,
-			lineHeight: 84,
-			fontWeight: "bold",
-			textAlign: "center",
-			backgroundColor: "#000000c0",
-		},
-	});
-	const styles3 = StyleSheet.create({
-		image: {
-			left: windowWidth * 0.094,
-			width: windowWidth * 0.8,
-			height: windowHeight * 0.3,
-			alignItems: "center",
-			padding: 15,
-		},
-		cover: {
-			width: "80%",
-			backgroundColor: "#ffffffc0",
-			alignItems: "center",
-			marginBottom: windowWidth * 0.03,
-			borderRadius: 25,
-		},
-		text: {
-			fontSize: windowHeight * 0.02,
-			fontWeight: "bold",
-			textAlign: "center",
-			width: "80%",
-		},
-		text2: {
-			fontSize: windowHeight * 0.015,
-			fontWeight: "bold",
-			textAlign: "center",
-			width: "85%",
-		},
-	});
+  const image = { uri: "https://legacy.reactjs.org/logo-og.png" };
+  const styles2 = StyleSheet.create({
+    image: {
+      flex: 1,
+      marginTop: windowWidth * 0.02,
+    },
+    text: {
+      color: "white",
+      fontSize: 42,
+      lineHeight: 84,
+      fontWeight: "bold",
+      textAlign: "center",
+      backgroundColor: "#000000c0",
+    },
+  });
+  const styles3 = StyleSheet.create({
+    image: {
+      left: windowWidth * 0.094,
+      width: windowWidth * 0.8,
+      height: windowHeight * 0.35,
+      alignItems: "center",
+      justifyContent: "center",
+      paddingTop: 30,
+      paddingHorizontal: 15,
+    },
+    containerUsefulLink: {
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100%",
+      height: "100%",
+      marginVertical: "auto",
+    },
+    cover: {
+      width: "100%",
+      opacity: 0.8,
+      backgroundColor: "rgba(255,255,255,.78)",
+      alignItems: "center",
+      marginBottom: windowWidth * 0.05,
+      borderRadius: 25,
+      gap: 10,
+    },
+    contentImage: {
+      width: "100%",
+      height: "100%",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    text: {
+      fontSize: windowHeight * 0.02,
+      fontWeight: "bold",
+      textAlign: "center",
+      padding: 10,
+    },
+    text2: {
+      fontSize: windowHeight * 0.015,
+      fontWeight: "bold",
+      textAlign: "center",
+      width: "85%",
+      paddingBottom: 10,
+    },
+  });
 
-	const ForumLink = styled.View`
-		margin-top: ${windowWidth * 0.1}px;
-		height: ${windowWidth * 0.9}px;
-	`;
+  const ForumLink = styled.View`
+    margin-top: ${windowWidth * 0.1}px;
+    height: ${windowWidth * 0.9}px;
+  `;
 
 	return (
 		<>
@@ -298,7 +321,7 @@ export const HomeScreen = ({ navigation }) => {
 									end={{ x: 1, y: 0 }}
 								>
 									<TouchableOpacity
-										onPress={() => navigation.navigate("Error")}
+										onPress={() => navigation.navigate("Portrait")}
 									>
 										<Paragraph style={{ display: portrait ? "flex" : "none" }}>
 											The missile knows where it is at all times. It knows this
@@ -418,7 +441,7 @@ export const HomeScreen = ({ navigation }) => {
 									end={{ x: 1, y: 0 }}
 								>
 									<TouchableOpacity
-										onPress={() => navigation.navigate("ForumHome")}
+										onPress={() => navigation.navigate("Forum")}
 									>
 										<Paragraph style={{ display: forum ? "flex" : "none" }}>
 											The missile knows where it is at all times. It knows this
@@ -437,7 +460,7 @@ export const HomeScreen = ({ navigation }) => {
 						<H1>A la une </H1>
 						<PortraitView>
 							<CardPortrait
-								OnPress={() => navigation.navigate("PortraitArticle")}
+								OnPress={() => navigation.navigate("Portrait")}
 								url={require("../../img/portraitSuzyHazelwood.jpg")}
 								height={100}
 								isNewPortrait={true}
