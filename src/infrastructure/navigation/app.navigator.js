@@ -21,12 +21,22 @@ import { CardPortrait } from "../../components/CardPortrait";
 import { NotificationApp } from "../../screens/notification/notification.screen.js";
 import { TopNavigation } from "../../components/topNavigation";
 import { ForumNavigator } from "./forum.navigator";
+import { ForumContextProvider } from "../../services/forum/forum.context";
 import { Forum } from "../../screens/forum/forum.screen";
 import { RulesScreen } from "../../screens/quizz/rules.screen";
 import Params from "../../screens/Params/Params.screen";
 
 export const AppNavigator = () => {
   const { info, user } = useContext(UserContext);
+
+  // console.log(info, "navbar");
+  // console.log(user, "navbar");
+
+  const ForumParent = (navigation, route) => (
+    <ForumContextProvider>
+      <ForumNavigator />
+    </ForumContextProvider>
+  );
 
   const Tab = createBottomTabNavigator();
   return (
@@ -60,23 +70,6 @@ export const AppNavigator = () => {
           unmountOnBlur: true,
         })}
       >
-        <Tab.Screen
-          options={() => ({
-            tabBarButton: () => null,
-            title: () => null,
-          })}
-          name="Parent"
-          component={HomeScreen}
-        />
-
-        <Tab.Screen
-          options={() => ({
-            title: () => null,
-          })}
-          name="Back"
-          component={NavigationTemp}
-        />
-
         <Tab.Screen
           options={() => ({
             title: () => null,
@@ -131,7 +124,7 @@ export const AppNavigator = () => {
             tabBarButton: () => null,
           })}
           name="Forum"
-          component={Forum}
+          component={ForumParent}
         />
         <Tab.Screen
           options={() => ({
@@ -156,7 +149,15 @@ export const AppNavigator = () => {
             component={AuthNavigator}
           />
         )}
-        {user && <Tab.Screen name="Signout" component={Signout} />}
+        {user && (
+          <Tab.Screen
+            name="Signout"
+            component={Signout}
+            options={() => ({
+              tabBarButton: () => null,
+            })}
+          />
+        )}
         <Tab.Screen
           name="QuizTheme"
           component={QuizNavigator}

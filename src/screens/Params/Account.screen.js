@@ -14,6 +14,7 @@ import ButtonDefault from "../../components/button/ButtonDefault";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import ButtonGradientGray from "../../components/button/ButtonGradientGray";
+import { TopNavigation } from "../../components/topNavigation";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -138,9 +139,10 @@ const ViewFirstTitle = styled.View`
   justify-content: space-between;
 `;
 
-export const AccountScreen = () => {
+export const AccountScreen = ({ navigation }) => {
   return (
     <>
+      <TopNavigation navigation={navigation} />
       <Scrollable>
         <SafeArea>
           <ViewTitleContainer style={styles.TitleContainer}>

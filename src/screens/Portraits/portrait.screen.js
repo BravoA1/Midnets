@@ -3,6 +3,7 @@ import { CardPortrait } from "../../components/CardPortrait";
 import { styled } from "styled-components/native";
 import { useEffect } from "react";
 import { createNavigationContainerRef } from "@react-navigation/native";
+import { TopNavigation } from "../../components/topNavigation";
 
 let screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -102,6 +103,7 @@ export const PortraitsScreen = ({ navigation }) => {
 
   return (
     <>
+      <TopNavigation navigation={navigation} />
       <ScrollView>
         <SafeArea>
           <TitleBlock>

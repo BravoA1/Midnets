@@ -440,7 +440,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
                   end={{ x: 0, y: 1 }}>
                   <TitleContainer style={styles.container}>
                     <Title>
-                      {difficulty === 2
+                      {difficulty > 1
                         ? "Quiz: Mary Cury"
                         : "Quiz: les femmes"}
                     </Title>

@@ -16,6 +16,7 @@ import { Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { ButtonGradientQuiz } from "../../components/button/ButtonGradientQuiz.js";
 import ButtonDefault from "../../components/button/ButtonDefault.js";
+import { TopNavigation } from "../../components/topNavigation.js";
 
 let screenWidth = Dimensions.get("window").width;
 let screenHeight = Dimensions.get("window").height;
@@ -25,6 +26,7 @@ const Params = ({ navigation }) => {
 
   return (
     <>
+      <TopNavigation navigation={navigation} />
       <Container>
         <SafeArea>
           <ViewTitleContainer style={styles.TitleContainer}>

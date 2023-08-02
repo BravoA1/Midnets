@@ -12,6 +12,7 @@ import { styled } from "styled-components/native";
 import Logo from "../../components/Logo";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { CornerBlock } from "../../components/CornerBlock";
+import { TopNavigation } from "../../components/topNavigation";
 
 let screenWidth = Dimensions.get("window").width;
 
@@ -144,9 +145,10 @@ const ViewIconContainer = styled.View`
   justify-content: space-evenly;
 `;
 
-export const ContactScreen = () => {
+export const ContactScreen = ({ navigation }) => {
   return (
     <>
+      <TopNavigation navigation={navigation} />
       <ImageBackground source={require("../../img/fond4_blanc_v2.png")} />
       <Container>
         {/* <Logo height={"default"} /> */}
