@@ -11,8 +11,7 @@ import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import InsetShadow from "react-native-inset-shadow";
 
-//import ButtonResponse from "../../components/button/ButtonResponse.js";
-import ButtonRules from "../../components/button/ButtonRules.js";
+import { ButtonRules } from "../../components/button/ButtonRules.js";
 import InputFrom from "../../components/InputForm.js";
 
 import { QuizContext } from "../../services/quiz/quiz.context.js";
@@ -21,8 +20,9 @@ import { CountDown } from "../../components/CountDown.jsx";
 import { Snackbar } from "react-native-paper";
 import { RulesScreen } from "./rules.screen.js";
 import { Vibration } from "react-native";
-import { ButtonGradientQuiz } from "../../components/button/ButtonGradientQuiz.js";
+import { ButtonGradient } from "../../components/button/ButtonGradient.js";
 import { CornerBlock } from "../../components/CornerBlock.js";
+import { ButtonGradientQuiz } from "../../components/button/ButtonGradientQuiz.js";
 
 const Container = styled.View`
   display: flex;
@@ -206,15 +206,15 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
       setError(false);
       switch (difficulty) {
         case 1:
-          setTime(10);
+          setTime(10000);
           NewQuestion(quizDataEasy[index]);
           break;
         case 2:
-          setTime(5);
+          setTime(5000);
           NewQuestion(quizDataMedium[index]);
           break;
         case 3:
-          setTime(30);
+          setTime(30000);
           NewQuestion(quizDataMedium[index]);
           break;
         default:
@@ -258,7 +258,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   // Reset all the parameter
   function Reset() {
     setScore(0);
-    setTime(difficulty === 2 ? 15 : 20);
+    setTime(difficulty === 2 ? 15000 : 20000);
     setNumberQuestion(QuestionNumber);
     setAlreadyAsk([]);
     setButtonDisable(true);
@@ -480,14 +480,14 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
                 {difficulty < 3 ? (
                   <>
                     <ButtonGradientQuiz
-                      width={0.35}
+                      widthRatio={0.35}
                       result={result.one}
                       onPress={() => Answers(0)}
                       disabled={buttonDisable}
                       title={answers[0]}
                     />
                     <ButtonGradientQuiz
-                      width={0.35}
+                      widthRatio={0.35}
                       result={result.two}
                       onPress={() => Answers(1)}
                       disabled={buttonDisable}
@@ -507,14 +507,14 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               {difficulty === 2 ? (
                 <ResponseContainer2>
                   <ButtonGradientQuiz
-                    width={0.35}
+                    widthRatio={0.35}
                     result={result.three}
                     onPress={() => Answers(2)}
                     disabled={buttonDisable}
                     title={answers[2]}
                   />
                   <ButtonGradientQuiz
-                    width={0.35}
+                    widthRatio={0.35}
                     result={result.four}
                     onPress={() => Answers(3)}
                     disabled={buttonDisable}
@@ -559,20 +559,21 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               </ProgresBar>
               {/* button poour accèder aux règles */}
               <ButtonRules
-                OnPress={() => {
+                onPress={() => {
                   setShowRuleModale(true);
                   setPause(true);
-                }}></ButtonRules>
+                }}
+              />
               {/* en savoir plus container */}
               <MoreContainer>
-                <ButtonResponse
-                  width={0.5}
-                  OnPress={() => {
+                <ButtonGradient
+                  widthRatio={0.5}
+                  onPress={() => {
                     setShowLearnMoreModale(true);
                     setPause(true);
-                  }}>
-                  <MoreText>En savoir plus</MoreText>
-                </ButtonResponse>
+                  }}
+                  title="En savoir plus"
+                />
               </MoreContainer>
             </>
           )}

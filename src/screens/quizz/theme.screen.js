@@ -11,7 +11,7 @@ import { styled } from "styled-components/native";
 import { useState } from "react";
 import { TitleBlock } from "../../components/TitleBlock";
 import { RulesScreen } from "./rules.screen";
-// import ButtonRules from "../../components/ButtonRules";
+import { ButtonRules } from "../../components/button/ButtonRules";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -151,7 +151,6 @@ export const ThemeScreen = ({ navigation }) => {
     navigation.navigate("Quiz", { difficulty: value });
   };
 
-
   return (
     <>
       <Background source={bg} />
@@ -225,9 +224,10 @@ export const ThemeScreen = ({ navigation }) => {
               </Touche>
             </Select>
             <ButtonRules
-              OnPress={() => {
-                navigation.navigate("Rules")
-                }}></ButtonRules>
+              onPress={() => {
+                navigation.navigate("Rules");
+              }}
+            />
           </Container>
 
           {showRuleModale && (

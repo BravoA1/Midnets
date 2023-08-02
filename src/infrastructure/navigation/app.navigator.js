@@ -14,14 +14,11 @@ import { QuizNavigator } from "./quiz.navigator";
 import { AuthNavigator } from "./auth.navigator";
 import { AccessibilityScreen } from "../../screens/options/accessibility.screen";
 import { NavigationTemp } from "../../screens/Navigation/NavigationTemp";
+import { Forum } from "../../screens/forum/forum.screen";
 import { RulesScreen } from "../../screens/quizz/rules.screen";
 
 export const AppNavigator = () => {
   const { info, user } = useContext(UserContext);
-
-  const GoBackScreen = ({ navigation }) => {
-    navigation.goBack();
-  };
 
   const Tab = createBottomTabNavigator();
   return (
@@ -36,21 +33,6 @@ export const AppNavigator = () => {
             switch (route.name) {
               case "Home":
                 iconName = "home-sharp";
-                break;
-              case "Contact":
-                iconName = "call";
-                break;
-              case "Error":
-                iconName = "stop-circle";
-                break;
-              case "Login":
-                iconName = "man";
-                break;
-              case "QuizTheme":
-                iconName = "chatbox-ellipses";
-                break;
-              case "Rules":
-                iconName = "chatbox-ellipses";
                 break;
               case "Notification":
                 iconName = "notifications-sharp";
@@ -94,6 +76,7 @@ export const AppNavigator = () => {
         <Tab.Screen
           options={() => ({
             title: () => null,
+            unmountOnBlur: true,
           })}
           name="Notification"
           component={ErrorScreen}
@@ -101,6 +84,7 @@ export const AppNavigator = () => {
         <Tab.Screen
           options={() => ({
             title: () => null,
+            unmountOnBlur: true,
           })}
           name="Settings"
           component={AccessibilityScreen}
@@ -108,6 +92,7 @@ export const AppNavigator = () => {
         <Tab.Screen
           options={() => ({
             tabBarButton: () => null,
+            unmountOnBlur: true,
           })}
           name="Contact"
           component={ContactScreen}
@@ -115,14 +100,18 @@ export const AppNavigator = () => {
         <Tab.Screen
           options={() => ({
             tabBarButton: () => null,
+            unmountOnBlur: true,
           })}
           name="Error"
           component={ErrorScreen}
         />
-        {!user && (
+        {user ? (
+          <Tab.Screen name="Signout" component={Signout} />
+        ) : (
           <Tab.Screen
             options={() => ({
               tabBarButton: () => null,
+              unmountOnBlur: true,
             })}
             name="Login"
             component={AuthNavigator}
@@ -144,7 +133,14 @@ export const AppNavigator = () => {
             unmountOnBlur: true,
           })}
         />
-        {user && <Tab.Screen name="Signout" component={Signout} />}
+        <Tab.Screen
+          name="ForumHome"
+          component={Forum}
+          options={() => ({
+            tabBarButton: () => null,
+            unmountOnBlur: true,
+          })}
+        />
       </Tab.Navigator>
 
       <StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />
