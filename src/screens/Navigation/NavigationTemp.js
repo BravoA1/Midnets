@@ -1,5 +1,4 @@
 import { View, Button } from "react-native";
-import { HomeScreen } from "../home/home.screen";
 
 export const NavigationTemp = ({ navigation }) => {
 	return (
