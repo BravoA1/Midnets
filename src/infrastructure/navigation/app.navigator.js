@@ -14,6 +14,7 @@ import { UserContext } from "../../services/user/user.context";
 import { QuizNavigator } from "./quiz.navigator";
 import { AuthNavigator } from "./auth.navigator";
 import { Forum } from "../../screens/forum/forum.screen";
+import Params from "../../screens/Params/Params.screen";
 
 export const AppNavigator = () => {
   const { info, user } = useContext(UserContext);
@@ -57,6 +58,9 @@ export const AppNavigator = () => {
                 break;
               case "QuizTheme":
                 iconName = "chatbox-ellipses";
+                break;
+              case "Params":
+                iconName = "options";
                 break;
               case "ForumHome":
                 iconName = "book";
@@ -123,6 +127,13 @@ export const AppNavigator = () => {
         <Tab.Screen
           name="ForumHome"
           component={Forum}
+          options={() => ({
+            unmountOnBlur: true,
+          })}
+        />
+        <Tab.Screen
+          name="Params"
+          component={Params}
           options={() => ({
             unmountOnBlur: true,
           })}
