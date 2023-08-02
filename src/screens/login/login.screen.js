@@ -1,4 +1,10 @@
-import { SafeAreaView, StatusBar, Dimensions, Vibration } from "react-native";
+import {
+  SafeAreaView,
+  StatusBar,
+  Dimensions,
+  Vibration,
+  View,
+} from "react-native";
 import InputForm from "../../components/InputForm.js";
 import { styled } from "styled-components/native";
 import Logo from "../../components/Logo.js";
@@ -6,9 +12,19 @@ import ButtonGoogle from "../../components/button/ButtonGoogle.js";
 import { useState } from "react";
 import { Snackbar } from "react-native-paper";
 import { firebase } from "../../../config";
-import ButtonResponse from "../../components/button/ButtonResponse.js";
+import { ButtonGradient } from "../../components/button/ButtonGradient.js";
 
 let screenWidth = Dimensions.get("window").width;
+const isAndroid = Platform.OS === "android";
+const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get("window").width;
+
+const Container = styled.SafeAreaView`
+  flex: 1;
+  /* ${StatusBar.currentHeight &&
+  !isAndroid &&
+  `margin-top: ${StatusBar.currentHeight}px`}; */
+`;
 
 const SafeArea = styled(SafeAreaView)`
   flex: 1;
@@ -44,7 +60,15 @@ const TextButton = styled.Text`
   font-size: 16px;
   text-align: center;
   font-family: ${(props) => props.theme.fonts.headingBold};
-  margin-top: ${Platform.OS === "ios" ? "0px" : "30px"};
+`;
+
+const bg = require("../../img/background2.png");
+const Background = styled.Image`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  min-height: ${windowHeight}px;
 `;
 
 export const Login = ({ navigation }) => {
@@ -130,59 +154,67 @@ export const Login = ({ navigation }) => {
   }
 
   return (
-    <SafeArea>
-      <SpacerBottom />
-      <Logo height={75} />
-      <SpacerTop />
-      <InputForm
-        type="email"
-        placeholder="email"
-        setInfo={setInfo}
-        info={info}
-        error={errorEmail}
-        errorTime={errorTimeEmail}
-      >
-        adresse mail
-      </InputForm>
-      <InputForm
-        type="password"
-        placeholder="mot de passe"
-        setInfo={setInfo}
-        info={info}
-        error={errorPassword}
-        errorTime={errorTimePassword}
-      >
-        mot de passe
-      </InputForm>
-      <ForgotPassword onPress={() => navigation.navigate("ForgotPswd")}>
-        mot de passe oublié ?
-      </ForgotPassword>
-      <ButtonResponse OnPress={() => HandleLogin()}>Connexion</ButtonResponse>
-      <ButtonRegister onPress={() => navigation.navigate("Register")}>
-        <TextButton>Inscription</TextButton>
-      </ButtonRegister>
-      <ButtonGoogle>Se connecter avec google</ButtonGoogle>
-      <Snackbar
-        visible={visible}
-        onDismiss={() => setVisible(false)}
-        style={{
-          backgroundColor: "#9275B2",
-        }}
-        theme={{
-          colors: {
-            inverseOnSurface: "white",
-            inversePrimary: "#D9D9D9",
-          },
-        }}
-        action={{
-          label: "close",
-          onPress: () => {
-            setVisible(false);
-          },
-        }}
-      >
-        {errorMessage}
-      </Snackbar>
-    </SafeArea>
+    <Container>
+      <Background source={bg} />
+      <SafeArea>
+        <SpacerBottom />
+        <Logo height={75} />
+        <SpacerTop />
+        <InputForm
+          type="email"
+          placeholder="email"
+          setInfo={setInfo}
+          info={info}
+          error={errorEmail}
+          errorTime={errorTimeEmail}
+        >
+          adresse mail
+        </InputForm>
+        <InputForm
+          type="password"
+          placeholder="mot de passe"
+          setInfo={setInfo}
+          info={info}
+          error={errorPassword}
+          errorTime={errorTimePassword}
+        >
+          mot de passe
+        </InputForm>
+        <ForgotPassword onPress={() => navigation.navigate("ForgotPswd")}>
+          mot de passe oublié ?
+        </ForgotPassword>
+        <View>
+          <ButtonGradient onPress={() => HandleLogin()} title="Connexion" />
+          <ButtonGradient
+            onPress={() => navigation.navigate("Register")}
+            title="Inscription"
+          />
+          <ButtonGoogle OnPress={() => navigation.navigate("Register")}>
+            Se connecter avec Google
+          </ButtonGoogle>
+        </View>
+        <Snackbar
+          visible={visible}
+          onDismiss={() => setVisible(false)}
+          style={{
+            backgroundColor: "#9275B2",
+          }}
+          theme={{
+            colors: {
+              inverseOnSurface: "white",
+              inversePrimary: "#D9D9D9",
+            },
+          }}
+          action={{
+            label: "close",
+            onPress: () => {
+              setVisible(false);
+            },
+          }}
+        >
+          {errorMessage}
+        </Snackbar>
+      </SafeArea>
+    </Container>
   );
 };

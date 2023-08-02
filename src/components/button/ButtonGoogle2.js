@@ -6,13 +6,7 @@ import { colors } from "../../infrastructure/theme/colors";
 
 const screenWitdh = Dimensions.get("window").width;
 
-export default ButtonResponse = ({
-	children,
-	onPress,
-	result,
-	Disabled,
-	width = 0.4,
-}) => {
+export default ButtonGoogle2 = ({ children, OnPress, result, Disabled }) => {
 	const ButtonElement = styled.View`
 		flex-direction: row;
 		justify-content: center;
@@ -25,7 +19,8 @@ export default ButtonResponse = ({
 	`;
 	const BoxGradient = styled.TouchableOpacity`
 		z-index: 1;
-		width: ${screenWitdh * 0.6}px;
+		width: ${screenWitdh * 0.4}px;
+		height: ${screenWitdh * 0.2}px;
 		box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
 		background-color: #fff;
 		border-radius: 100px;
@@ -33,12 +28,21 @@ export default ButtonResponse = ({
 		text-align: center;
 	`;
 
-	const TextButton = styled.Text`
-		font-size: 16px;
-		text-align: center;
+	const TextButtonGoogle = styled.Text`
+		width: ${screenWitdh * 0.6}px;
+		border-radius: 100px;
+		font-size: 14px;
+	`;
+
+	const GoogleIcon = styled.Image`
+		width: 30px;
+		height: 30px;
+		margin-left: 5px;
+		margin-right: 15px;
 	`;
 
 	const LinearButton = styled(LinearGradient)`
+		width: 100%;
 		border-radius: 100px;
 		padding: 0px;
 	`;
@@ -59,7 +63,7 @@ export default ButtonResponse = ({
 	}, [result]);
 
 	return (
-		<BoxGradient style={styles.container} onPress={onPress} disabled={Disabled}>
+		<BoxGradient style={styles.container} onPress={OnPress} disabled={Disabled}>
 			<LinearButton
 				colors={[`${color}`, "rgba(255,255,255,0)"]}
 				locations={[0, 1]}
@@ -67,7 +71,8 @@ export default ButtonResponse = ({
 				end={{ x: 0, y: 1 }}
 			>
 				<ButtonElement>
-					<TextButton>{children}</TextButton>
+					<GoogleIcon source={require("../../img/Google.png")} />
+					<TextButtonGoogle>{children}</TextButtonGoogle>
 				</ButtonElement>
 			</LinearButton>
 		</BoxGradient>

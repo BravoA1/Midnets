@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import SVG, { Circle, Path } from "react-native-svg";
+import { theme } from "../infrastructure/theme";
 
-export const CountDown = ({ time, setTime, onTimeUp, pause, reset, setReset }) => {
+export const CountDown = ({
+  time,
+  setTime,
+  onTimeUp,
+  pause,
+  reset,
+  setReset,
+}) => {
   //const pointsCount = 20;
   const [pointsCount, setPointsCount] = useState(40);
   //const [timeMax, setTimeMax] = useState(0);
@@ -9,16 +17,16 @@ export const CountDown = ({ time, setTime, onTimeUp, pause, reset, setReset }) =
   const [path, setPath] = useState(
     "M65 320a260 260 0 1 0 520 0a260 260 0 1 0 -520 0"
   );
-  console.log(
-    "time",
-    time,
-    "pointsToRender",
-    pointsToRender,
-    "pointsCount",
-    pointsCount,
-    "pause",
-    pause
-  );
+  // console.log(
+  //   "time",
+  //   time,
+  //   "pointsToRender",
+  //   pointsToRender,
+  //   "pointsCount",
+  //   pointsCount,
+  //   "pause",
+  //   pause
+  // );
 
   const width = 650;
   const height = 650;
@@ -29,9 +37,9 @@ export const CountDown = ({ time, setTime, onTimeUp, pause, reset, setReset }) =
 
   useEffect(() => {
     //setTimeMax(time);
-    setPointsToRender(time * 2);
-    setPointsCount(time * 2);
-    setReset(false)
+    setPointsToRender(time / 100);
+    setPointsCount(time / 100);
+    setReset(false);
   }, [reset]);
 
   useEffect(() => {
@@ -40,8 +48,8 @@ export const CountDown = ({ time, setTime, onTimeUp, pause, reset, setReset }) =
       setPointsToRender((prevCount) => prevCount - 1);
       // Function to update the timer every second
       const interval = setInterval(() => {
-        setTime((prevTime) => prevTime - 0.5);
-      }, 500);
+        setTime((prevTime) => prevTime - 100);
+      }, 100);
       // Clean up the interval on unmount or when seconds reach 0
       setPath(() => calculatePath());
       return () => {
@@ -61,7 +69,7 @@ export const CountDown = ({ time, setTime, onTimeUp, pause, reset, setReset }) =
     for (let i = 0; i <= pointsToRender; i++) {
       const x = cx - radius * Math.sin(i * theta);
       const y = cy - radius * Math.cos(i * theta);
-      path += `L ${x} ${y}`;
+      path += `L${x} ${y}`;
     }
     return path + "Z";
   };
@@ -75,23 +83,23 @@ export const CountDown = ({ time, setTime, onTimeUp, pause, reset, setReset }) =
     >
       <Path
         d="M215 85A10 10 0 1 1 215 0H435A 10 10 0 1 1 435 85Z"
-        fill="black"
+        fill="#555"
       />
       <Circle
         cx={cx}
         cy={cy}
         r={r}
-        stroke="black"
+        stroke="#555"
         strokeWidth={strokeWidth}
-        fill="white"
+        fill={theme.colors.bg.secondary}
       />
       <Path
         d="M520 105A 10 10 0 1 1 553.1615029022016 82.63228386117012L631.4485093881062 198.69754401887596A10 10 0 1 1 598.2870064859046 221.06526015770584Z"
-        fill="black"
+        fill="#555"
       />
       <Path
         d={path}
-        fill={pointsToRender < pointsCount / 4 ? "red" : "black"}
+        fill={pointsToRender < pointsCount / 4 ? theme.colors.ui.error : "#555"}
       />
     </SVG>
   );

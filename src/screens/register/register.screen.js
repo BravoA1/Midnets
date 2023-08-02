@@ -1,12 +1,25 @@
-import React, { useEffect, useState, useRef, createRef } from "react";
+import React, { useState } from "react";
 import { Snackbar } from "react-native-paper";
 import { SafeAreaView, StatusBar, Dimensions, Vibration } from "react-native";
 import styled from "styled-components/native";
 import Logo from "../../components/Logo";
 import InputForm from "../../components/InputForm.js";
 import { firebase } from "../../../config";
+import ButtonGoogle from "../../components/button/ButtonGoogle.js";
+import { ButtonGradient } from "../../components/button/ButtonGradient";
 
-let screenWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+
+const bg = require("../../img/background2.png");
+
+const Container = styled.SafeAreaView`
+  flex: 1;
+  width: 100%;
+  height: ${screenHeight}px;
+  align-items: center;
+`;
 
 const Scrollable = styled.ScrollView`
   flex: 1;
@@ -28,48 +41,22 @@ const InputBlock = styled.View`
   margin-bottom: 10px;
 `;
 
-const ButtonLog = styled.TouchableOpacity`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  color: #000;
-  background-color: #eee;
-  width: 70%;
-  margin-top: 30px;
-  border-radius: 100px;
-  box-shadow: 0px 3px 1px #999;
+const Background = styled.Image`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  min-height: ${windowHeight}px;
 `;
 
-const GoogleIcon = styled.Image`
-  width: 30px;
-  height: 30px;
-  margin-horizontal: 15px;
-`;
-
-const TextButtonGoogle = styled.Text`
-  width: 80%;
-  font-size: 15px;
+const AccountExist = styled.Text`
+  color: #989898;
+  margin-top: -10px;
+  margin-bottom: 25px;
+  align-self: center;
+  text-decoration: underline;
+  text-decoration-color: #989898;
   font-family: ${(props) => props.theme.fonts.body};
-`;
-
-const ButtonRegister = styled.TouchableOpacity`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  color: #000;
-  background-color: #eee;
-  width: 70%;
-  margin-top: 30px;
-  border-radius: 100px;
-  box-shadow: 0px 3px 1px #999;
-`;
-
-const TextButton = styled.Text`
-  font-size: 16px;
-  text-align: center;
-  font-family: ${(props) => props.theme.fonts.headingBold};
 `;
 
 export const RegisterScreen = ({ navigation }) => {
@@ -217,82 +204,90 @@ export const RegisterScreen = ({ navigation }) => {
   }
 
   return (
-    <Scrollable>
-      <SafeArea>
-        <Logo height={75} />
-        <InputBlock style={{ marginTop: 50 }}>
-          <InputForm
-            type="text"
-            placeholder="pseudo"
-            setInfo={setInfo}
-            info={info}
-            error={errorName}
-            errorTime={errorTimeName}>
-            pseudo
-          </InputForm>
-        </InputBlock>
-        <InputBlock>
-          <InputForm
-            type="email"
-            placeholder="email"
-            setInfo={setInfo}
-            info={info}
-            error={errorEmail}
-            errorTime={errorTimeEmail}>
-            adresse mail
-          </InputForm>
-        </InputBlock>
-        <InputBlock>
-          <InputForm
-            type="password"
-            placeholder="mot de passe"
-            setInfo={setInfo}
-            info={info}
-            error={errorPassword}
-            errorTime={errorTimePassword}>
-            mot de passe
-          </InputForm>
-        </InputBlock>
-        <InputBlock>
-          <InputForm
-            type="password"
-            placeholder="confirmer le mot de passe"
-            setInfo={setInfo}
-            info={info}
-            confirm={true}
-            error={errorConfirmPassword}
-            errorTime={errorTimeConfirmPassword}>
-            confirmation mot de passe
-          </InputForm>
-        </InputBlock>
-        <ButtonRegister onPress={() => HandleRegister()}>
-          <TextButton>S'inscrire</TextButton>
-        </ButtonRegister>
-        <ButtonLog>
-          <GoogleIcon source={require("../../img/Google.png")} />
-          <TextButtonGoogle>S'inscrire avec google</TextButtonGoogle>
-        </ButtonLog>
-        <Snackbar
-          visible={visible}
-          onDismiss={() => setVisible(false)}
-          style={{
-            backgroundColor: "#9275B2",
-          }}
-          theme={{
-            colors: {
-              inverseOnSurface: "white",
-              inversePrimary: "#D9D9D9",
-            },
-          }}
-          action={{
-            label: "close",
-            onPress: () => {
-              setVisible(false);
-            },
-          }}>
-          {errorMessage}
-        </Snackbar>
-      </SafeArea>
-    </Scrollable>
+    <Container>
+      <Background source={bg} />
+      <Scrollable>
+        <SafeArea>
+          <Logo height={75} />
+          <InputBlock style={{ marginTop: 50 }}>
+            <InputForm
+              type="text"
+              placeholder="pseudo"
+              setInfo={setInfo}
+              info={info}
+              error={errorName}
+              errorTime={errorTimeName}
+            >
+              pseudo
+            </InputForm>
+          </InputBlock>
+          <InputBlock>
+            <InputForm
+              type="email"
+              placeholder="email"
+              setInfo={setInfo}
+              info={info}
+              error={errorEmail}
+              errorTime={errorTimeEmail}
+            >
+              adresse mail
+            </InputForm>
+          </InputBlock>
+          <InputBlock>
+            <InputForm
+              type="password"
+              placeholder="mot de passe"
+              setInfo={setInfo}
+              info={info}
+              error={errorPassword}
+              errorTime={errorTimePassword}
+            >
+              mot de passe
+            </InputForm>
+          </InputBlock>
+          <InputBlock>
+            <InputForm
+              type="password"
+              placeholder="confirmer le mot de passe"
+              setInfo={setInfo}
+              info={info}
+              confirm={true}
+              error={errorConfirmPassword}
+              errorTime={errorTimeConfirmPassword}
+            >
+              confirmation mot de passe
+            </InputForm>
+          </InputBlock>
+          <ButtonGradient onPress={() => HandleRegister()} title="S'inscrire" />
+          <ButtonGoogle OnPress={() => navigation.navigate("Register")}>
+            Se connecter avec Google
+          </ButtonGoogle>
+          <AccountExist onPress={() => navigation.navigate("login")}>
+            Je possède déjà un compte
+          </AccountExist>
+          <Snackbar
+            visible={visible}
+            onDismiss={() => setVisible(false)}
+            style={{
+              backgroundColor: "#9275B2",
+            }}
+            theme={{
+              colors: {
+                inverseOnSurface: "white",
+                inversePrimary: "#D9D9D9",
+              },
+            }}
+            action={{
+              label: "close",
+              onPress: () => {
+                setVisible(false);
+              },
+            }}
+          >
+            {errorMessage}
+          </Snackbar>
+        </SafeArea>
+      </Scrollable>
+    </Container>
   );
 };

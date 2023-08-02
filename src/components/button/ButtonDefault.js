@@ -6,7 +6,7 @@ import { colors } from "../../infrastructure/theme/colors";
 
 const screenWitdh = Dimensions.get("window").width;
 
-export default ButtonResponse = ({
+export default ButtonDefault = ({
   children,
   OnPress,
   result,
@@ -20,7 +20,6 @@ export default ButtonResponse = ({
     padding: 10px;
     color: #000;
     width: 100%;
-    /* height: 100%; */
     border-radius: 100px;
   `;
   const BoxGradient = styled.TouchableOpacity`
@@ -29,15 +28,15 @@ export default ButtonResponse = ({
     box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
     background-color: #fff;
     border-radius: 100px;
-    /* margin-bottom: 30px; */
     margin-bottom: ${Platform.OS === "ios" ? "30px" : "0px"};
 
     text-align: center;
   `;
 
   const TextButton = styled.Text`
-    font-size: 16px;
+    font-size: ${(props) => props.theme.fontSizes.title};
     text-align: center;
+    font-family: ${(props) => props.theme.fonts.headingBold};
   `;
 
   const LinearButton = styled(LinearGradient)`
