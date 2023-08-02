@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { useContext } from "react";
-import { StatusBar } from "react-native";
+import { PushNotificationIOS, StatusBar } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 // Screen
@@ -16,7 +16,12 @@ import { AccessibilityScreen } from "../../screens/options/accessibility.screen"
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native";
 import { Text } from "react-native-svg";
-import { NavigationTemp } from "../../screens/Navigation/NavigationTemp";
+import { NavigationTemp } from "../../screens/navigation/navigationTemp";
+import { CardPortrait } from "../../components/CardPortrait";
+import { PortraitsScreen } from "../../screens/Portraits/portrait.screen";
+import { NotificationApp } from "../../screens/notification/notification.screen.js";
+import { TopNavigation } from "../../components/topNavigation";
+import { Forum } from "../../screens/forum/forum.screen";
 
 export const AppNavigator = () => {
 	const { info, user } = useContext(UserContext);
@@ -40,21 +45,6 @@ export const AppNavigator = () => {
 							case "Home":
 								iconName = "home-sharp";
 								break;
-							case "Contact":
-								iconName = "call";
-								break;
-							case "Error":
-								iconName = "stop-circle";
-								break;
-							case "Login":
-								iconName = "man";
-								break;
-							case "QuizTheme":
-								iconName = "chatbox-ellipses";
-								break;
-							case "QuizTheme":
-								iconName = "chatbox-ellipses";
-								break;
 							case "Notification":
 								iconName = "notifications-sharp";
 								break;
@@ -69,6 +59,7 @@ export const AppNavigator = () => {
 						return <Ionicons name={iconName} size={size} color={color} />;
 					},
 					headerShown: false,
+					unmountOnBlur: true,
 				})}
 			>
 				<Tab.Screen
@@ -100,7 +91,7 @@ export const AppNavigator = () => {
 						title: () => null,
 					})}
 					name="Notification"
-					component={ErrorScreen}
+					component={NotificationApp}
 				/>
 				<Tab.Screen
 					options={() => ({
@@ -123,6 +114,27 @@ export const AppNavigator = () => {
 					name="Error"
 					component={ErrorScreen}
 				/>
+				<Tab.Screen
+					options={() => ({
+						tabBarButton: () => null,
+					})}
+					name="TopNavigation"
+					component={TopNavigation}
+				/>
+				<Tab.Screen
+					options={() => ({
+						tabBarButton: () => null,
+					})}
+					name="Portrait"
+					component={PortraitsScreen}
+				/>
+				<Tab.Screen
+					options={() => ({
+						tabBarButton: () => null,
+					})}
+					name="Forum"
+					component={Forum}
+				/>
 				{!user && (
 					<Tab.Screen
 						options={() => ({
@@ -132,6 +144,7 @@ export const AppNavigator = () => {
 						component={AuthNavigator}
 					/>
 				)}
+				{user && <Tab.Screen name="Signout" component={Signout} />}
 				<Tab.Screen
 					name="QuizTheme"
 					component={QuizNavigator}
@@ -140,7 +153,6 @@ export const AppNavigator = () => {
 						unmountOnBlur: true,
 					})}
 				/>
-				{user && <Tab.Screen name="Signout" component={Signout} />}
 			</Tab.Navigator>
 
 			<StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />

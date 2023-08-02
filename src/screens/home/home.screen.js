@@ -21,6 +21,7 @@ import { CardPortrait } from "../../components/CardPortrait";
 import MaskedView from "@react-native-community/masked-view";
 import ButtonResponse from "../../components/button/ButtonResponse";
 import ButtonGradient2 from "../../components/button/ButtonGradient2";
+import { TopNavigation } from "../../components/topNavigation";
 
 const isAndroid = Platform.OS === "android";
 const windowHeight = Dimensions.get("window").height;
@@ -220,6 +221,7 @@ export const HomeScreen = ({ navigation }) => {
 
 	return (
 		<>
+			<TopNavigation navigation={navigation} />
 			<Container>
 				<Background source={bg} />
 
