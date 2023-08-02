@@ -7,6 +7,7 @@ import {
   View,
   StyleSheet,
   Dimensions,
+  ActivityIndicator,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
@@ -165,37 +166,37 @@ const Data = [
       { title: "Lorem ipsum", navigate: "ForumConversationHelp" },
     ],
   },
-  {
-    title: "Catégorie lorem",
-    options: [
-      { title: "Lorem ipsum", navigate: "ForumConversation" },
-      { title: "Lorem ipsum", navigate: "ForumConversation" },
-      { title: "Lorem ipsum", navigate: "ForumConversation" },
-      { title: "Lorem ipsum", navigate: "ForumConversation" },
-    ],
-  },
-  {
-    title: "Catégorie lorem",
-    options: [
-      { title: "Lorem ipsum", navigate: "ForumResponse" },
-      { title: "Lorem ipsum", navigate: "ForumResponse" },
-      { title: "Lorem ipsum", navigate: "ForumResponse" },
-      { title: "Lorem ipsum", navigate: "ForumResponse" },
-    ],
-  },
-  {
-    title: "Catégorie lorem",
-    options: [
-      { title: "Lorem ipsum", navigate: "ForumAddQuestion" },
-      { title: "Lorem ipsum", navigate: "ForumAddQuestion" },
-      { title: "Lorem ipsum", navigate: "ForumAddQuestion" },
-      { title: "Lorem ipsum", navigate: "ForumAddQuestion" },
-    ],
-  },
+  // {
+  //   title: "Catégorie lorem",
+  //   options: [
+  //     { title: "Lorem ipsum", navigate: "ForumConversation" },
+  //     { title: "Lorem ipsum", navigate: "ForumConversation" },
+  //     { title: "Lorem ipsum", navigate: "ForumConversation" },
+  //     { title: "Lorem ipsum", navigate: "ForumConversation" },
+  //   ],
+  // },
+  // {
+  //   title: "Catégorie lorem",
+  //   options: [
+  //     { title: "Lorem ipsum", navigate: "ForumResponse" },
+  //     { title: "Lorem ipsum", navigate: "ForumResponse" },
+  //     { title: "Lorem ipsum", navigate: "ForumResponse" },
+  //     { title: "Lorem ipsum", navigate: "ForumResponse" },
+  //   ],
+  // },
+  // {
+  //   title: "Catégorie lorem",
+  //   options: [
+  //     { title: "Lorem ipsum", navigate: "ForumAddQuestion" },
+  //     { title: "Lorem ipsum", navigate: "ForumAddQuestion" },
+  //     { title: "Lorem ipsum", navigate: "ForumAddQuestion" },
+  //     { title: "Lorem ipsum", navigate: "ForumAddQuestion" },
+  //   ],
+  // },
 ];
 
 export const Forum = ({ navigation }) => {
-  //   const { forums } = useContext(ForumContext);
+  const { loading, forums } = useContext(ForumContext);
   const [expandedMenu, setExpandedMenu] = useState({ 0: true });
 
   // Utilisez useFocusEffect pour réinitialiser l'état lorsque le composant obtient le focus
@@ -226,87 +227,150 @@ export const Forum = ({ navigation }) => {
 
   return (
     <>
-      <Background source={bg} />
-      <SafeArea>
-        <Scrollable>
-          <Container>
-            <View style={styles.containerCenter}>
-              <TitleBlock title="Forum" />
-            </View>
-            <ContainerSearchAndInterraction>
-              <SearchContainer>
-                <FilterIcon>
-                  <Ionicons name="funnel-outline" size={42} color="black" />
-                </FilterIcon>
-                <SearchInput
-                  placeholder="Recherche"
-                  placeholderTextColor={"rgba(0, 0, 0, 0.25)"}
-                ></SearchInput>
-                <IconView>
-                  <Ionicons name="ios-search" size={20} color="black" />
-                </IconView>
-              </SearchContainer>
-              <InteractionButton
-                onPress={() => navigation.navigate("ForumInteraction")}
-                style={{
-                  shadowColor: "#000",
-                  shadowOffset: { width: 0, height: 4 },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 4,
-                }}
-                activeOpacity={0.8}
-              >
-                <InteractionText>Mes interactions</InteractionText>
-              </InteractionButton>
-            </ContainerSearchAndInterraction>
-            {Data.map((section, i) => (
-              <Menu key={i}>
-                <Title onPress={() => toggleMenu(i)}>
-                  <TitleContainer>
-                    <TitleText>{section.title}</TitleText>
-                    <Ionicons
-                      name={expandedMenu[i] ? "ios-caret-up" : "ios-caret-down"}
-                      size={24}
-                      color="#686868"
-                    />
-                  </TitleContainer>
-                </Title>
-
-                {expandedMenu[i] && (
-                  <View>
-                    {section.options.map((option, optionI) => (
-                      <TouchableOpacity
-                        key={optionI}
-                        onPress={() => navigation.navigate(option.navigate)}
-                      >
-                        <Option
-                          style={{
-                            shadowColor: "#000",
-                            shadowOffset: { width: 0, height: 4 },
-                            shadowOpacity: 0.25,
-                            shadowRadius: 4,
-                          }}
-                        >
-                          <LinearGradient
-                            style={{ borderRadius: 10 }}
-                            colors={["white", "#D8C2EF"]}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 0 }}
+      {loading ? (
+        <View style={{ justifyContent: "center", alignItem: "center" }}>
+          <ActivityIndicator
+            size={"large"}
+            style={{
+              zIndex: 1,
+            }}
+          />
+        </View>
+      ) : (
+        <>
+          <Background source={bg} />
+          <SafeArea>
+            <Scrollable>
+              <Container>
+                <View style={styles.containerCenter}>
+                  <TitleBlock title="Forum" />
+                </View>
+                <ContainerSearchAndInterraction>
+                  <SearchContainer>
+                    <FilterIcon>
+                      <Ionicons name="funnel-outline" size={42} color="black" />
+                    </FilterIcon>
+                    <SearchInput
+                      placeholder="Recherche"
+                      placeholderTextColor={"rgba(0, 0, 0, 0.25)"}
+                    ></SearchInput>
+                    <IconView>
+                      <Ionicons name="ios-search" size={20} color="black" />
+                    </IconView>
+                  </SearchContainer>
+                  <InteractionButton
+                    onPress={() => navigation.navigate("ForumInteraction")}
+                    style={{
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 4 },
+                      shadowOpacity: 0.25,
+                      shadowRadius: 4,
+                    }}
+                    activeOpacity={0.8}
+                  >
+                    <InteractionText>Mes interactions</InteractionText>
+                  </InteractionButton>
+                </ContainerSearchAndInterraction>
+                {Data.map((section, i) => (
+                  <Menu key={i}>
+                    <Title onPress={() => toggleMenu(i)}>
+                      <TitleContainer>
+                        <TitleText>{section.title}</TitleText>
+                        <Ionicons
+                          name={
+                            expandedMenu[i] ? "ios-caret-up" : "ios-caret-down"
+                          }
+                          size={24}
+                          color="#686868"
+                        />
+                      </TitleContainer>
+                    </Title>
+                    {expandedMenu[i] && (
+                      <View>
+                        {section.options.map((option, optionI) => (
+                          <TouchableOpacity
+                            key={optionI}
+                            onPress={() => navigation.navigate(option.navigate)}
                           >
-                            <OptionText>{option.title}</OptionText>
-                          </LinearGradient>
-                        </Option>
-                      </TouchableOpacity>
-                    ))}
-                  </View>
-                )}
-              </Menu>
-            ))}
-          </Container>
-
-          <BackgroundSquare source={bgS} />
-        </Scrollable>
-      </SafeArea>
+                            <Option
+                              style={{
+                                shadowColor: "#000",
+                                shadowOffset: { width: 0, height: 4 },
+                                shadowOpacity: 0.25,
+                                shadowRadius: 4,
+                              }}
+                            >
+                              <LinearGradient
+                                style={{ borderRadius: 10 }}
+                                colors={["white", "#D8C2EF"]}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                              >
+                                <OptionText>{option.title}</OptionText>
+                              </LinearGradient>
+                            </Option>
+                          </TouchableOpacity>
+                        ))}
+                      </View>
+                    )}
+                  </Menu>
+                ))}
+                {forums.map((section, i) => (
+                  <Menu key={i + 1}>
+                    <Title onPress={() => toggleMenu(i + 1)}>
+                      <TitleContainer>
+                        <TitleText>{section.category}</TitleText>
+                        <Ionicons
+                          name={
+                            expandedMenu[i + 1]
+                              ? "ios-caret-up"
+                              : "ios-caret-down"
+                          }
+                          size={24}
+                          color="#686868"
+                        />
+                      </TitleContainer>
+                    </Title>
+                    {expandedMenu[i + 1] && (
+                      <View>
+                        {forums.map((option, optionI) => (
+                          <TouchableOpacity
+                            key={optionI}
+                            onPress={() =>
+                              navigation.navigate("ForumConversation", {
+                                forum: option,
+                              })
+                            }
+                          >
+                            <Option
+                              style={{
+                                shadowColor: "#000",
+                                shadowOffset: { width: 0, height: 4 },
+                                shadowOpacity: 0.25,
+                                shadowRadius: 4,
+                              }}
+                            >
+                              <LinearGradient
+                                style={{ borderRadius: 10 }}
+                                colors={["white", "#D8C2EF"]}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                              >
+                                <OptionText>{option.Status}</OptionText>
+                              </LinearGradient>
+                            </Option>
+                          </TouchableOpacity>
+                        ))}
+                      </View>
+                    )}
+                  </Menu>
+                ))}
+              </Container>
+              <BackgroundSquare source={bgS} />
+            </Scrollable>
+          </SafeArea>
+        </>
+      )}
     </>
   );
 };

@@ -22,13 +22,11 @@ export const AppNavigator = () => {
   // console.log(info, "navbar");
   // console.log(user, "navbar");
 
-  const ForumParent = (navigation, route) => {
-    return (
-      <ForumContextProvider>
-        <ForumNavigator />
-      </ForumContextProvider>
-    );
-  };
+  const ForumParent = (navigation, route) => (
+    <ForumContextProvider>
+      <ForumNavigator />
+    </ForumContextProvider>
+  );
 
   const Tab = createBottomTabNavigator();
   return (

@@ -1,27 +1,30 @@
 import { createContext, useEffect, useState } from "react";
-import { QuizContext } from "../quiz/quiz.context";
 import { GetAllForum } from "./forum.services";
 
 export const ForumContext = createContext();
 
 export const ForumContextProvider = ({ children }) => {
-  const [loading, setLoading] = useState();
-  const [forums, setForums] = useState();
+  const [loading, setLoading] = useState(true);
+  const [forums, setForums] = useState(null);
   useEffect(() => {
-    GetAllForum().then((data) => setForums(data));
+    setLoading(true);
+    GetAllForum()
+      .then((data) => {
+        setForums(data);
+      })
+      .then(() => setLoading(false));
   }, []);
 
   useEffect(() => {
     console.log(forums, "forums");
-    if (forums) {
-      console.log(forums[0].response, "response");
-      console.log(forums[0].response[0].response, "response");
-    }
   }, [forums]);
+  useEffect(() => {
+    console.log(loading, "loading");
+  }, [loading]);
 
   return (
-    <QuizContext.Provider value={{ loading: loading, forums: forums }}>
+    <ForumContext.Provider value={{ loading: loading, forums: forums }}>
       {children}
-    </QuizContext.Provider>
+    </ForumContext.Provider>
   );
 };
