@@ -4,6 +4,7 @@ import { Dimensions, ScrollView, SafeAreaView, TextInput } from "react-native";
 import InputForm from "../../components/InputForm";
 import RadioGroup from "react-native-radio-buttons-group";
 import { Platform } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
@@ -47,14 +48,14 @@ const CategoryBlock = styled.View`
 	padding: 3px 10px;
 	padding-right: 0;
 	background-color: ${(props) => props.theme.colors.text.secondary};
-	border: solid 2px #9747ff;
+	border: solid 2px ${(props) => props.theme.colors.border.tertiary};
 	border-radius: 10px;
 `;
 
 const CategoryImageBlock = styled.View`
 	justify-content: center;
 	align-items: center;
-	background-color: #757575;
+	background-color: ${(props) => props.theme.colors.border.secondary};
 	border: solid 2px ${(props) => props.theme.colors.text.primary};
 	border-radius: 100px;
 	width: 50px;
@@ -135,52 +136,57 @@ export const ForumAddQuestion = () => {
 		<>
 			<Background source={bg} />
 			<ScrollView>
-				<SafeArea>
-					<TitleBlock>
-						<Title>Votre question</Title>
-					</TitleBlock>
-				</SafeArea>
-				<ContainerView>
-					<SubTitleInfoView>
-						<SubTitleInfoText>Titre :</SubTitleInfoText>
-					</SubTitleInfoView>
+				<KeyboardAwareScrollView
+					extraScrollHeight={-50}
+					showsVerticalScrollIndicator={false}
+				>
 					<SafeArea>
-						<InputForm
-							type="text"
-							placeholder="question"
-							setInfo={setInfo}
-							info={info}
-						/>
-						<CategoryBlock>
-							<CategoryImageBlock>
-								<CategoryIcon
-									source={require("../../img/sagittarius-symbol.png")}
-								/>
-							</CategoryImageBlock>
-							<CategoryTitle>Catégories</CategoryTitle>
-						</CategoryBlock>
+						<TitleBlock>
+							<Title>Votre question</Title>
+						</TitleBlock>
 					</SafeArea>
-					<SubTitleInfoView>
-						<SubTitleInfoText>Description :</SubTitleInfoText>
-					</SubTitleInfoView>
-					<SafeArea>
-						<DescribeInput
-							editable
-							multiline
-							numberOfLines={10}
-							maxLength={360}
-							onChangeText={(text) => setValue(text)}
-							placeholder="Entrez votre description"
-						/>
-						<RadioView>
-							<RadioGroup
-								radioButtons={radioButtons}
-								onPress={setSelectedId}
-								selectedId={selectedId}
+					<ContainerView>
+						<SubTitleInfoView>
+							<SubTitleInfoText>Titre :</SubTitleInfoText>
+						</SubTitleInfoView>
+						<SafeArea>
+							<InputForm
+								type="text"
+								placeholder="question"
+								setInfo={setInfo}
+								info={info}
 							/>
-						</RadioView>
-					</SafeArea>
-				</ContainerView>
+							<CategoryBlock>
+								<CategoryImageBlock>
+									<CategoryIcon
+										source={require("../../img/sagittarius-symbol.png")}
+									/>
+								</CategoryImageBlock>
+								<CategoryTitle>Catégories</CategoryTitle>
+							</CategoryBlock>
+						</SafeArea>
+						<SubTitleInfoView>
+							<SubTitleInfoText>Description :</SubTitleInfoText>
+						</SubTitleInfoView>
+						<SafeArea>
+							<DescribeInput
+								editable
+								multiline
+								numberOfLines={10}
+								maxLength={360}
+								onChangeText={(text) => setValue(text)}
+								placeholder="Entrez votre description"
+							/>
+							<RadioView>
+								<RadioGroup
+									radioButtons={radioButtons}
+									onPress={setSelectedId}
+									selectedId={selectedId}
+								/>
+							</RadioView>
+						</SafeArea>
+					</ContainerView>
+				</KeyboardAwareScrollView>
 			</ScrollView>
 		</>
 	);

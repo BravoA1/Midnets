@@ -69,7 +69,7 @@ const SearchInput = styled.TextInput`
 	height: 36px;
 	border-radius: 20px;
 	font-size: 16px;
-	border: solid 2px #a3a3a3;
+	border: solid 2px ${(props) => props.theme.colors.border.primary};
 	padding-left: 15px;
 	background-color: rgba(217, 217, 217, 0.4);
 `;
@@ -83,19 +83,19 @@ const IconView = styled.View`
 	border-radius: 16px;
 	justify-content: center;
 	align-items: center;
-	background-color: #d9d9d9;
+	background-color: ${(props) => props.theme.colors.bg.tertiary};
 `;
 
 const InteractionButton = styled.TouchableOpacity`
 	width: ${windowWidth * 0.5}px;
 	margin: 20px 0px;
-	background-color: #9e9e9e;
+	background-color: ${(props) => props.theme.colors.bg.five};
 	padding: 6px 0px;
 	border-radius: 16px;
 	align-items: center;
 	margin-left: auto;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	elevation: 10;
+	elevation: 20;
 `;
 
 const InteractionText = styled.Text`
@@ -122,7 +122,7 @@ const TitleContainer = styled.View`
 const TitleText = styled.Text`
 	font-family: ${(props) => props.theme.fonts.headingBold};
 	font-size: ${windowWidth * 0.075}px;
-	color: #686868;
+	color: ${(props) => props.theme.colors.text.tertiary};
 `;
 
 const Option = styled.View`
@@ -134,7 +134,7 @@ const Option = styled.View`
 const OptionText = styled.Text`
 	padding: 2px 0px 2px 20px;
 	font-family: ${(props) => props.theme.fonts.body};
-	color: #6a6a6a;
+	color: ${(props) => props.theme.colors.text.quaternary};
 `;
 
 const BackgroundSquare = styled.Image`

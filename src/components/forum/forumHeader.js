@@ -20,7 +20,7 @@ const TextContainer = styled.View`
 `;
 
 const TextTitle = styled.View`
-	background-color: #626262;
+	background-color: ${(props) => props.theme.colors.border.quaternary};
 	border-radius: 10px 10px 0px 0px;
 	padding: 10px 0px 20px 10px;
 `;
@@ -34,7 +34,7 @@ const Body = styled.View`
 	padding: 10px 0px 40px 10px;
 	text-align: center;
 	border-radius: 0px 0px 10px 10px;
-	background-color: #aaaaaa;
+	background-color: ${(props) => props.theme.colors.border.five};
 `;
 
 const TextBody = styled.Text`

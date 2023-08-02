@@ -9,7 +9,7 @@ const windowHeight = Dimensions.get("window").height;
 const windowWidth = Dimensions.get("window").width;
 
 const BackgroundWhite = styled.View`
-	background-color: #ffffff;
+	background-color: ${(props) => props.theme.colors.text.secondary};
 	width: 100%;
 `;
 
