@@ -119,13 +119,18 @@ export const PopUpLearnMore = ({ data, setShowPopup, showPopup }) => {
           <View></View>
         </InsetShadow>
         <View>
-        <PopUpTitle style={{
-          shadowColor: "black",
-          shadowOffset: { width: 0, height: 10 },
-          shadowOpacity: 0.25,
-          shadowRadius: 10,
-        }}>Et Aujourd'hui ?</PopUpTitle>
-        <Triangle></Triangle>
+          <PopUpTitle
+            style={{
+              shadowColor: "black",
+              shadowOffset: { width: 0, height: 10 },
+              shadowOpacity: 0.25,
+              shadowRadius: 10,
+              elevation: 20,
+            }}
+          >
+            Et Aujourd'hui ?
+          </PopUpTitle>
+          <Triangle></Triangle>
         </View>
 
         <PopUpClose onPress={handlePress}>

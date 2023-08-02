@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { createNavigationContainerRef } from "@react-navigation/native";
 
 let screenWidth = Dimensions.get("window").width;
-const screenHeight = Dimensions.get('window').height;
+const screenHeight = Dimensions.get("window").height;
 
 const SafeArea = styled.SafeAreaView`
   flex: 1;
@@ -15,12 +15,28 @@ const SafeArea = styled.SafeAreaView`
   ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px`};
 `;
 
-const Background = styled.Image`
-	position: absolute;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	min-height: ${screenHeight}px;
+const BackgroundTop = styled.Image`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  aspect-ratio: 725.79 / 604.76;
+  min-height: ${screenHeight}px;
+  z-index: -1;
+`;
+const BackgroundCenter = styled.Image`
+  position: absolute;
+  top: 20%;
+  width: 100%;
+  aspect-ratio: 256 / 185;
+  min-height: ${screenHeight}px;
+  z-index: -1;
+`;
+const BackgroundBottom = styled.Image`
+  width: 100%;
+  margin-top: -110%;
+  aspect-ratio: 4096 / 3136;
+  min-height: ${screenHeight}px;
+  z-index: -1;
 `;
 
 const TitleBlock = styled.View`
@@ -80,54 +96,58 @@ export const PortraitsScreen = ({ navigation }) => {
   };
 
   // ! pas la bonne image
-  const bg = require("../../img/background2.png"); 
+  const bgTop = require("../../img/background/topBackgroundPortrait.png");
+  const bgCenter = require("../../img/background/centerBackgroundPortrait.png");
+  const bgBottom = require("../../img/background/BottomBackgroundPortrait.png");
 
   return (
     <>
-    <Background source={bg} />
-    <SafeArea>
       <ScrollView>
-        <TitleBlock>
-          <Title>Portraits</Title>
-        </TitleBlock>
-        <CategoryBlock>
-          <CategoryImageBlock>
-            <CategoryIcon
-              source={require("../../img/sagittarius-symbol.png")}
+        <SafeArea>
+          <TitleBlock>
+            <Title>Portraits</Title>
+          </TitleBlock>
+          <CategoryBlock>
+            <CategoryImageBlock>
+              <CategoryIcon
+                source={require("../../img/sagittarius-symbol.png")}
+              />
+            </CategoryImageBlock>
+            <CategoryTitle>Catégories</CategoryTitle>
+          </CategoryBlock>
+          <BlockCard>
+            <CardPortrait
+              OnPress={() => navigateToArticle("Marie curie")}
+              url={require("../../img/portraitMarieCurie.jpg")}
+              height={150}
+              isNewPortrait={true}
             />
-          </CategoryImageBlock>
-          <CategoryTitle>Catégories</CategoryTitle>
-        </CategoryBlock>
-        <BlockCard>
-          <CardPortrait
-            OnPress={() => navigateToArticle("Marie curie")}
-            url={require("../../img/portraitMarieCurie.jpg")}
-            height={150}
-            isNewPortrait={true}
-          />
-          <CardPortrait
-            OnPress={() => navigateToArticle("Suzy hazelwood")}
-            url={require("../../img/portraitSuzyHazelwood.jpg")}
-            height={100}
-          />
-          <CardPortrait
-            OnPress={() => navigateToArticle("Suzy hazelwood")}
-            url={require("../../img/portraitSuzyHazelwood.jpg")}
-            height={100}
-          />
-          <CardPortrait
-            OnPress={() => navigateToArticle("Suzy hazelwood")}
-            url={require("../../img/portraitSuzyHazelwood.jpg")}
-            height={100}
-          />
-          <CardPortrait
-            OnPress={() => navigateToArticle("Suzy hazelwood")}
-            url={require("../../img/portraitSuzyHazelwood.jpg")}
-            height={100}
-          />
-        </BlockCard>
+            <CardPortrait
+              OnPress={() => navigateToArticle("Suzy hazelwood")}
+              url={require("../../img/portraitSuzyHazelwood.jpg")}
+              height={100}
+            />
+            <CardPortrait
+              OnPress={() => navigateToArticle("Suzy hazelwood")}
+              url={require("../../img/portraitSuzyHazelwood.jpg")}
+              height={100}
+            />
+            <CardPortrait
+              OnPress={() => navigateToArticle("Suzy hazelwood")}
+              url={require("../../img/portraitSuzyHazelwood.jpg")}
+              height={100}
+            />
+            <CardPortrait
+              OnPress={() => navigateToArticle("Suzy hazelwood")}
+              url={require("../../img/portraitSuzyHazelwood.jpg")}
+              height={100}
+            />
+          </BlockCard>
+        </SafeArea>
+        <BackgroundTop source={bgTop} />
+        <BackgroundCenter source={bgCenter} />
+        <BackgroundBottom source={bgBottom} />
       </ScrollView>
-    </SafeArea>
     </>
   );
 };

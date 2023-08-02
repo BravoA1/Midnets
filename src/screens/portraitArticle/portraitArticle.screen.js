@@ -19,11 +19,11 @@ const SafeArea = styled.SafeAreaView`
 `;
 
 const Background = styled.Image`
-	position: absolute;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	min-height: ${screenHeight}px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  min-height: ${screenHeight}px;
 `;
 
 const NameText = styled.Text`
@@ -101,21 +101,21 @@ const DecorationImageTop = styled.Image`
   bottom: 0;
   left: 105%;
   transform: rotate(-180deg);
-`
+`;
 const DecorationImageBottom = styled.Image`
   position: absolute;
   width: 74px;
   height: 43px;
   top: 75%;
   right: 110%;
-`
+`;
 
 export const PortraitArticleScreen = ({ navigation, route }) => {
   const [showLearnMoreModale, setShowLearnMoreModale] = useState(false);
   const { name } = route.params;
 
   // ! pas la bonne image
-  const bg = require("../../img/background2.png"); 
+  const bg = require("../../img/background2.png");
 
   return (
     <>
@@ -145,7 +145,9 @@ export const PortraitArticleScreen = ({ navigation, route }) => {
             <ArticleComponentView>
               <SubTitleView>
                 <SubTitleArticle>Histoire</SubTitleArticle>
-                <DecorationImageTop source={require('../../img/decorationBackground.png')} />
+                <DecorationImageTop
+                  source={require("../../img/decorationBackground.png")}
+                />
               </SubTitleView>
               <TextArticle>
                 potenti lectus augue hac purus lectus gravida. Elementum nunc ac
@@ -158,7 +160,9 @@ export const PortraitArticleScreen = ({ navigation, route }) => {
             <ArticleComponentView>
               <SubTitleView>
                 <SubTitleArticle>Elle est connue pour</SubTitleArticle>
-                <DecorationImageBottom source={require('../../img/decorationBackground.png')} />
+                <DecorationImageBottom
+                  source={require("../../img/decorationBackground.png")}
+                />
               </SubTitleView>
               <TextArticle>
                 sapien amet phasellus nec velit. Aenean dictum velit accumsan
