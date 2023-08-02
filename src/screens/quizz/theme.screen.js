@@ -151,10 +151,6 @@ export const ThemeScreen = ({ navigation }) => {
     navigation.navigate("Quiz", { difficulty: value });
   };
 
-  const navigateToRule = () => {
-    navigation.navigate("Rule");
-  };
-
 
   return (
     <>
@@ -229,13 +225,15 @@ export const ThemeScreen = ({ navigation }) => {
               </Touche>
             </Select>
             <ButtonRules
-              OnPress={navigateToRule}></ButtonRules>
+              OnPress={() => {
+                navigation.navigate("Rules")
+                }}></ButtonRules>
           </Container>
 
           {showRuleModale && (
             <RulesScreen
               showPopup={showRuleModale}
-              setShowPopup={setShowRuleModale}
+              setShowPopup={showRuleModale}
             />
           )}
         </SafeArea>

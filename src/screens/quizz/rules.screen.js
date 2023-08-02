@@ -35,17 +35,11 @@ const Background = styled.Image`
   opacity: 0.4;
 `;
 
-// const Scrollable = styled.ScrollView`
-//   flex: 1;
-//   z-index: 200;
-//   width: 100%;
-
-// `;
-
 const ContainerView = styled.View`
   flex: 1;
   justify-content: center;
   z-index: 200;
+  max-height: 93%;
 `;
 
 const Content = styled.View`
@@ -66,14 +60,13 @@ const Line = styled.View`
 `;
 
 const Ul = styled.FlatList`
-  padding-horizontal: 10%;
-  padding-bottom: 20%;
+  padding-horizontal: 5%;
+  padding-bottom: 10%;
 `;
 
 const Rule = styled.Text`
-  padding: 10%;
+  padding: 7.5%;
   flex: 1;
-
   font-family: ${(props) => props.theme.fonts.headingBold};
   font-size: ${(props) => props.theme.fontSizes.title};
 `;
@@ -95,8 +88,13 @@ export const RulesScreen = ({
   showPopup,
   difficulty,
 }) => {
+  console.log(showPopup);
   const handlePress = () => {
-    setShowPopup(!showPopup);
+    if (showPopup === true) {
+      setShowPopup(!showPopup);
+    } else {
+      navigation.navigate("QuizTheme")
+    }
     //console.log("close modal");
   };
 

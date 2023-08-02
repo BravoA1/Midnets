@@ -14,7 +14,7 @@ const Container = styled.View`
   width: 100%;
   height: ${screenHeight}px;
   padding: 30px 35px;
-  z-index: 300;
+  z-index: 999;
   background-color: rgba(213, 128, 255, 0.2);
 `;
 
@@ -39,7 +39,7 @@ const PopUpClose = styled.TouchableOpacity`
   padding-top: 5px;
   background-color: white;
   border-radius: 70px;
-  z-index: 250;
+  z-index: 999;
 `;
 
 const PopUpTitle = styled.Text`
@@ -50,7 +50,7 @@ const PopUpTitle = styled.Text`
   margin-top: 30px;
   margin-bottom: 15px;
   padding: 10px;
-  z-index: 300;
+  z-index: 999;
   font-family: ${(props) => props.theme.fonts.headingBold};
   font-size: 20px;
   transform: translateX(-25px);
@@ -65,19 +65,6 @@ const PopUpSection = styled.View`
 const PopUpText = styled.Text`
   color: white;
   font-family: ${(props) => props.theme.fonts.body};
-`;
-
-const CornerText = styled.View`
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100px;
-  height: 100px;
-  background-color: transparent;
-  border-left-width: 4px;
-  border-left-color: white;
-  border-top-width: 4px;
-  border-top-color: white;
 `;
 
 // ! manque le blur effect

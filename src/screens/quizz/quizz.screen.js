@@ -28,12 +28,15 @@ const Container = styled.View`
   display: flex;
   align-items: center;
   width: 100%;
+  height: 95%;
   padding: ${(props) => props.theme.space[2]};
   padding-top: ${(props) => props.theme.space[3]};
 `;
+
 const Linear = styled(LinearGradient)`
   width: 100%;
 `;
+
 const TitleContainer = styled.View`
   width: 100%;
   padding-left: 5%;
@@ -42,13 +45,22 @@ const TitleContainer = styled.View`
   align-items: flex-start;
   justify-content: center;
 `;
+
 const Title = styled.Text``;
+
+const ViewImageContainer = styled.View`
+  background-color: lightgray;
+  width: 85%;
+  height: 20%;
+  margin-top: 16px;
+  border-radius: 8px;
+`;
 
 const QuestionContainer = styled.View`
   margin-top: ${(props) => props.theme.space[3]};
   background-color: ${(props) => props.theme.colors.bg.secondary};
   width: 85%;
-  height: 25%;
+  height: 30%;
   border-radius: 8px;
   padding: ${(props) => props.theme.space[3]};
 `;
@@ -65,6 +77,7 @@ const Question = styled.Text`
   text-align: left;
   padding: ${(props) => props.theme.space[3]};
 `;
+
 const ResponseContainer1 = styled.View`
   margin-top: ${(props) => props.theme.space[3]};
   width: 85%;
@@ -73,6 +86,7 @@ const ResponseContainer1 = styled.View`
   justify-content: space-between;
   flex-flow: row nowrap;
 `;
+
 const ResponseContainer2 = styled.View`
   width: 85%;
   display: flex;
@@ -80,9 +94,11 @@ const ResponseContainer2 = styled.View`
   flex-flow: row nowrap;
   margin-bottom: ${(props) => props.theme.space[2]};
 `;
+
 const Response = styled.Text`
   font-family: ${(props) => props.theme.fonts.body};
 `;
+
 const MoreContainer = styled.View`
   margin-top: ${(props) => props.theme.space[4]};
   width: 100%;
@@ -90,6 +106,7 @@ const MoreContainer = styled.View`
   justify-content: space-evenly;
   flex-flow: row nowrap;
 `;
+
 const MoreText = styled.Text`
   font-family: ${(props) => props.theme.fonts.headingBold};
 `;
@@ -102,6 +119,7 @@ const ProgresBar = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
 const ProgresPoint = styled.View`
   width: 5%;
   height: 100%;
@@ -429,23 +447,23 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
                   </TitleContainer>
                 </Linear>
               </InsetShadow>
-              <View style={styles.imgContainer}>
+              <ViewImageContainer>
                 <Image
                   source={require("../../img/quizzMarieCurie.jpg")}
                   style={styles.img}
                 />
-              </View>
+              </ViewImageContainer>
               {/* View qui contient la question */}
               <QuestionContainer>
                 <TimerContainer>
                   <CountDown
-                      time={time}
-                      setTime={setTime}
-                      onTimeUp={() => Answers(-1)}
-                      pause={pause}
-                      reset={reset}
-                      setReset={setReset}
-                    />
+                    time={time}
+                    setTime={setTime}
+                    onTimeUp={() => Answers(-1)}
+                    pause={pause}
+                    reset={reset}
+                    setReset={setReset}
+                  />
                 </TimerContainer>
                 <ScrollQuestion>
                   <CornerBlock
