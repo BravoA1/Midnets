@@ -11,7 +11,7 @@ import { styled } from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import InsetShadow from "react-native-inset-shadow";
 
-import ButtonResponse from "../../components/button/ButtonResponse.js";
+//import ButtonResponse from "../../components/button/ButtonResponse.js";
 import ButtonRules from "../../components/button/ButtonRules.js";
 import InputFrom from "../../components/InputForm.js";
 
@@ -20,6 +20,8 @@ import { PopUpLearnMore } from "../../components/PopupLearnMore.js";
 import { CountDown } from "../../components/CountDown.jsx";
 import { Snackbar } from "react-native-paper";
 import { RulesScreen } from "./rules.screen.js";
+import { Vibration } from "react-native";
+import { ButtonGradientQuiz } from "../../components/button/ButtonGradientQuiz.js";
 
 const Container = styled.View`
   display: flex;
@@ -125,7 +127,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   const [alreadyAsk, setAlreadyAsk] = useState([]);
 
   // For result UseState
-  const QuestionNumber = difficulty > 2 ? (difficulty === 3 ? 30 : 5) : 10;
+  const QuestionNumber = difficulty > 1 ? 5 : 10;
   const [numberQuestion, setNumberQuestion] = useState(QuestionNumber);
   const [score, setScore] = useState(0);
 
@@ -136,11 +138,11 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   const [visible, setVisible] = useState(false);
 
   // Timer UseState
-  const [time, setTime] = useState(
-    difficulty === 2 ? 15 : difficulty === 3 ? 30 : 20
-  );
+  const [time, setTime] = useState(0);
   const [pause, setPause] = useState(false);
   const [reset, setReset] = useState(true);
+  const [error, setError] = useState(false);
+  const [errorTime, setErrorTime] = useState(false);
 
   // PopUp for showMore
   useEffect(() => {
@@ -163,21 +165,38 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   }, []);
 
   useEffect(() => {
+    setIndex(Random());
+  }, [difficulty]);
+
+  useEffect(() => {
     // Quand l'index change
-    if (!loading) {
-      console.log("Loading Finish");
-      // Timeout reactivate button and set new Question with timer
-      setTimeout(() => {
-        setButtonDisable(false);
-        if (difficulty === 2) {
-          setTime(15);
+    if (loading) return;
+    console.log("Loading Finish");
+    // Timeout reactivate button and set new Question with timer
+    setErrorTime(true);
+    setTimeout(() => {
+      setButtonDisable(false);
+      setErrorTime(false);
+      setError(false);
+      switch (difficulty) {
+        case 1:
+          setTime(10);
+          NewQuestion(quizDataEasy[index]);
+          break;
+        case 2:
+          setTime(5);
           NewQuestion(quizDataMedium[index]);
-        } else {
+          break;
+        case 3:
+          setTime(30);
+          NewQuestion(quizDataMedium[index]);
+          break;
+        default:
           setTime(20);
           NewQuestion(quizDataEasy[index]);
-        }
-      }, 2000);
-    }
+      }
+      setPause(false);
+    }, 2000);
   }, [index]);
 
   // When loading as finish get the first question index
@@ -234,8 +253,9 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
     return indexTemp;
   }
 
-  // Logic to see if answers is correct or not (it simple but very poorly optimise)
+  // Logic to see if answers is correct or not (it simple but very poorly optimize)
   function Answers(number) {
+    setPause(true);
     console.log(number, " number");
     console.log(correct, "correct");
     if (numberQuestion > 0) {
@@ -344,10 +364,16 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   }
 
   function AnswersSpecific(answersUser) {
-    console.log(answers[correct].toLowerCase());
-    console.log(answersUser.toLowerCase());
+    console.log(answers[correct].toLowerCase(), "Answers DB");
+    console.log(answersUser.toLowerCase(), "Answers User");
     if (answers[correct].toLowerCase() === answersUser.toLowerCase()) {
+      setScore(score + 1);
+    } else {
+      setError(true);
+      Vibration.vibrate([200, 200, 200, 200]);
     }
+    setIndex(Random());
+    setNumberQuestion(numberQuestion - 1);
   }
 
   return (
@@ -421,45 +447,47 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               <ResponseContainer1>
                 {difficulty < 3 ? (
                   <>
-                    <ButtonResponse
+                    <ButtonGradientQuiz
                       width={0.35}
                       result={result.one}
-                      OnPress={() => Answers(0)}
-                      Disabled={buttonDisable}
-                    >
-                      <Response>{answers[0]}</Response>
-                    </ButtonResponse>
-                    <ButtonResponse
+                      onPress={() => Answers(0)}
+                      disabled={buttonDisable}
+                      title={answers[0]}
+                    />
+                    <ButtonGradientQuiz
                       width={0.35}
                       result={result.two}
-                      OnPress={() => Answers(1)}
-                      Disabled={buttonDisable}
-                    >
-                      <Response>{answers[1]}</Response>
-                    </ButtonResponse>
+                      onPress={() => Answers(1)}
+                      disabled={buttonDisable}
+                      title={answers[1]}
+                    />
                   </>
                 ) : (
-                  <InputFrom placeholder={"Answers"} type={"textBasic"} setInfo={AnswersSpecific} />
+                  <InputFrom
+                    placeholder={"Answers"}
+                    type={"textBasic"}
+                    setInfo={AnswersSpecific}
+                    error={error}
+                    errorTime={errorTime}
+                  />
                 )}
               </ResponseContainer1>
               {difficulty === 2 ? (
                 <ResponseContainer2>
-                  <ButtonResponse
+                  <ButtonGradientQuiz
                     width={0.35}
                     result={result.three}
-                    OnPress={() => Answers(2)}
-                    Disabled={buttonDisable}
-                  >
-                    <Response>{answers[2]}</Response>
-                  </ButtonResponse>
-                  <ButtonResponse
+                    onPress={() => Answers(2)}
+                    disabled={buttonDisable}
+                    title={answers[2]}
+                  />
+                  <ButtonGradientQuiz
                     width={0.35}
                     result={result.four}
-                    OnPress={() => Answers(3)}
-                    Disabled={buttonDisable}
-                  >
-                    <Response>{answers[3]}</Response>
-                  </ButtonResponse>
+                    onPress={() => Answers(3)}
+                    disabled={buttonDisable}
+                    title={answers[3]}
+                  />
                 </ResponseContainer2>
               ) : (
                 <></>

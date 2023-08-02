@@ -10,11 +10,7 @@ export const QuizNavigator = () => {
   return (
     <QuizStack.Navigator screenOptions={{ headerShown: false }}>
       <QuizStack.Screen name="Theme" component={ThemeScreen}></QuizStack.Screen>
-      <QuizStack.Screen
-        name="Quiz"
-        component={QuizParent}
-        options={{ freezeOnBlur: true }}
-      ></QuizStack.Screen>
+      <QuizStack.Screen name="Quiz" component={QuizParent}></QuizStack.Screen>
       <QuizStack.Screen name="Rule" component={RulesScreen}></QuizStack.Screen>
       <QuizStack.Screen
         name="Result"

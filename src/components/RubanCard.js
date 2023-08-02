@@ -1,5 +1,8 @@
 import { styled } from "styled-components/native";
 import { Dimensions } from "react-native";
+import { StyleSheet } from "react-native-web";
+
+import Elevations from "react-native-elevation";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -36,7 +39,6 @@ const Title = styled.Text`
   text-align: center;
   background-color: ${(props) => props.theme.colors.bg.tertiary};
   font-family: ${(props) => props.theme.fonts.headingBold};
-
   padding-top: ${Platform.OS === "ios" ? "1%" : "0"};
 `;
 
@@ -69,7 +71,7 @@ export default RubanCardComponent = ({ children, title }) => {
       <BorderTop></BorderTop>
       <Ruban>
         <Banner>
-          <Title>{title}</Title>
+          <Title style={styles.shadow}>{title}</Title>
           <Triangle></Triangle>
         </Banner>
       </Ruban>
@@ -79,3 +81,9 @@ export default RubanCardComponent = ({ children, title }) => {
     </RubanContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  shadow: {
+    ...Elevations[7],
+  },
+});

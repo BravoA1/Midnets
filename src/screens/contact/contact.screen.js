@@ -11,6 +11,7 @@ import {
 import { styled } from "styled-components/native";
 import Logo from "../../components/Logo";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { CornerBlock } from "../../components/CornerBlock";
 
 let screenWidth = Dimensions.get("window").width;
 
@@ -21,21 +22,34 @@ const SafeArea = styled(SafeAreaView)`
 `;
 const Container = styled.ScrollView`
   width: 100%;
-  height: 100%;
+  height: 150%;
   padding-top: ${(props) => props.theme.space[3]};
+  padding-bottom: ${(props) => props.theme.space[3]};
 `;
 const ViewLogoContainer = styled.View`
   padding-top: ${(props) => props.theme.space[4]};
+  margin-bottom: 10%;
+`;
+const ViewTextContainer = styled.View`
+  height: 88%;
+  margin-top: ${(props) => props.theme.space[3]};
+  margin-bottom: 2%;
 `;
 const TextPresentation = styled.Text`
   font-family: ${(props) => props.theme.fonts.body};
-  margin-bottom: ${(props) => props.theme.space[3]};
+  font-size: ${screenWidth < "390" ? "12px" : "10px"};
+  padding: ${(props) => props.theme.space[3]};
+  padding-bottom: ${(props) => props.theme.space[4]};
+  padding-top: ${(props) => props.theme.space[2]};
   margin-top: ${(props) => props.theme.space[3]};
+  height: 100%;
 `;
 const P = styled.Text`
   font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${screenWidth < "390" ? "12px" : "10px"};
   margin-bottom: ${(props) => props.theme.space[3]};
   margin-top: ${(props) => props.theme.space[3]};
+  padding-bottom: ${(props) => props.theme.space[4]};
 `;
 const Titre = styled.Text`
   font-family: ${(props) => props.theme.fonts.heading};
@@ -45,7 +59,6 @@ const ViewBanner = styled.View`
   width: ${screenWidth}px;
   align-items: center;
   background-color: white;
-  border: 1px solid black;
 `;
 const ViewTitleContainer = styled.View`
   width: ${(screenWidth * 3) / 4}px;
@@ -53,16 +66,13 @@ const ViewTitleContainer = styled.View`
   justify-content: center;
 `;
 const TextTitle = styled.Text`
-  font-family: ${(props) => props.theme.fonts.heading};
-  font-size: ${screenWidth < "390"
-    ? (props) => props.theme.sizes[0]
-    : (props) => props.theme.sizes[1]};
+  font-family: ${(props) => props.theme.fonts.headingBold};
+  font-size: ${screenWidth < "390" ? "15px" : (props) => props.theme.sizes[1]};
 `;
 // informations container
 const ViewContactInformationContainer = styled.View`
   background-color: gray;
   height: auto;
-  border: 1px solid black;
   margin-top: ${(props) => props.theme.space[4]};
   margin-bottom: ${(props) => props.theme.space[4]};
   padding-top: ${(props) => props.theme.space[2]};
@@ -104,18 +114,19 @@ const ImageMailIcon = styled.Image`
 `;
 const TextMail = styled.Text`
   font-family: ${(props) => props.theme.fonts.heading};
-  font-size: ${screenWidth < "390"
-    ? (props) => props.theme.sizes[0]
-    : (props) => props.theme.sizes[1]};
-  /* font-size: ${(props) => props.theme.sizes[1]}; */
+  font-size: ${screenWidth < "390" ? "12px" : (props) => props.theme.sizes[1]};
 `;
 // illustration image
-const ImageIllustrationContact = styled.Image`
+const ViewBorderImage = styled.View`
   width: 120px;
   height: 120px;
   position: absolute;
   right: 0;
   border: 1px solid black;
+`;
+const ImageIllustrationContact = styled.Image`
+  width: 100%;
+  height: 100%;
 `;
 
 const ImageBackground = styled.Image`
@@ -138,30 +149,44 @@ export const ContactScreen = () => {
     <>
       <ImageBackground source={require("../../img/fond4_blanc_v2.png")} />
       <Container>
-        <ViewLogoContainer>{/* <Logo height={100} /> */}</ViewLogoContainer>
+        {/* <Logo height={"default"} /> */}
+        <ViewLogoContainer>
+          <Logo height={100} />
+        </ViewLogoContainer>
         {/* bandeau titre 1*/}
-        <ViewBanner>
+        <ViewBanner style={styles.banner}>
           <ViewTitleContainer>
             <TextTitle>Ce n'est que le début...</TextTitle>
           </ViewTitleContainer>
         </ViewBanner>
         <SafeArea>
-          <TextPresentation style={styles.p1}>
-            MIDNETS a été créer en ... par ... dans le but de mettre les femmes
-            à l'honneur. Notre vision de l'avenir est [...] pour les femmes.
-            MIDNETS vient de Midinettes, des femmes qui se regroupaient à la
-            pause de midi pour manger ensemble (dinettes). Elles ont longtemps
-            été représentées come les femmes superficielles.
-          </TextPresentation>
+          <ViewTextContainer>
+            <CornerBlock
+              size="35px"
+              color="black"
+              borderHorizontal="4px"
+              borderVertical="4px"
+              height="10%"
+            >
+              <TextPresentation style={styles.p1}>
+                MIDNETS a été créer en ... par ... dans le but de mettre les
+                femmes à l'honneur. Notre vision de l'avenir est [...] pour les
+                femmes. MIDNETS vient de Midinettes, des femmes qui se
+                regroupaient à la pause de midi pour manger ensemble (dinettes).
+                Elles ont longtemps été représentées comme les femmes
+                superficielles.
+              </TextPresentation>
+            </CornerBlock>
+          </ViewTextContainer>
         </SafeArea>
         {/* bandeau titre 2*/}
-        <ViewBanner>
+        <ViewBanner style={styles.banner}>
           <ViewTitleContainer>
             <TextTitle>Nous retrouver, nous contacter</TextTitle>
           </ViewTitleContainer>
         </ViewBanner>
         {/* contact & phone container */}
-        <ViewContactInformationContainer>
+        <ViewContactInformationContainer style={styles.informationContainer}>
           <SafeArea>
             {/* phone container */}
             <ViewPhoneContainer>
@@ -173,9 +198,11 @@ export const ContactScreen = () => {
               <ImageMailIcon source={require("../../img/arobase.png")} />
               <TextMail>midnets@outlook.fr</TextMail>
             </ViewMailContainer>
-            <ImageIllustrationContact
-              source={require("../../img/image_i_want_to_be_heard.jpg")}
-            />
+            <ViewBorderImage>
+              <ImageIllustrationContact
+                source={require("../../img/image_i_want_to_be_heard.jpg")}
+              />
+            </ViewBorderImage>
             <ViewIconContainer>
               <FontAwesome5
                 style={styles.text}
@@ -200,7 +227,7 @@ export const ContactScreen = () => {
         </ViewContactInformationContainer>
         <SafeArea>
           <View style={styles.creditContainer}>
-            <ViewBanner>
+            <ViewBanner style={styles.banner}>
               <ViewTitleContainer>
                 <TextTitle>Crédits</TextTitle>
               </ViewTitleContainer>
@@ -237,5 +264,15 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 2, height: 1 },
     textShadowRadius: 4,
     color: "white",
+  },
+  banner: {
+    borderWidth: 1,
+    borderLeftColor: "white",
+    borderRightColor: "white",
+  },
+  informationContainer: {
+    borderWidth: 1,
+    borderLeftColor: "gray",
+    borderRightColor: "gray",
   },
 });

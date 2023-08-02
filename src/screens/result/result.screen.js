@@ -186,7 +186,9 @@ const ButtonsContainer = styled.View`
   align-items: center;
 `;
 
-export const ResultScreen = () => {
+export const ResultScreen = ({ navigation, route }) => {
+  const { score, numberQuestion, difficulty } = route.params;
+
   return (
     <SafeArea>
       <RubanCard title="Résultat">
@@ -206,7 +208,7 @@ export const ResultScreen = () => {
             </CornerBlock>
           </CornerContainer>
           <ResultScoreContainer>
-            <ScorePoint>110</ScorePoint>
+            <ScorePoint>{score}</ScorePoint>
             <ScoreText>score de Lorembidule</ScoreText>
           </ResultScoreContainer>
         </ResultContainer>
@@ -215,7 +217,7 @@ export const ResultScreen = () => {
 
           <AnswerTextContainer>
             <AnswerTextNumber>
-              <TextForAnswerNumber>6</TextForAnswerNumber>
+              <TextForAnswerNumber>{score}</TextForAnswerNumber>
             </AnswerTextNumber>
             <AnswerText>
               <TextForAnswerText>Bonnes réponses</TextForAnswerText>
@@ -227,7 +229,9 @@ export const ResultScreen = () => {
           <AnswerBorder></AnswerBorder>
           <AnswerTextContainer>
             <AnswerTextNumber>
-              <TextForAnswerNumber>4</TextForAnswerNumber>
+              <TextForAnswerNumber>
+                {numberQuestion - score}
+              </TextForAnswerNumber>
             </AnswerTextNumber>
             <AnswerText>
               <TextForAnswerText>Mauvaises réponses</TextForAnswerText>
@@ -240,11 +244,27 @@ export const ResultScreen = () => {
 
       <ButtonsContainer>
         <ButtonView style={{ justifyContent: "flex-start" }}>
-          <ButtonResponse width={0.35}>Menus Défis</ButtonResponse>
+          <ButtonResponse
+            OnPress={() => navigation.navigate("Theme")}
+            width={0.35}
+          >
+            Menus Défis
+          </ButtonResponse>
         </ButtonView>
-        <ButtonView style={{ justifyContent: "flex-end" }}>
-          <ButtonResponse width={0.35}>Niveau suivant</ButtonResponse>
-        </ButtonView>
+        {difficulty < 3 ? (
+          <ButtonView style={{ justifyContent: "flex-end" }}>
+            <ButtonResponse
+              OnPress={() =>
+                navigation.navigate("Quiz", { difficulty: difficulty + 1 })
+              }
+              width={0.35}
+            >
+              Niveau suivant
+            </ButtonResponse>
+          </ButtonView>
+        ) : (
+          <></>
+        )}
       </ButtonsContainer>
     </SafeArea>
   );

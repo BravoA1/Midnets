@@ -6,9 +6,9 @@ import { colors } from "../../infrastructure/theme/colors";
 
 const screenWitdh = Dimensions.get("window").width;
 
-export default ButtonResponse = ({
+export default ButtonGradient2 = ({
 	children,
-	OnPress,
+	onPress,
 	result,
 	Disabled,
 	width = 0.4,
@@ -25,12 +25,11 @@ export default ButtonResponse = ({
 	`;
 	const BoxGradient = styled.TouchableOpacity`
 		z-index: 1;
-		width: ${screenWitdh * width}px;
+		width: ${screenWitdh * 0.6}px;
 		box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
 		background-color: #fff;
 		border-radius: 100px;
 		margin-bottom: 30px;
-
 		text-align: center;
 	`;
 
@@ -40,7 +39,6 @@ export default ButtonResponse = ({
 	`;
 
 	const LinearButton = styled(LinearGradient)`
-		width: 100%;
 		border-radius: 100px;
 		padding: 0px;
 	`;
@@ -61,7 +59,7 @@ export default ButtonResponse = ({
 	}, [result]);
 
 	return (
-		<BoxGradient style={styles.container} onPress={OnPress} disabled={Disabled}>
+		<BoxGradient style={styles.container} onPress={onPress} disabled={Disabled}>
 			<LinearButton
 				colors={[`${color}`, "rgba(255,255,255,0)"]}
 				locations={[0, 1]}
