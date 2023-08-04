@@ -259,7 +259,7 @@ export const RegisterScreen = ({ navigation }) => {
             </InputForm>
           </InputBlock>
           <ButtonGradient onPress={() => HandleRegister()} title="S'inscrire" />
-          <ButtonGoogle OnPress={() => navigation.navigate("Register")}>
+          <ButtonGoogle onPress={() => navigation.navigate("Register")}>
             Se connecter avec Google
           </ButtonGoogle>
           <AccountExist onPress={() => navigation.navigate("login")}>

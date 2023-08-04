@@ -146,7 +146,7 @@ export const RulesScreen = ({
 				</RubanCard>
 
 				<Btn>
-					<ButtonDefault OnPress={handlePress}>Continuer</ButtonDefault>
+					<ButtonDefault onPress={handlePress}>Continuer</ButtonDefault>
 				</Btn>
 				{/* </Scrollable> */}
 			</ContainerView>

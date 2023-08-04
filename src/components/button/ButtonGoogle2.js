@@ -6,7 +6,7 @@ import { colors } from "../../infrastructure/theme/colors";
 
 const screenWitdh = Dimensions.get("window").width;
 
-export default ButtonGoogle2 = ({ children, OnPress, result, Disabled }) => {
+export default ButtonGoogle2 = ({ children, onPress, result, Disabled }) => {
 	const ButtonElement = styled.View`
 		flex-direction: row;
 		justify-content: center;
@@ -63,7 +63,7 @@ export default ButtonGoogle2 = ({ children, OnPress, result, Disabled }) => {
 	}, [result]);
 
 	return (
-		<BoxGradient style={styles.container} onPress={OnPress} disabled={Disabled}>
+		<BoxGradient style={styles.container} onPress={onPress} disabled={Disabled}>
 			<LinearButton
 				colors={[`${color}`, "rgba(255,255,255,0)"]}
 				locations={[0, 1]}

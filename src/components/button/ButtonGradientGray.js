@@ -7,7 +7,7 @@ const screenWitdh = Dimensions.get("window").width;
 
 export default ButtonResponse = ({
   children,
-  OnPress,
+  onPress,
   result,
   Disabled,
   width = 0.4,
@@ -50,7 +50,7 @@ export default ButtonResponse = ({
   const [color, setColor] = useState("darkgray");
 
   return (
-    <BoxGradient style={styles.container} onPress={OnPress} disabled={Disabled}>
+    <BoxGradient style={styles.container} onPress={onPress} disabled={Disabled}>
       <LinearButton
         colors={[`${color}`, "lightgray"]}
         locations={[1, 0]}

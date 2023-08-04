@@ -153,7 +153,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   const [alreadyAsk, setAlreadyAsk] = useState([]);
 
   // For result UseState
-  const QuestionNumber = difficulty > 1 ? 5 : 10;
+  const [QuestionNumber, setQuestionNumber] = useState(difficulty > 1 ? 5 : 10);
   const [numberQuestion, setNumberQuestion] = useState(QuestionNumber);
   const [score, setScore] = useState(0);
 
@@ -191,6 +191,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   }, []);
 
   useEffect(() => {
+    Reset();
     setIndex(Random());
   }, [difficulty]);
 
@@ -234,6 +235,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   }, [loading]);
 
   useEffect(() => {
+    setPause(true);
     // If there is not more question redirect to ResultScreen
     if (numberQuestion <= 0) {
       navigation.navigate("Result", {
@@ -241,7 +243,6 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
         numberQuestion: QuestionNumber,
         difficulty: difficulty,
       });
-      setPause(true);
     }
   }, [numberQuestion]);
 
@@ -258,6 +259,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   // Reset all the parameter
   function Reset() {
     setScore(0);
+    setQuestionNumber(difficulty > 1 ? 5 : 10);
     setTime(difficulty === 2 ? 15000 : 20000);
     setNumberQuestion(QuestionNumber);
     setAlreadyAsk([]);
@@ -432,17 +434,17 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
                 shadowRadius={10}
                 shadowOpacity={20}
                 bottom={false}
-                left={false}>
+                left={false}
+              >
                 <Linear
                   colors={["#D8C2EF", "rgba(255,255,255,0)"]}
                   locations={[0, 1]}
                   start={{ x: 1, y: 0 }}
-                  end={{ x: 0, y: 1 }}>
+                  end={{ x: 0, y: 1 }}
+                >
                   <TitleContainer style={styles.container}>
                     <Title>
-                      {difficulty > 1
-                        ? "Quiz: Mary Cury"
-                        : "Quiz: les femmes"}
+                      {difficulty > 1 ? "Quiz: Mary Cury" : "Quiz: les femmes"}
                     </Title>
                   </TitleContainer>
                 </Linear>
@@ -470,7 +472,8 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
                     size="50px"
                     color="white"
                     borderHorizontal="4px"
-                    borderVertical="4px">
+                    borderVertical="4px"
+                  >
                     <Question>{question}</Question>
                   </CornerBlock>
                 </ScrollQuestion>
@@ -527,35 +530,40 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               {/* barre de progression avec les petits */}
               <ProgresBar>
                 <ProgresPoint
-                  style={{ backgroundColor: "black" }}></ProgresPoint>
+                  style={{ backgroundColor: "black" }}
+                ></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
                       numberQuestion < (QuestionNumber * 75) / 100
                         ? "black"
                         : "gray",
-                  }}></ProgresPoint>
+                  }}
+                ></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
                       numberQuestion < (QuestionNumber * 50) / 100
                         ? "black"
                         : "gray",
-                  }}></ProgresPoint>
+                  }}
+                ></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
                       numberQuestion < (QuestionNumber * 25) / 100
                         ? "black"
                         : "gray",
-                  }}></ProgresPoint>
+                  }}
+                ></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
                       numberQuestion < (QuestionNumber * 10) / 100
                         ? "black"
                         : "gray",
-                  }}></ProgresPoint>
+                  }}
+                ></ProgresPoint>
               </ProgresBar>
               {/* button poour accèder aux règles */}
               <ButtonRules
@@ -581,7 +589,8 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
             style={{ zIndex: 10 }}
             visible={visible}
             onDismiss={() => setVisible(false)}
-            duration={1500}>
+            duration={1500}
+          >
             Time up !
           </Snackbar>
         </Container>

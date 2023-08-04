@@ -119,28 +119,28 @@ export const PortraitsScreen = ({ navigation }) => {
           </CategoryBlock>
           <BlockCard>
             <CardPortrait
-              OnPress={() => navigateToArticle("Marie curie")}
+              onPress={() => navigateToArticle("Marie curie")}
               url={require("../../img/portraitMarieCurie.jpg")}
               height={150}
               isNewPortrait={true}
             />
             <CardPortrait
-              OnPress={() => navigateToArticle("Suzy hazelwood")}
+              onPress={() => navigateToArticle("Suzy hazelwood")}
               url={require("../../img/portraitSuzyHazelwood.jpg")}
               height={100}
             />
             <CardPortrait
-              OnPress={() => navigateToArticle("Suzy hazelwood")}
+              onPress={() => navigateToArticle("Suzy hazelwood")}
               url={require("../../img/portraitSuzyHazelwood.jpg")}
               height={100}
             />
             <CardPortrait
-              OnPress={() => navigateToArticle("Suzy hazelwood")}
+              onPress={() => navigateToArticle("Suzy hazelwood")}
               url={require("../../img/portraitSuzyHazelwood.jpg")}
               height={100}
             />
             <CardPortrait
-              OnPress={() => navigateToArticle("Suzy hazelwood")}
+              onPress={() => navigateToArticle("Suzy hazelwood")}
               url={require("../../img/portraitSuzyHazelwood.jpg")}
               height={100}
             />

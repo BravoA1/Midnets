@@ -460,7 +460,7 @@ export const HomeScreen = ({ navigation }) => {
 						<H1>A la une </H1>
 						<PortraitView>
 							<CardPortrait
-								OnPress={() => navigation.navigate("Portrait")}
+								onPress={() => navigation.navigate("Portrait")}
 								url={require("../../img/portraitSuzyHazelwood.jpg")}
 								height={100}
 								isNewPortrait={true}
@@ -499,7 +499,7 @@ export const HomeScreen = ({ navigation }) => {
 							</MaskedView>
 						</PortraitView>
 						<ButtonGradientQuiz
-							OnPress={() => navigation.navigate("Error")}
+							onPress={() => navigation.navigate("Error")}
 							title="En savoir plus"
 						/>
 						<LongVerticalLine />
@@ -525,7 +525,8 @@ export const HomeScreen = ({ navigation }) => {
 									</Text>
 								</View>
 								<ButtonGradientQuiz
-									OnPress={() => navigation.navigate("Error")}
+
+									onPress={() => navigation.navigate("Error")}
 									title="Y accéder"
 								/>
 							</ImageBackground>
@@ -533,7 +534,7 @@ export const HomeScreen = ({ navigation }) => {
 					</ForumLink>
 					<View style={{ width: "100%", alignItems: "center" }}>
 						<ButtonGradient
-							OnPress={() => navigation.navigate("Error")}
+							onPress={() => navigation.navigate("Error")}
 							title="A propos de Midnets"
 						/>
 					</View>
