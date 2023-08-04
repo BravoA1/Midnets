@@ -55,19 +55,20 @@ const Title = styled.Text`
 
 const CategoryBlock = styled.View`
   flex-direction: row;
+  width: 100%;
   gap: 10px;
   padding: 3px 10px;
   padding-right: 0;
-  background-color: #fff;
-  border: solid 2px #a3a3a3;
+  background-color: ${(props) => props.theme.colors.text.secondary};
+  border: solid 2px ${(props) => props.theme.colors.border.tertiary};
   border-radius: 10px;
 `;
 
 const CategoryImageBlock = styled.View`
   justify-content: center;
   align-items: center;
-  background-color: #757575;
-  border: solid 2px #000;
+  background-color: ${(props) => props.theme.colors.border.secondary};
+  border: solid 2px ${(props) => props.theme.colors.text.primary};
   border-radius: 100px;
   width: 50px;
   aspect-ratio: 1 / 1;
@@ -81,8 +82,8 @@ const CategoryIcon = styled.Image`
 `;
 
 const CategoryTitle = styled.Text`
-  font-size: 20px;
-  font-family: ${(props) => props.theme.fonts.heading};
+  font-size: ${(props) => props.theme.fontSizes.medium};
+  font-family: ${(props) => props.theme.fonts.headingBold};
 `;
 
 const BlockCard = styled.View`

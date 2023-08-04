@@ -27,7 +27,6 @@ const HeaderView = styled.View`
   justify-content: space-between;
   align-items: center;
   width: 75%;
-  margin: auto;
   padding: 0 5px;
   border-bottom-width: 1px;
   border-bottom-color: ${(props) => props.theme.colors.border.quarternary};
@@ -96,10 +95,11 @@ export const ForumResponse = () => {
         >
           <View
             style={{
+              alignItems: 'center',
               backgroundColor: "white",
             }}
           >
-            <HeaderView style={{ alignContent: "center", marginTop: 10 }}>
+            <HeaderView>
               <ChevronView onPress={() => setChevronActive(true)}>
                 <Ionicons
                   name="md-chevron-down-outline"
