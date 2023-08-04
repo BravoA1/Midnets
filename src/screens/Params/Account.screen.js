@@ -45,6 +45,7 @@ const ViewTitleContainer = styled.View`
   height: 100px;
   justify-content: center;
 `;
+
 const TextTitle = styled.Text`
   font-size: ${screenWidth < "390" ? "26px" : "32px"};
   font-family: ${(props) => props.theme.fonts.headingBold};
@@ -205,7 +206,9 @@ export const AccountScreen = ({ navigation }) => {
           </ViewConfirmPWContainer>
           <ViewButtonContainer>
             <ButtonDefault>Confirmer</ButtonDefault>
-            <ButtonGradientGray>Annuler</ButtonGradientGray>
+            <ButtonGradientGray onPress={() => navigation.navigate("Params")}>
+              Annuler
+            </ButtonGradientGray>
           </ViewButtonContainer>
         </SafeAreaContainer>
       </Scrollable>

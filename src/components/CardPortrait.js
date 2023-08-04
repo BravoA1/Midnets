@@ -79,7 +79,7 @@ const TriangleReverse = styled.View`
   right: 0;
 `;
 
-export const CardPortrait = ({ onPress, isNewPortrait, url, height }) => {
+export const CardPortrait = ({ OnPress, isNewPortrait, url, height }) => {
   const styles = StyleSheet.create({
     isNewPortrait: {
       shadowColor: "black",
@@ -90,7 +90,7 @@ export const CardPortrait = ({ onPress, isNewPortrait, url, height }) => {
   });
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={OnPress}>
       <NameView>
         <NameText>Prénom Nom</NameText>
         <Triangle></Triangle>

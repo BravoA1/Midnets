@@ -119,7 +119,7 @@ export const PortraitsScreen = ({ navigation }) => {
           </CategoryBlock>
           <BlockCard>
             <CardPortrait
-              onPress={() => navigateToArticle("Marie curie")}
+              OnPress={() => navigateToArticle("Marie curie")}
               url={require("../../img/portraitMarieCurie.jpg")}
               height={150}
               isNewPortrait={true}

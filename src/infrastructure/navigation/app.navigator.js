@@ -8,18 +8,20 @@ import { HomeScreen } from "../../screens/home/home.screen";
 import { ContactScreen } from "../../screens/contact/contact.screen.js";
 import { ErrorScreen } from "../../screens/error/error.screen.js";
 import { Signout } from "../../screens/temp/Signout.js";
+import Params from "../../screens/Params/Params.screen";
+import { AccountScreen } from "../../screens/Params/Account.screen";
+import { AccessibilityScreen } from "../../screens/options/accessibility.screen";
+
 // Context
 import { UserContext } from "../../services/user/user.context";
 import { QuizNavigator } from "./quiz.navigator";
 import { AuthNavigator } from "./auth.navigator";
 import { PortraitNavigator } from "./portrait.navigator";
-import { AccountScreen } from "../../screens/Params/Account.screen";
 import { NotificationApp } from "../../screens/notification/notification.screen.js";
 import { TopNavigation } from "../../components/topNavigation";
 import { ForumNavigator } from "./forum.navigator";
 import { ForumContextProvider } from "../../services/forum/forum.context";
 import { Forum } from "../../screens/forum/forum.screen";
-import Params from "../../screens/Params/Params.screen";
 
 export const AppNavigator = () => {
   const { info, user } = useContext(UserContext);
@@ -134,6 +136,13 @@ export const AppNavigator = () => {
           })}
           name="Account"
           component={AccountScreen}
+        />
+        <Tab.Screen
+          options={() => ({
+            tabBarButton: () => null,
+          })}
+          name="Accessibility"
+          component={AccessibilityScreen}
         />
         {!user && (
           <Tab.Screen

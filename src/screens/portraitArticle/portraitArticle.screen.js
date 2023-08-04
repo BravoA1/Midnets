@@ -4,6 +4,7 @@ import { Image } from "react-native";
 import { View, Text, StatusBar, Dimensions } from "react-native";
 import { PopUpLearnMore } from "../../components/PopupLearnMore";
 import { styled } from "styled-components";
+import { TopNavigation } from "../../components/topNavigation";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -119,6 +120,8 @@ export const PortraitArticleScreen = ({ navigation, route }) => {
 
   return (
     <>
+      <TopNavigation navigation={navigation} />
+
       <Background source={bg} />
       <SafeArea>
         <ScrollView>

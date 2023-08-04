@@ -79,7 +79,9 @@ const Params = ({ navigation }) => {
         <SafeArea>
           <ViewPrefContainer>
             {/* cette view contient un button */}
-            <ButtonDefault>Accessibilité</ButtonDefault>
+            <ButtonDefault onPress={() => navigation.navigate("Accessibility")}>
+              Accessibilité
+            </ButtonDefault>
             {/* contient intitulé et checkbox */}
             <ViewOptionContainer>
               <TextPassword1>Notifications</TextPassword1>
