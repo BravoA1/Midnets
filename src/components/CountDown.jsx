@@ -37,8 +37,8 @@ export const CountDown = ({
 
   useEffect(() => {
     //setTimeMax(time);
-    setPointsToRender(time / 100);
-    setPointsCount(time / 100);
+    setPointsToRender(time / 500);
+    setPointsCount(time / 500);
     setReset(false);
   }, [reset]);
 
@@ -48,10 +48,10 @@ export const CountDown = ({
       setPointsToRender((prevCount) => prevCount - 1);
       // Function to update the timer every second
       const interval = setInterval(() => {
-        setTime((prevTime) => prevTime - 100);
-      }, 100);
+        setTime((prevTime) => prevTime - 500);
+        setPath(() => calculatePath());
+      }, 500);
       // Clean up the interval on unmount or when seconds reach 0
-      setPath(() => calculatePath());
       return () => {
         clearInterval(interval);
       };
