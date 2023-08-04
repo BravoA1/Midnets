@@ -114,21 +114,17 @@ const MoreText = styled.Text`
 const ProgresBar = styled.View`
   width: 65%;
   height: 2%;
-  display: flex;
   flex-flow: row nowrap;
-  justify-content: center;
   align-items: center;
+  border-radius: 20px;
+  overflow: hidden;
 `;
 
 const ProgresPoint = styled.View`
-  width: 5%;
+  flex: 1;
   height: 100%;
   background-color: gray;
-  border-radius: 20px;
-  margin-left: 2%;
-  margin-right: 2%;
 `;
-
 const TimerContainer = styled.View`
   position: absolute;
   top: 3px;
@@ -139,6 +135,7 @@ const TimerContainer = styled.View`
 export const QuizzScreen = ({ navigation, difficulty }) => {
   // Context
   const { quizDataEasy, quizDataMedium, loading } = useContext(QuizContext);
+  const [loadingDif, setLoadingDiff] = useState(loading);
   // Question UseState
   const [index, setIndex] = useState();
   const [question, setQuestion] = useState("");
@@ -179,7 +176,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
 
   // PopUp for Rule
   useEffect(() => {
-    console.log(showRuleModale, " rule modale");
+    // console.log(showRuleModale, " rule modale");
     if (!showRuleModale) {
       setPause(false);
     }
@@ -191,6 +188,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   }, []);
 
   useEffect(() => {
+    console.log("difficulty change");
     Reset();
     setIndex(Random());
   }, [difficulty]);
@@ -198,46 +196,54 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   useEffect(() => {
     // Quand l'index change
     if (loading) return;
-    console.log("Loading Finish");
+    // console.log("Loading Finish");
     // Timeout reactivate button and set new Question with timer
     setErrorTime(true);
     setTimeout(() => {
       setButtonDisable(false);
       setErrorTime(false);
       setError(false);
-      switch (difficulty) {
-        case 1:
-          setTime(10000);
-          NewQuestion(quizDataEasy[index]);
-          break;
-        case 2:
-          setTime(5000);
-          NewQuestion(quizDataMedium[index]);
-          break;
-        case 3:
-          setTime(30000);
-          NewQuestion(quizDataMedium[index]);
-          break;
-        default:
-          setTime(20);
-          NewQuestion(quizDataEasy[index]);
+      console.log(difficulty, "difficulty");
+      if (numberQuestion > 0) {
+        switch (difficulty) {
+          case 1:
+            console.log("case 1 ");
+            setTime(10000);
+            NewQuestion(quizDataEasy[index]);
+            break;
+          case 2:
+            setTime(5000);
+            NewQuestion(quizDataMedium[index]);
+            break;
+          case 3:
+            setTime(30000);
+            NewQuestion(quizDataMedium[index]);
+            break;
+          default:
+            setTime(20);
+            NewQuestion(quizDataEasy[index]);
+        }
+        setPause(false);
+        setLoadingDiff(false);
       }
-      setPause(false);
     }, 2000);
   }, [index]);
 
   // When loading as finish get the first question index
   useEffect(() => {
+    console.log(loading, "in useEffect");
     if (!loading) {
       setIndex(Random());
     }
-    console.log(loading, "loading");
+    setLoadingDiff(loading);
+    // console.log(loading, "loading");
   }, [loading]);
 
   useEffect(() => {
-    setPause(true);
     // If there is not more question redirect to ResultScreen
     if (numberQuestion <= 0) {
+      setPause(true);
+      setLoadingDiff(true);
       navigation.navigate("Result", {
         score: score,
         numberQuestion: QuestionNumber,
@@ -248,7 +254,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
 
   // Initialise the new Question
   function NewQuestion(quizData) {
-    console.log(quizData);
+    // console.log(quizData);
     setQuestion(quizData.question);
     setAnswers(quizData.answers);
     setCorrect(quizData.correct);
@@ -260,7 +266,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   function Reset() {
     setScore(0);
     setQuestionNumber(difficulty > 1 ? 5 : 10);
-    setTime(difficulty === 2 ? 15000 : 20000);
+    setTime(difficulty > 1 ? (difficulty > 2 ? 30000 : 5000) : 10000);
     setNumberQuestion(QuestionNumber);
     setAlreadyAsk([]);
     setButtonDisable(true);
@@ -284,8 +290,8 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   // Logic to see if answers is correct or not (it simple but very poorly optimize)
   function Answers(number) {
     setPause(true);
-    console.log(number, " number");
-    console.log(correct, "correct");
+    // console.log(number, " number");
+    // console.log(correct, "correct");
     if (numberQuestion > 0) {
       // To prevent user from spamming button
       setButtonDisable(true);
@@ -383,6 +389,7 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
         default:
       }
       // Set a new index and change the number of question
+      console.log("set index in answers ", numberQuestion);
       setIndex(Random());
       setNumberQuestion(numberQuestion - 1);
     } else {
@@ -392,23 +399,26 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
   }
 
   function AnswersSpecific(answersUser) {
-    console.log(answers[correct].toLowerCase(), "Answers DB");
-    console.log(answersUser.toLowerCase(), "Answers User");
-    if (answers[correct].toLowerCase() === answersUser.toLowerCase()) {
-      setScore(score + 1);
-    } else {
-      setError(true);
-      Vibration.vibrate([200, 200, 200, 200]);
+    // console.log(answers[correct].toLowerCase(), "Answers DB");
+    // console.log(answersUser.toLowerCase(), "Answers User");
+    if (numberQuestion > 0) {
+      if (answers[correct].toLowerCase() === answersUser.toLowerCase()) {
+        setScore(score + 1);
+      } else {
+        setError(true);
+        Vibration.vibrate([200, 200, 200, 200]);
+      }
+      console.log("setIndx in answers specific");
+      setIndex(Random());
+      setNumberQuestion(numberQuestion - 1);
     }
-    setIndex(Random());
-    setNumberQuestion(numberQuestion - 1);
   }
 
   return (
     <>
       <SafeAreaView>
         <Container>
-          {loading ? (
+          {loadingDif ? (
             <View style={{ justifyContent: "center", alignItem: "center" }}>
               <ActivityIndicator
                 size={"large"}
@@ -530,38 +540,86 @@ export const QuizzScreen = ({ navigation, difficulty }) => {
               {/* barre de progression avec les petits */}
               <ProgresBar>
                 <ProgresPoint
-                  style={{ backgroundColor: "black" }}
+                  style={{ backgroundColor: "#D8C2EF" }}
                 ></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
-                      numberQuestion < (QuestionNumber * 75) / 100
-                        ? "black"
-                        : "gray",
+                      numberQuestion < (QuestionNumber * 100) / 100
+                        ? "#D8C2EF"
+                        : "#D9D9D9",
+                  }}
+                ></ProgresPoint>
+                <ProgresPoint
+                  style={{
+                    backgroundColor:
+                      numberQuestion < (QuestionNumber * 90) / 100
+                        ? "#D8C2EF"
+                        : "#D9D9D9",
+                  }}
+                ></ProgresPoint>
+                <ProgresPoint
+                  style={{
+                    backgroundColor:
+                      numberQuestion < (QuestionNumber * 80) / 100
+                        ? "#D8C2EF"
+                        : "#D9D9D9",
+                  }}
+                ></ProgresPoint>
+                <ProgresPoint
+                  style={{
+                    backgroundColor:
+                      numberQuestion < (QuestionNumber * 70) / 100
+                        ? "#D8C2EF"
+                        : "#D9D9D9",
+                  }}
+                ></ProgresPoint>
+                <ProgresPoint
+                  style={{
+                    backgroundColor:
+                      numberQuestion < (QuestionNumber * 60) / 100
+                        ? "#D8C2EF"
+                        : "#D9D9D9",
                   }}
                 ></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
                       numberQuestion < (QuestionNumber * 50) / 100
-                        ? "black"
-                        : "gray",
+                        ? "#D8C2EF"
+                        : "#D9D9D9",
                   }}
                 ></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
-                      numberQuestion < (QuestionNumber * 25) / 100
-                        ? "black"
-                        : "gray",
+                      numberQuestion < (QuestionNumber * 40) / 100
+                        ? "#D8C2EF"
+                        : "#D9D9D9",
+                  }}
+                ></ProgresPoint>
+                <ProgresPoint
+                  style={{
+                    backgroundColor:
+                      numberQuestion < (QuestionNumber * 30) / 100
+                        ? "#D8C2EF"
+                        : "#D9D9D9",
+                  }}
+                ></ProgresPoint>
+                <ProgresPoint
+                  style={{
+                    backgroundColor:
+                      numberQuestion < (QuestionNumber * 20) / 100
+                        ? "#D8C2EF"
+                        : "#D9D9D9",
                   }}
                 ></ProgresPoint>
                 <ProgresPoint
                   style={{
                     backgroundColor:
                       numberQuestion < (QuestionNumber * 10) / 100
-                        ? "black"
-                        : "gray",
+                        ? "#D8C2EF"
+                        : "#D9D9D9",
                   }}
                 ></ProgresPoint>
               </ProgresBar>
