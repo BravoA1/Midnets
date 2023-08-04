@@ -13,6 +13,7 @@ import { useState } from "react";
 import { Snackbar } from "react-native-paper";
 import { firebase } from "../../../config";
 import { ButtonGradient } from "../../components/button/ButtonGradient.js";
+import { TopNavigation } from "../../components/topNavigation.js";
 
 let screenWidth = Dimensions.get("window").width;
 const isAndroid = Platform.OS === "android";
@@ -155,6 +156,7 @@ export const Login = ({ navigation }) => {
 
   return (
     <Container>
+      <TopNavigation navigation={navigation} />
       <Background source={bg} />
       <SafeArea>
         <SpacerBottom />

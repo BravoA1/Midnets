@@ -12,6 +12,7 @@ import { styled } from "styled-components/native";
 import Logo from "../../components/Logo";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { CornerBlock } from "../../components/CornerBlock";
+import { TopNavigation } from "../../components/topNavigation";
 
 let screenWidth = Dimensions.get("window").width;
 
@@ -37,7 +38,7 @@ const ViewTextContainer = styled.View`
 `;
 const TextPresentation = styled.Text`
   font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${screenWidth < "390" ? "12px" : "10px"};
+  font-size: ${screenWidth < "390" ? "12px" : "14px"};
   padding: ${(props) => props.theme.space[3]};
   padding-bottom: ${(props) => props.theme.space[4]};
   padding-top: ${(props) => props.theme.space[2]};
@@ -46,7 +47,7 @@ const TextPresentation = styled.Text`
 `;
 const P = styled.Text`
   font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${screenWidth < "390" ? "12px" : "10px"};
+  font-size: ${screenWidth < "390" ? "12px" : "14px"};
   margin-bottom: ${(props) => props.theme.space[3]};
   margin-top: ${(props) => props.theme.space[3]};
   padding-bottom: ${(props) => props.theme.space[4]};
@@ -144,9 +145,10 @@ const ViewIconContainer = styled.View`
   justify-content: space-evenly;
 `;
 
-export const ContactScreen = () => {
+export const ContactScreen = ({ navigation }) => {
   return (
     <>
+      <TopNavigation navigation={navigation} />
       <ImageBackground source={require("../../img/fond4_blanc_v2.png")} />
       <Container>
         {/* <Logo height={"default"} /> */}

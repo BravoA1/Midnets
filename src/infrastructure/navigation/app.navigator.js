@@ -16,146 +16,159 @@ import { PortraitsScreen } from "../../screens/Portraits/portrait.screen";
 import { PortraitNavigator } from "./portrait.navigator";
 import { AccessibilityScreen } from "../../screens/options/accessibility.screen";
 import { NavigationTemp } from "../../screens/Navigation/NavigationTemp";
+import { AccountScreen } from "../../screens/Params/Account.screen";
 import { CardPortrait } from "../../components/CardPortrait";
 import { NotificationApp } from "../../screens/notification/notification.screen.js";
 import { TopNavigation } from "../../components/topNavigation";
 import { ForumNavigator } from "./forum.navigator";
+import { ForumContextProvider } from "../../services/forum/forum.context";
 import { Forum } from "../../screens/forum/forum.screen";
 import { RulesScreen } from "../../screens/quizz/rules.screen";
+import Params from "../../screens/Params/Params.screen";
 
 export const AppNavigator = () => {
-	const { info, user } = useContext(UserContext);
+  const { info, user } = useContext(UserContext);
 
-	const GoBackScreen = ({ navigation }) => {
-		navigation.goBack();
-	};
+  // console.log(info, "navbar");
+  // console.log(user, "navbar");
 
-	const Tab = createBottomTabNavigator();
-	return (
-		<NavigationContainer
-			screenOptions={{
-				headerShown: false,
-			}}
-		>
-			<Tab.Navigator
-				screenOptions={({ route }) => ({
-					tabBarIcon: ({ color, size }) => {
-						let iconName;
-						switch (route.name) {
-							case "Home":
-								iconName = "home-sharp";
-								break;
-							case "Notification":
-								iconName = "notifications-sharp";
-								break;
-							case "Settings":
-								iconName = "options-sharp";
-								break;
-							case "Back":
-								iconName = "chevron-back";
-								break;
-							default:
-						}
-						return <Ionicons name={iconName} size={size} color={color} />;
-					},
-					headerShown: false,
-					unmountOnBlur: true,
-				})}
-			>
-				<Tab.Screen
-					options={() => ({
-						tabBarButton: () => null,
-						title: () => null,
-					})}
-					name="Parent"
-					component={HomeScreen}
-				/>
+  const ForumParent = (navigation, route) => (
+    <ForumContextProvider>
+      <ForumNavigator />
+    </ForumContextProvider>
+  );
 
-				<Tab.Screen
-					options={() => ({
-						title: () => null,
-					})}
-					name="Back"
-					component={NavigationTemp}
-				/>
+  const Tab = createBottomTabNavigator();
+  return (
+    <NavigationContainer
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ color, size }) => {
+            let iconName;
+            switch (route.name) {
+              case "Home":
+                iconName = "home-sharp";
+                break;
+              case "Notification":
+                iconName = "notifications-sharp";
+                break;
+              case "Settings":
+                iconName = "options-sharp";
+                break;
+              case "Back":
+                iconName = "chevron-back";
+                break;
+              default:
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          headerShown: false,
+          unmountOnBlur: true,
+        })}
+      >
+        <Tab.Screen
+          options={() => ({
+            title: () => null,
+          })}
+          name="Home"
+          component={HomeScreen}
+        />
+        <Tab.Screen
+          options={() => ({
+            title: () => null,
+          })}
+          name="Notification"
+          component={NotificationApp}
+        />
+        <Tab.Screen
+          options={() => ({
+            title: () => null,
+          })}
+          name="Settings"
+          component={Params}
+        />
+        <Tab.Screen
+          options={() => ({
+            tabBarButton: () => null,
+          })}
+          name="Contact"
+          component={ContactScreen}
+        />
+        <Tab.Screen
+          options={() => ({
+            tabBarButton: () => null,
+          })}
+          name="Error"
+          component={ErrorScreen}
+        />
+        <Tab.Screen
+          options={() => ({
+            tabBarButton: () => null,
+          })}
+          name="TopNavigation"
+          component={TopNavigation}
+        />
+        <Tab.Screen
+          options={() => ({
+            tabBarButton: () => null,
+          })}
+          name="Portrait"
+          component={PortraitNavigator}
+        />
+        <Tab.Screen
+          options={() => ({
+            tabBarButton: () => null,
+          })}
+          name="Forum"
+          component={ForumParent}
+        />
+        <Tab.Screen
+          options={() => ({
+            tabBarButton: () => null,
+          })}
+          name="Params"
+          component={Params}
+        />
+        <Tab.Screen
+          options={() => ({
+            tabBarButton: () => null,
+          })}
+          name="Account"
+          component={AccountScreen}
+        />
+        {!user && (
+          <Tab.Screen
+            options={() => ({
+              tabBarButton: () => null,
+            })}
+            name="Login"
+            component={AuthNavigator}
+          />
+        )}
+        {user && (
+          <Tab.Screen
+            name="Signout"
+            component={Signout}
+            options={() => ({
+              tabBarButton: () => null,
+            })}
+          />
+        )}
+        <Tab.Screen
+          name="QuizTheme"
+          component={QuizNavigator}
+          options={() => ({
+            tabBarButton: () => null,
+            unmountOnBlur: true,
+          })}
+        />
+      </Tab.Navigator>
 
-				<Tab.Screen
-					options={() => ({
-						title: () => null,
-					})}
-					name="Home"
-					component={HomeScreen}
-				/>
-				<Tab.Screen
-					options={() => ({
-						title: () => null,
-					})}
-					name="Notification"
-					component={NotificationApp}
-				/>
-				<Tab.Screen
-					options={() => ({
-						title: () => null,
-					})}
-					name="Settings"
-					component={AccessibilityScreen}
-				/>
-				<Tab.Screen
-					options={() => ({
-						tabBarButton: () => null,
-					})}
-					name="Contact"
-					component={ContactScreen}
-				/>
-				<Tab.Screen
-					options={() => ({
-						tabBarButton: () => null,
-					})}
-					name="Error"
-					component={ErrorScreen}
-				/>
-				<Tab.Screen
-					options={() => ({
-						tabBarButton: () => null,
-					})}
-					name="TopNavigation"
-					component={TopNavigation}
-				/>
-				<Tab.Screen
-					options={() => ({
-						tabBarButton: () => null,
-					})}
-					name="Portrait"
-					component={PortraitNavigator}
-				/>
-				<Tab.Screen
-					options={() => ({
-						tabBarButton: () => null,
-					})}
-					name="Forum"
-					component={ForumNavigator}
-				/>
-				{!user && (
-					<Tab.Screen
-						options={() => ({
-							tabBarButton: () => null,
-						})}
-						name="Login"
-						component={AuthNavigator}
-					/>
-				)}
-				{user && <Tab.Screen name="Signout" component={Signout} />}
-				<Tab.Screen
-					name="QuizTheme"
-					component={QuizNavigator}
-					options={() => ({
-						tabBarButton: () => null,
-						unmountOnBlur: true,
-					})}
-				/>
-			</Tab.Navigator>
-
-			<StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />
-		</NavigationContainer>
-	);
+      <StatusBar style={"auto"} backgroundColor={"black"} color={"yellow"} />
+    </NavigationContainer>
+  );
 };

@@ -3,6 +3,7 @@ import { TitleBlock } from "../../components/TitleBlock";
 import { AccessibilityOption } from "./accessibilityOption.component";
 import { View, StyleSheet } from "react-native";
 import { useState } from "react";
+import { TopNavigation } from "../../components/topNavigation";
 
 const Scrollable = styled.ScrollView`
   flex: 1;
@@ -22,6 +23,7 @@ export const AccessibilityScreen = ({ navigation }) => {
   const [options, setOptions] = useState(false);
   return (
     <Scrollable>
+      <TopNavigation navigation={navigation} />
       <Background source={bg} />
       <View style={styles.containerCenter}>
         <TitleBlock title="Accessibilité" />
