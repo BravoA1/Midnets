@@ -12,18 +12,13 @@ import { Signout } from "../../screens/temp/Signout.js";
 import { UserContext } from "../../services/user/user.context";
 import { QuizNavigator } from "./quiz.navigator";
 import { AuthNavigator } from "./auth.navigator";
-import { PortraitsScreen } from "../../screens/Portraits/portrait.screen";
 import { PortraitNavigator } from "./portrait.navigator";
-import { AccessibilityScreen } from "../../screens/options/accessibility.screen";
-import { NavigationTemp } from "../../screens/Navigation/NavigationTemp";
 import { AccountScreen } from "../../screens/Params/Account.screen";
-import { CardPortrait } from "../../components/CardPortrait";
 import { NotificationApp } from "../../screens/notification/notification.screen.js";
 import { TopNavigation } from "../../components/topNavigation";
 import { ForumNavigator } from "./forum.navigator";
 import { ForumContextProvider } from "../../services/forum/forum.context";
 import { Forum } from "../../screens/forum/forum.screen";
-import { RulesScreen } from "../../screens/quizz/rules.screen";
 import Params from "../../screens/Params/Params.screen";
 
 export const AppNavigator = () => {

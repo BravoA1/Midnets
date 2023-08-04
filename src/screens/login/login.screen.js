@@ -191,7 +191,7 @@ export const Login = ({ navigation }) => {
             onPress={() => navigation.navigate("Register")}
             title="Inscription"
           />
-          <ButtonGoogle OnPress={() => navigation.navigate("Register")}>
+          <ButtonGoogle onPress={() => navigation.navigate("Register")}>
             Se connecter avec Google
           </ButtonGoogle>
         </View>
