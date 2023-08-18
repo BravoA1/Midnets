@@ -526,7 +526,7 @@ export const HomeScreen = ({ navigation }) => {
 								</View>
 								<ButtonGradientQuiz
 
-									onPress={() => navigation.navigate("Error")}
+									onPress={() => navigation.navigate("Forum")}
 									title="Y accéder"
 								/>
 							</ImageBackground>
@@ -534,7 +534,7 @@ export const HomeScreen = ({ navigation }) => {
 					</ForumLink>
 					<View style={{ width: "100%", alignItems: "center" }}>
 						<ButtonGradient
-							onPress={() => navigation.navigate("Error")}
+							onPress={() => navigation.navigate("Contact")}
 							title="A propos de Midnets"
 						/>
 					</View>
